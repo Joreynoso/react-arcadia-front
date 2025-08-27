@@ -1,5 +1,5 @@
 // --> import images
-import Boy2 from '../assets/images/Boy2.svg'
+import Boy2 from '../assets/images/boy2.svg'
 import Decoration from '../assets/images/decorative_stars.svg'
 
 export default function InfoSection() {
