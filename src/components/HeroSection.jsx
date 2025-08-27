@@ -1,5 +1,5 @@
 // --> import images
-import Boy from '../assets/images/Boy.svg'
+import Boy from '../assets/images/boy.svg'
 import Cloud1 from '../assets/images/cloud_1.svg'
 import Cloud2 from '../assets/images/cloud_2.svg'
 import LeftCloud from '../assets/images/left_cloud.svg'
