@@ -8,9 +8,11 @@ export default function Layout() {
     // return render
     return (
         <>
-            <div className="w-full min-h-screen">
+            <div className="w-full min-h-dvh flex flex-col">
                 <Navbar />
-                <Outlet />
+                <div className='flex flex-1'>
+                    <Outlet />
+                </div>
                 <FooterSection />
             </div>
         </>

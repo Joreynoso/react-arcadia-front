@@ -1,5 +1,6 @@
 // imports
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
     // declar states
@@ -40,28 +41,28 @@ export default function Navbar() {
 
                 {/* mobile menu container */}
                 {isOpen && (
-                    <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[95%] sm:hidden bg-card rounded-3xl border-arcadia shadow-lg flex flex-col items-center py-6 z-50 text-[#7D4C38]">
-                        <a href="#" className="libre-regular uppercase text-[#7D4C38]">about</a>
-                        <a href="#" className="libre-regular uppercase text-[#7D4C38]">games</a>
-                        <a href="#" className="libre-regular uppercase text-[#7D4C38]">login</a>
-                        <a href="#" className="libre-regular uppercase text-[#7D4C38]">register</a>
-                        <a href="#" className="libre-regular uppercase bg-[#FF6108] border-2 border-[#7D4C38] text-white text-sm rounded-full px-4 py-2 mt-2">
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 w-[95%] sm:hidden bg-card rounded-3xl border-arcadia shadow-lg flex flex-col items-center py-6 z-50 text-[#7D4C38]">
+                        <Link to="/profile" className="libre-regular uppercase text-[#7D4C38]">user</Link>
+                        <Link to="/games" className="libre-regular uppercase text-[#7D4C38]">games</Link>
+                        <Link to="/login" className="libre-regular uppercase text-[#7D4C38]">login</Link>
+                        <Link to="/register" className="libre-regular uppercase text-[#7D4C38]">register</Link>
+                        <Link to="/favorites" className="libre-regular uppercase bg-[#FF6108] border-2 border-[#7D4C38] text-white text-sm rounded-full px-4 py-2 mt-2">
                             go library
-                        </a>
+                        </Link>
                     </div>
                 )}
 
                 {/* desktop menú */}
                 <div className='hidden md:block'>
                     <ul className='flex justify-center items-center gap-8'>
-                        <li><a href="#" className='libre-regular uppercase text-white text-sm'>about</a></li>
-                        <li><a href="#" className='libre-regular uppercase text-white text-sm'>games</a></li>
-                        <li><a href="#" className='libre-regular uppercase text-white text-sm'>login</a></li>
-                        <li><a href="#" className='libre-regular uppercase text-white text-sm'>register</a></li>
+                        <li><Link to="/profile" className='libre-regular uppercase text-white text-sm'>user</Link></li>
+                        <li><Link to="/games" className='libre-regular uppercase text-white text-sm'>games</Link></li>
+                        <li><Link to="/login" className='libre-regular uppercase text-white text-sm'>login</Link></li>
+                        <li><Link to="/register" className='libre-regular uppercase text-white text-sm'>register</Link></li>
                         <li>
-                            <a href="#" className='libre-regular uppercase bg-card border-arcadia text-[#7D4C38] text-xs rounded-full px-4 py-1'>
+                            <Link href="/favorites" className='libre-regular uppercase bg-card border-arcadia text-[#7D4C38] text-xs rounded-full px-4 py-1'>
                                 go library
-                            </a>
+                            </Link>
                         </li>
                     </ul>
                 </div>

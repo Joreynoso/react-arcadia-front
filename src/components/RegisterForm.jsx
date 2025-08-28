@@ -5,8 +5,8 @@ export default function RegisterForm() {
     return (
         <>
             {/* register form section */}
-            <div className='w-full min-h-screen border border-red-50'>
-
+            <div className='w-full min-h-screen border border-red-50 bg-card'>
+                
             </div>
         </>
     )
