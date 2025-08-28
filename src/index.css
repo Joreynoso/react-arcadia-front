@@ -27,3 +27,11 @@ body {
   font-style: italic;
 }
 
+.border-arcadia {
+  border-width: 2px;
+  border-color: #7D4C38;
+}
+
+.color-arcadia{
+  color: #FCE3CB;
+}
