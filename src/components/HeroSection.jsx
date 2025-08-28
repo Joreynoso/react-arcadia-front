@@ -12,6 +12,7 @@ export default function HeroSection() {
         <>
             {/* hero section */}
             <div className="w-full min-h-screen border border-red-50">
+                herosection
             </div>
         </>
     )

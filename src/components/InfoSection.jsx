@@ -8,7 +8,7 @@ export default function InfoSection() {
         <>
             {/* informative section */}
             <div className='w-full min-h-screen border border-red-50'>
-
+                info section
             </div>
         </>
     )

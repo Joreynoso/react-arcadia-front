@@ -1,21 +1,21 @@
-
 // --> import componentes
-import Navbar from './components/Navbar'
-import InfoSection from './components/InfoSection'
-import HeroSection from './components/HeroSection'
-import RegisterForm from './components/RegisterForm'
-import FooterSection from './components/FooterSection'
+import Layout from './components/Layout'
+import Home from './pages/Home'
+
+// --> import react router dom
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 function App() {
   return (
     <>
-      <div className="w-full">
-        <Navbar />
-        <HeroSection />
-        <InfoSection />
-        <RegisterForm />
-        <FooterSection />
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Layout />}>
+            <Route index element={<Home />} />
+
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   )
 }
