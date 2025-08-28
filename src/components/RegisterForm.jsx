@@ -1,12 +1,10 @@
-// --> import images
-import Boy2 from '../assets/images/boy2.svg'
 
-export default function InfoSection() {
+export default function RegisterForm() {
 
     // return render
     return (
         <>
-            {/* informative section */}
+            {/* register form section */}
             <div className='w-full min-h-screen border border-red-50'>
 
             </div>

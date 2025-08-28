@@ -10,7 +10,7 @@ export default function Navbar() {
     return (
         <>
             {/* navbar */}
-            <div className="w-full flex justify-between items-center px-3 py-4 mb-6">
+            <div className="w-full flex justify-between items-center px-10 py-4">
 
                 {/* logotipe */}
                 <h1 className="libre-regular uppercase text-[#FCE3CB]">arcadia</h1>
