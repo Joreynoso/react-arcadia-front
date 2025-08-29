@@ -30,7 +30,7 @@ export default function Navbar() {
             <div className="relative w-full flex justify-between items-center py-5 sm:px-10 px-4">
 
                 {/* logotipe */}
-                <h1 className="libre-regular uppercase text-[#FCE3CB]">arcadia</h1>
+                <Link to=".." className="libre-regular uppercase text-[#FCE3CB]">arcadia</Link>
 
                 {/* mobile menú button */}
                 <button
@@ -60,7 +60,7 @@ export default function Navbar() {
                         <li><Link to="/login" className='libre-regular uppercase text-white text-sm'>login</Link></li>
                         <li><Link to="/register" className='libre-regular uppercase text-white text-sm'>register</Link></li>
                         <li>
-                            <Link href="/favorites" className='libre-regular uppercase bg-card border-arcadia text-[#7D4C38] text-xs rounded-full px-4 py-1'>
+                            <Link to="/favorites" className='libre-regular uppercase bg-card border-arcadia text-[#7D4C38] text-xs rounded-full px-4 py-1'>
                                 go library
                             </Link>
                         </li>

@@ -1,4 +1,4 @@
-// --> import images
+// imports
 import Boy from '../assets/images/boy.svg'
 import Cloud1 from '../assets/images/cloud_1.svg'
 import Cloud2 from '../assets/images/cloud_2.svg'

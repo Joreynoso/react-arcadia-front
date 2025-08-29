@@ -10,6 +10,7 @@ import Games from './pages/Games'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import NotFound from './pages/NotFound'
+import Forbidden from './pages/Forbidden'
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
 
             {/* not found route */}
             <Route path="*" element={<NotFound />} />
+
+            {/* forbidden y server error routes */}
+            <Route path="403" element={<Forbidden />} />
           </Route>
         </Routes>
       </BrowserRouter>

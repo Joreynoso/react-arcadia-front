@@ -8,9 +8,7 @@ export default function Home() {
     // return render
     return (
         <>
-            <HeroSection />
             <InfoSection />
-            <RegisterForm />
         </>
     )
 }
