@@ -1,14 +1,17 @@
 // import components
-import HeroSection from '../components/HeroSection'
+import ActionSection from '../components/ActionSection'
 import InfoSection from '../components/InfoSection'
-import RegisterForm from '../components/RegisterForm'
+
 
 export default function Home() {
 
     // return render
     return (
         <>
-            <InfoSection />
+            <div className='w-full h-full flex flex-col justify-center items-center px-4 xl:px-0 flex-1'>
+                <InfoSection />
+                <ActionSection />
+            </div>
         </>
     )
 }

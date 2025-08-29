@@ -17,7 +17,7 @@ export default function InfoSection() {
     return (
         <>
             {/* informative section */}
-            <div className='w-full h-full flex flex-col justify-center items-center px-4 xl:px-0 flex-1 mt-20'>
+            <div className='w-full h-full flex flex-col justify-center items-center flex-1 py-10 sm:py-40'>
 
                 {/* title */}
                 <h3 className="libre-regular uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug mb-10 text-white text-center">
@@ -25,7 +25,7 @@ export default function InfoSection() {
                 </h3>
 
                 {/* grid section */}
-                <div className='w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6'>
+                <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6'>
 
                     {/* block 1 */}
                     <div className='flex flex-col bg-card rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-3 justify-center items-center text-center'>
@@ -39,19 +39,19 @@ export default function InfoSection() {
                     </div>
 
                     {/* block 2 */}
-                    <div className='flex justify-center items-center bg-card rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
+                    <div className='flex justify-center items-center bg-[#FCCE9F] rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
                         <img src={InfoBoy} alt="infoBoy" className='h-[125%]' />
                     </div>
 
                     {/* block 3 */}
-                    <div className='flex flex-col justify-center items-center text-center bg-card rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
+                    <div className='flex flex-col justify-center items-center text-center bg-[#FCCE9F] rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
                         <h4 className='text-arcadia libre-bold leading-tight text-xl max-w-[70%] mb-4'>
                             Easily search through your library and find the games you love.
                         </h4>
                         <span className='bg-[#DB8E6B] border-arcadia px-4 py-2 rounded-full flex gap-2'>
-                            <img src={InfoShield} alt="infoshield" className='size-6'/>
-                            <img src={InfoDoubleSword} alt="InfoDoubleSword" className='size-6'/>
-                            <img src={InfoSword} alt="InfoSword" className='size-6'/>
+                            <img src={InfoShield} alt="infoshield" className='size-6' />
+                            <img src={InfoDoubleSword} alt="InfoDoubleSword" className='size-6' />
+                            <img src={InfoSword} alt="InfoSword" className='size-6' />
                         </span>
                     </div>
 

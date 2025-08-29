@@ -27,7 +27,7 @@ export default function Navbar() {
     return (
         <>
             {/* navbar */}
-            <div className="relative w-full flex justify-between items-center py-5 sm:px-10 px-4">
+            <div className="relative w-full flex justify-between items-center">
 
                 {/* logotipe */}
                 <Link to=".." className="libre-regular uppercase text-[#FCE3CB]">arcadia</Link>
@@ -35,7 +35,7 @@ export default function Navbar() {
                 {/* mobile menú button */}
                 <button
                     onClick={handleShown}
-                    className="block md:hidden cursor-pointer text-[#FCE3CB]">
+                    className="block sm:hidden cursor-pointer text-[#FCE3CB]">
                     {isOpen ? closeIcon : burgerIcon}
                 </button>
 
@@ -53,8 +53,8 @@ export default function Navbar() {
                 )}
 
                 {/* desktop menú */}
-                <div className='hidden md:block'>
-                    <ul className='flex justify-center items-center gap-8'>
+                <div className='hidden sm:block'>
+                    <ul className='flex justify-center items-center gap-6 xl:gap-8'>
                         <li><Link to="/profile" className='libre-regular uppercase text-white text-sm'>user</Link></li>
                         <li><Link to="/games" className='libre-regular uppercase text-white text-sm'>games</Link></li>
                         <li><Link to="/login" className='libre-regular uppercase text-white text-sm'>login</Link></li>

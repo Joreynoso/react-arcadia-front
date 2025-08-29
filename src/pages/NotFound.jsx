@@ -1,10 +1,7 @@
 // imports
-import BlackCat from '../images/blackCat.svg'
-import { useNavigate } from 'react-router-dom'
+import GoBackButton from '../components/GoBackButton'
 
 export default function NotFound() {
-    // navigate
-    const navigate = useNavigate()
 
     // return render
     return (
@@ -23,12 +20,8 @@ export default function NotFound() {
                     Oops! seems like you got a <br /> black cat as a response.
                 </p>
 
-                {/* go back button */}
-                <button
-                    onClick={() => navigate(-1)}
-                    className="w-40 bg-card border-arcadia text-arcadia libre-bold uppercase text-sm px-4 py-2 rounded-full font-semibold">
-                    go back
-                </button>
+                {/* gobackbutton */}
+                <GoBackButton />
             </div>
         </>
     )

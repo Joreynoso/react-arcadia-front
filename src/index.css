@@ -32,6 +32,11 @@ body {
   border-color: #7D4C38;
 }
 
+.border-arcadia-small {
+  border-width: 1px;
+  border-color: #7D4C38;
+}
+
 .text-arcadia {
   color: #83503B;
 }
