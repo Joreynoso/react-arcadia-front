@@ -20,7 +20,7 @@ export default function InfoSection() {
             <div className='w-full h-full flex flex-col justify-center items-center flex-1 mt-20'>
 
                 {/* title */}
-                <h3 className="libre-regular uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug mb-10 text-white text-center">
+                <h3 className="  uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug mb-10 text-white text-center">
                     Your Quest to Build the <span className='color-arcadia'>Ultimate Library</span>
                 </h3>
 
@@ -29,7 +29,7 @@ export default function InfoSection() {
 
                     {/* block 1 */}
                     <div className='flex flex-col bg-card rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-3 justify-center items-center text-center'>
-                        <h4 className='text-arcadia libre-bold leading-tight text-xl max-w-[70%] mb-4'>
+                        <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
                             Save your favorite games to your library and access them anytime you want.
                         </h4>
 
@@ -45,7 +45,7 @@ export default function InfoSection() {
 
                     {/* block 3 */}
                     <div className='flex flex-col justify-center items-center text-center bg-[#FCCE9F] rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
-                        <h4 className='text-arcadia libre-bold leading-tight text-xl max-w-[70%] mb-4'>
+                        <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
                             Easily search through your library and find the games you love.
                         </h4>
                         <span className='bg-[#DB8E6B] border-arcadia px-4 py-2 rounded-full flex gap-2'>
@@ -57,7 +57,7 @@ export default function InfoSection() {
 
                     {/* block 4 */}
                     <div className='flex flex-col justify-center items-center text-center bg-card rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-3'>
-                        <h4 className='text-arcadia libre-bold leading-tight text-xl max-w-[70%] mb-4'>
+                        <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
                             Discover new adventures and never miss a game worth playing.
                         </h4>
                         <span className='bg-[#DB8E6B] border-arcadia px-4 py-2 rounded-full flex gap-2'>

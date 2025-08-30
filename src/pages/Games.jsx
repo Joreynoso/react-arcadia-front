@@ -12,7 +12,7 @@ export default function Games() {
         <>
             <div className='w-full h-full flex flex-col justify-center items-center flex-1 mt-20 mb-20'>
 
-                <h3 className="libre-regular uppercase text-2xl  md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug mb-10 text-white text-center">
+                <h3 className="uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug mb-10 text-white text-center">
                     Explore more than <span className='color-arcadia'>+500 games</span>
                 </h3>
 
@@ -32,14 +32,14 @@ export default function Games() {
 
                         {/* títulos */}
                         <div className="flex flex-col text-center px-1 md:px-2">
-                            <h4 className="libre-bold text-sm md:text-base text-arcadia truncate">Videogame Name</h4>
-                            <span className="libre-regular text-[10px] md:text-xs text-arcadia opacity-70">
+                            <h4 className="  text-sm md:text-base text-arcadia truncate">Videogame Name</h4>
+                            <span className="  text-[10px] md:text-xs text-arcadia opacity-70">
                                 Released 04/03/1991
                             </span>
                         </div>
 
                         {/* call to action */}
-                        <button className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 libre-regular text-white rounded-full text-xs md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto'>
+                        <button className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2   text-white rounded-full text-xs md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto'>
                             details
                         </button>
                     </div>

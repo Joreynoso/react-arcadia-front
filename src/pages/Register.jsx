@@ -32,13 +32,13 @@ export default function Register() {
 
                 {/* right form */}
                 <div className='flex flex-col w-full items-start'>
-                    <h3 className='libre-bold text-arcadia mb-6 text-lg sm:text-xl lg:text-2xl'>
-                        Begin your quest! Create your game library.
+                    <h3 className='text-arcadia mb-6 text-lg sm:text-xl lg:text-2xl font-semibold'>
+                        Begin your quest! <br />Create your game library.
                     </h3>
 
                     <form
                         onSubmit={handleSubmit}
-                        className='w-full flex flex-col justify-center gap-6 libre-regular items-start'>
+                        className='w-full flex flex-col justify-center gap-6 items-start font-semibold'>
 
                         <input
                             value={email}
@@ -65,7 +65,7 @@ export default function Register() {
 
                         <button
                             type='submit' disabled={loading}
-                            className='bg-[#FF6108] px-4 py-2 libre-regular uppercase text-white rounded-full text-sm cursor-pointer'>
+                            className='bg-[#FF6108] px-4 py-2   uppercase text-white rounded-full text-sm cursor-pointer'>
                             begins adventure
                         </button>
                     </form>
