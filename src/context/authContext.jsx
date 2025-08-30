@@ -57,6 +57,13 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    // --> logout
+    const logout = () => {
+        setToken("")
+        setUser(null)
+        localStorage.removeItem("token")
+    }
+
     // saved user and token
     useEffect(() => {
         const storedUser = localStorage.getItem("user")
@@ -67,7 +74,7 @@ export const AuthProvider = ({ children }) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ user, token, loading, error, register, login }}>
+        <AuthContext.Provider value={{ user, token, loading, error, register, login, logout }}>
             {children}
         </AuthContext.Provider>
     )
