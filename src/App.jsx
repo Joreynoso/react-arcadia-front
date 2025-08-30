@@ -1,7 +1,7 @@
 // --> import componentes
 import Layout from './components/Layout'
 import Home from './pages/Home'
-import PrivateRoute from './components/PrivateRoute'
+
 // --> import react router dom
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
@@ -10,6 +10,7 @@ import Games from './pages/Games'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import NotFound from './pages/NotFound'
+import GameDetail from './pages/GameDetail'
 import Forbidden from './pages/Forbidden'
 
 function App() {
@@ -20,15 +21,9 @@ function App() {
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
 
-            {/* Games protegido */}
-            <Route
-              path='games'
-              element={
-                <PrivateRoute permission="read:games">
-                  <Games />
-                </PrivateRoute>
-              }
-            />
+            {/* game routes */}
+            <Route path='games' element={<Games />} />
+            <Route path='games/:id' element={<GameDetail/>} />
 
             {/* login / register route */}
             <Route path='login' element={<Login />} />

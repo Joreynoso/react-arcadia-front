@@ -1,5 +1,5 @@
-// import
-import { useNavigate, Link } from "react-router-dom"
+// imports
+import { useNavigate} from "react-router-dom"
 
 export default function GameCard({ id, background_image, name, released }) {
     // navigate
@@ -19,21 +19,21 @@ export default function GameCard({ id, background_image, name, released }) {
                         h-7 w-7 md:h-9 md:w-9 border-arcadia rounded-full flex justify-center items-center 
                         hover:scale-105 transition-transform uppercase text-white text-sm font-semibold' >
                         ai
-                    </button >
-                </div >
+                    </button>
+                </div>
 
                 <div className="flex flex-col text-center px-1 md:px-2" >
                     <h4 className="text-sm md:text-base text-arcadia truncate font-semibold">{name}</h4>
                     <span className="text-[10px] md:text-xs text-arcadia opacity-70 font-semibold">
                         Released {released}
                     </span>
-                </div >
+                </div>
 
-                <Link 
+                <button 
                 className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2   text-white rounded-full text-xs md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
                     details
-                </Link >
-            </div >
+                </button>
+            </div>
         </>
     )
 }

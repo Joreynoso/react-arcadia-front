@@ -28,12 +28,21 @@ export const GameProvider = ({ children }) => {
         }
     }
 
+    // --> get game by ID
+    const getGameById = async (id)=>{
+        setLoading(true)
+        setError(null)
+
+        console.log('id clikeado', id)
+    }
+
     return (
         <GameContext.Provider value={{
             error,
             loading,
             games,
-            getAllGames
+            getAllGames,
+            getGameById
         }}>
             {children}
         </GameContext.Provider>

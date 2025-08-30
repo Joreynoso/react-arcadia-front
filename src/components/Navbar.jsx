@@ -3,12 +3,11 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/authContext'
 
-export default function Navbar() {
-    // declar states
-    const [isOpen, setIsOpen] = useState(false)
 
-    // usecontext to get user
-    const { user } = useAuth()
+export default function Navbar() {
+    // setup
+    const { user, logout } = useAuth()
+    const [isOpen, setIsOpen] = useState(false)
 
     // handle toggleShown Menu
     function handleShown() {
@@ -25,6 +24,13 @@ export default function Navbar() {
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
         </svg>
+    )
+
+    // logoutButton
+    const logOutButton = (
+        <button 
+        onClick={logout}
+        className='uppercase text-white'>logout</button>
     )
 
     // return render

@@ -1,6 +1,6 @@
 // imports
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import { useGame } from '../context/gamesContext'
 import GameCard from './GameCard'
 
@@ -38,12 +38,17 @@ export default function GameList() {
 
     // map games
     const mappedListGames = games?.map(game => (
-        <GameCard
+        <Link
+            className='transition-transform duration-300 ease-in-out 
+             hover:-translate-y-2'
             key={game._id}
-            id={game._id}
-            name={game.name}
-            released={game.released}
-            background_image={game.background_image} />
+            to={`/games/${game._id}`}>
+            <GameCard
+                id={game._id}
+                name={game.name}
+                released={game.released}
+                background_image={game.background_image} />
+        </Link>
     ))
 
     // arrowIcon
@@ -63,6 +68,7 @@ export default function GameList() {
 
             {/* navigation */}
             <div className='w-full flex justify-center items-center gap-2'>
+                {/* previous page */}
                 <button
                     onClick={handlePrev}
                     disabled={page <= 1}
@@ -71,8 +77,10 @@ export default function GameList() {
                     {arrowIcon}
                 </button>
 
-                <span className='text-white font-semibold'>{ page }</span>
+                {/* current page */}
+                <span className='text-white font-semibold'>{page}</span>
 
+                {/* net page */}
                 <button
                     disabled={page === totalPages}
                     onClick={handleNext}
