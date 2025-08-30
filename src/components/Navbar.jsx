@@ -1,10 +1,14 @@
 // imports
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/authContext'
 
 export default function Navbar() {
     // declar states
     const [isOpen, setIsOpen] = useState(false)
+
+    // usecontext to get user
+    const { user } = useAuth()
 
     // handle toggleShown Menu
     function handleShown() {
@@ -42,7 +46,11 @@ export default function Navbar() {
                 {/* mobile menu container */}
                 {isOpen && (
                     <div className="absolute top-full left-1/2 -translate-x-1/2 w-[95%] sm:hidden bg-card rounded-3xl border-arcadia shadow-lg flex flex-col items-center py-6 z-50 text-[#7D4C38]">
-                        <Link to="/profile" className="libre-regular uppercase text-[#7D4C38]">user</Link>
+                        {user && (
+                            <Link to="/profile" className="libre-regular uppercase text-[#7D4C38]">
+                                {user.username}
+                            </Link>
+                        )}
                         <Link to="/games" className="libre-regular uppercase text-[#7D4C38]">games</Link>
                         <Link to="/login" className="libre-regular uppercase text-[#7D4C38]">login</Link>
                         <Link to="/register" className="libre-regular uppercase text-[#7D4C38]">register</Link>
@@ -55,7 +63,12 @@ export default function Navbar() {
                 {/* desktop menú */}
                 <div className='hidden sm:block'>
                     <ul className='flex justify-center items-center gap-6 xl:gap-8'>
-                        <li><Link to="/profile" className='libre-regular uppercase text-white text-sm'>user</Link></li>
+                        {user &&
+                            (<li>
+                                <Link to="/profile" className='libre-regular uppercase text-white text-sm'>{user.username}
+                                </Link>
+                            </li>
+                            )}
                         <li><Link to="/games" className='libre-regular uppercase text-white text-sm'>games</Link></li>
                         <li><Link to="/login" className='libre-regular uppercase text-white text-sm'>login</Link></li>
                         <li><Link to="/register" className='libre-regular uppercase text-white text-sm'>register</Link></li>
