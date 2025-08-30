@@ -17,7 +17,7 @@ export default function InfoSection() {
     return (
         <>
             {/* informative section */}
-            <div className='w-full h-full flex flex-col justify-center items-center flex-1 py-10 sm:py-40'>
+            <div className='w-full h-full flex flex-col justify-center items-center flex-1 mt-20'>
 
                 {/* title */}
                 <h3 className="libre-regular uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug mb-10 text-white text-center">
