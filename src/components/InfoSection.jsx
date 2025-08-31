@@ -25,7 +25,7 @@ export default function InfoSection() {
                 <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6'>
 
                     {/* block 1 */}
-                    <div className='flex flex-col bg-card rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-3 justify-center items-center text-center'>
+                    <div className='flex flex-col bg-card rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-3 justify-center items-center text-center'>
                         <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
                             Save your favorite games to your library and access them anytime you want.
                         </h4>
@@ -36,12 +36,12 @@ export default function InfoSection() {
                     </div>
 
                     {/* block 2 */}
-                    <div className='flex justify-center items-center bg-[#FCCE9F] rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
+                    <div className='flex justify-center items-center bg-[#FCCE9F] rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
                         <img src={InfoBoy} alt="infoBoy" className='h-[125%]' />
                     </div>
 
                     {/* block 3 */}
-                    <div className='flex flex-col justify-center items-center text-center bg-[#FCCE9F] rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
+                    <div className='flex flex-col justify-center items-center text-center bg-[#FCCE9F] rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
                         <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
                             Easily search through your library and find the games you love.
                         </h4>
@@ -53,7 +53,7 @@ export default function InfoSection() {
                     </div>
 
                     {/* block 4 */}
-                    <div className='flex flex-col justify-center items-center text-center bg-card rounded-3xl border-arcadia h-60 md:col-span-1 xl:col-span-3'>
+                    <div className='flex flex-col justify-center items-center text-center bg-card rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-3'>
                         <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
                             Discover new adventures and never miss a game worth playing.
                         </h4>

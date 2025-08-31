@@ -43,7 +43,7 @@ export default function Navbar() {
 
             {/* mobile menu */}
             {isOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-[95%] sm:hidden bg-card rounded-3xl border-arcadia shadow-lg flex flex-col items-center py-6 z-50 text-[#7D4C38]">
+                <div className="absolute top-full left-1/2 -translate-x-1/2 w-full sm:hidden bg-card rounded-2xl border-arcadia shadow-xl flex flex-col items-center py-6 z-50 text-[#7D4C38]">
                     <Link to="/games" className="uppercase text-[#7D4C38]">games</Link>
 
                     {!user && (

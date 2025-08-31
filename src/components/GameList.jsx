@@ -1,7 +1,8 @@
 // imports
 import { useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 import { useGame } from '../context/gamesContext'
+import LoadingCard from './LoadingCard'
 import GameCard from './GameCard'
 
 export default function GameList() {
@@ -27,21 +28,20 @@ export default function GameList() {
     const handlePrev = () => setSearchParams({ page: Math.max(page - 1, 1) })
     const handleNext = () => setSearchParams({ page: page + 1 })
 
-    if (loading) return <p className='text-white text-lg'>Loading games..</p>
+    if (loading) return <LoadingCard />
     if (error) return <p className='text-white text-lg'>{error}</p>
 
     const mappedListGames = games?.map(game => (
-        <Link
-            className='transition-transform duration-300 ease-in-out 
-            hover:-translate-y-2'
+        <div
             key={game._id}
-            to={`/games/${game._id}`}>
+            className='transition-transform duration-300 ease-in-out 
+            hover:-translate-y-2'>
             <GameCard
                 id={game._id}
                 name={game.name}
                 released={game.released}
                 background_image={game.background_image} />
-        </Link>
+        </div>
     ))
 
     const arrowIcon = (

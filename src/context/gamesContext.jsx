@@ -6,8 +6,6 @@ export const GameContext = createContext(null)
 
 // provider
 export const GameProvider = ({ children }) => {
-
-    // --> setting states
     const [games, setGames] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -47,13 +45,30 @@ export const GameProvider = ({ children }) => {
         }
     }
 
+    // --> get summary from Gemini
+    const getSummary = async (id) => {
+        setLoading(true)
+        setError(null)
+
+        try {
+            const { data } = await api.post(`/api/games/summary/${id}`)
+            return data
+        } catch (error) {
+            console.log('failed to generate summary from ai', error)
+            setError(error.message || 'Unknown error')
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <GameContext.Provider value={{
             error,
             loading,
             games,
             getAllGames,
-            getGameById
+            getGameById,
+            getSummary
         }}>
             {children}
         </GameContext.Provider>
