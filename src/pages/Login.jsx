@@ -3,15 +3,11 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
-    // states
     const { login, error, loading } = useAuth()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
-    // navigate
     const navigate = useNavigate()
 
-    // handleLogin
     const handleSubmit = async (e) => {
         e.preventDefault()
         const response = await login({ email, password })

@@ -3,17 +3,12 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
-
-    // states
     const { error, loading, register } = useAuth()
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
-    // navigate
     const navigate = useNavigate()
 
-    // handleRegister
     const handleSubmit = async (e) => {
         e.preventDefault()
         const response = await register({ email, username, password })

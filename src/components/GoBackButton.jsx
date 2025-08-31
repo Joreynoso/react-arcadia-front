@@ -2,11 +2,8 @@
 import { useNavigate } from 'react-router-dom'
 
 export default function GoBackButton() {
-
-    // navigate
     const navigate = useNavigate()
 
-    // return render
     return (
         <>
             {/* go back button */}

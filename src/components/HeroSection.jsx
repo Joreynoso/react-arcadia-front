@@ -1,6 +1,6 @@
 export default function HeroSection() {
 
-    // return render
+
     return (
         <>
             {/* hero section */}

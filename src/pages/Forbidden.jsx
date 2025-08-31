@@ -2,8 +2,6 @@
 import GoBackButton from "../components/GoBackButton"
 
 export default function Forbidden() {
-    // navigate
-    const navigate = useNavigate()
 
     // return render
     return (

@@ -5,17 +5,13 @@ import { useGame } from '../context/gamesContext'
 import GameCard from './GameCard'
 
 export default function GameList() {
-
-    // setup
     const { error, loading, games, getAllGames } = useGame()
     const [totalPages, setTotalPages] = useState()
     const [searchParams, setSearchParams] = useSearchParams()
     const limit = 20
 
-    // obtener la página desde query params (default 1)
     const page = parseInt(searchParams.get('page')) || 1
 
-    // get games cuando cambia page
     useEffect(() => {
         const fetchGames = async () => {
             const data = await getAllGames(page, limit)
@@ -28,19 +24,16 @@ export default function GameList() {
         fetchGames()
     }, [page])
 
-    // handles next, back pages
     const handlePrev = () => setSearchParams({ page: Math.max(page - 1, 1) })
     const handleNext = () => setSearchParams({ page: page + 1 })
 
-    // check if any happen
     if (loading) return <p className='text-white text-lg'>Loading games..</p>
     if (error) return <p className='text-white text-lg'>{error}</p>
 
-    // map games
     const mappedListGames = games?.map(game => (
         <Link
             className='transition-transform duration-300 ease-in-out 
-             hover:-translate-y-2'
+            hover:-translate-y-2'
             key={game._id}
             to={`/games/${game._id}`}>
             <GameCard
@@ -51,14 +44,12 @@ export default function GameList() {
         </Link>
     ))
 
-    // arrowIcon
     const arrowIcon = (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
         </svg>
     )
 
-    // return render
     return (
         <>
             {/* gameList */}

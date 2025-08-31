@@ -29,11 +29,22 @@ export const GameProvider = ({ children }) => {
     }
 
     // --> get game by ID
-    const getGameById = async (id)=>{
+    const getGameById = async (id) => {
         setLoading(true)
         setError(null)
+        console.log('loading function')
 
-        console.log('id clikeado', id)
+        try {
+            const { data: { game } } = await api.get(`/api/games/${id}`)
+            console.log('data from api', game)
+            return game
+        } catch (error) {
+            console.log('failed to get game by id', error)
+            setError(error.message || 'Unknown error')
+        } finally {
+            console.log('change loading set')
+            setLoading(false)
+        }
     }
 
     return (
