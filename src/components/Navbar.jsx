@@ -58,7 +58,7 @@ export default function Navbar() {
                             <Link to="/profile" className="uppercase text-[#7D4C38]">profile ({user.username})</Link>
                             <button onClick={handleLogOut} className="cursor-pointer uppercase text-[#7D4C38] mt-2">logout</button>
                             <Link to="/favorites" className="uppercase bg-[#FF6108] border-2 border-[#7D4C38] text-white text-sm rounded-full px-3 py-2 mt-2">
-                                go library
+                                my library
                             </Link>
                         </>
                     )}
@@ -85,7 +85,7 @@ export default function Navbar() {
                             </li>
                             <li>
                                 <Link to="/favorites" className="uppercase bg-card border-arcadia text-[#7D4C38] rounded-full px-2 py-1 text-sm">
-                                    go library
+                                    my library
                                 </Link>
                             </li>
                         </>

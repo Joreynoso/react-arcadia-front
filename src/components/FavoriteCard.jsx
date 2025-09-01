@@ -1,4 +1,13 @@
+// imports
+import { useFavorite } from "../context/favoriteContext"
+import { Link } from "react-router-dom"
+
 export default function FavoriteCard({ id, background_image, name, released }) {
+    const { loading, removeFavorite } = useFavorite()
+
+    const handleRemove = async () => {
+        await removeFavorite(id)
+    }
 
     // return render
     return (
@@ -20,10 +29,21 @@ export default function FavoriteCard({ id, background_image, name, released }) {
                     </span>
                 </div>
 
-                <button
-                    className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
-                    remove
-                </button>
+                {/* action buttons */}
+                <div className="w-full flex flex-col gap-2">
+                    <Link
+                        to={`/games/${id}`}
+                        className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
+                        details
+                    </Link>
+
+                    <button
+                        onClick={handleRemove}
+                        disabled={loading}
+                        className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
+                        remove
+                    </button>
+                </div>
             </div>
         </>
     )

@@ -1,26 +1,35 @@
 // imports
 import { Link } from 'react-router-dom'
 import { useFavorite } from '../context/favoriteContext'
+import { useState } from 'react'
 
 export default function GameCard({ id, background_image, name, released }) {
-    const { loading, favorites, addFavorite, removeFavorite } = useFavorite()
+    const { favorites, loading, addFavorite, removeFavorite } = useFavorite()
+    const [localLoading, setLocalLoading] = useState(false)
 
-    const isFavorite = Array.isArray(favorites) && favorites.some(fav => fav.game._id == id)
+    // Se calcula en tiempo real con el estado global
+    const isFavorite = favorites.some(fav => fav.id === id)
 
     // handle add or remove
     const handleAdd = async () => {
+        setLocalLoading(true)
         try {
             await addFavorite(id)
         } catch (err) {
             console.error(err)
+        } finally {
+            setLocalLoading(false)
         }
     }
 
     const handleRemove = async () => {
+        setLocalLoading(true)
         try {
             await removeFavorite(id)
         } catch (err) {
             console.error(err)
+        } finally {
+            setLocalLoading(false)
         }
     }
 
@@ -62,25 +71,37 @@ export default function GameCard({ id, background_image, name, released }) {
                     details
                 </Link>
 
-                {!isFavorite && (
-                    <button
-                        disabled={loading}
-                        onClick={handleAdd}
-                        className="absolute top-5 right-5 bg-[#FF6108] cursor-pointer text-white w-6 sm:w-8 h-6 sm:h-8 rounded-full flex justify-center items-center hover:bg-[#e45507] transition-colors"
-                    >
-                        {iconStar}
-                    </button>
-                )}
+                <button
+                    disabled={loading}
+                    onClick={isFavorite ? handleRemove : handleAdd}
+                    className="absolute top-4 right-4 sm:top-5 sm:right-5 bg-[#FF6108] cursor-pointer text-white w-8 h-8 sm:h-10 sm:w-10 rounded-full flex justify-center items-center hover:bg-[#e45507] transition-colors"
+                >
+                    {localLoading ? (
+                        <svg
+                            className="animate-spin h-4 w-4 text-white"
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                        >
+                            <circle
+                                className="opacity-25"
+                                cx="12"
+                                cy="12"
+                                r="10"
+                                stroke="currentColor"
+                                strokeWidth="4"
+                            />
+                            <path
+                                className="opacity-75"
+                                fill="currentColor"
+                                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                            />
+                        </svg>
+                    ) : (
+                        isFavorite ? iconStarFilled : iconStar
+                    )}
+                </button>
 
-                {isFavorite && (
-                    <button
-                        disabled={loading}
-                        onClick={handleRemove}
-                        className="absolute top-5 right-5 bg-[#FF6108] cursor-pointer text-white w-6 sm:w-8 h-6 sm:h-8 rounded-full flex justify-center items-center hover:bg-[#e45507] transition-colors"
-                    >
-                        {iconStarFilled}
-                    </button>
-                )}
             </div>
         </>
     )

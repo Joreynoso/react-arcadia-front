@@ -19,7 +19,7 @@ export const FavoriteProvider = ({ children }) => {
             const { data } = await api.get('/api/favorites')
             // data.favorites debe ser un array
             setFavorites(data.favorites || [])
-            console.log('Favoritos cargados:', data.favorites)
+            console.log('-->[CONTEXT] lista de favoritos:', data.favorites)
         } catch (err) {
             console.log('Error al obtener favoritos', err)
             setError(err.message || 'Unknown error')
@@ -29,16 +29,16 @@ export const FavoriteProvider = ({ children }) => {
     }
 
     // Agregar un favorito
-    const addFavorite = async (gameid) => {
+    const addFavorite = async (gameId) => {
         setLoading(true)
         setError(null)
 
         try {
-            const { data } = await api.post('/api/favorites/add', { gameid })
+            const { data } = await api.post('/api/favorites/add', { gameId })
 
-            if (data.favorite) {
-                setFavorites(prev => [...prev, data.favorite])
-                console.log('Favorito agregado:', data.favorite)
+            if (data.game) {
+                setFavorites(prev => [...prev, data.game])
+                console.log('-->[CONTEXT] favorito agregado', data.game)
             } else {
                 console.log('El juego ya estaba en favoritos, no se agrega nada')
             }
@@ -51,22 +51,25 @@ export const FavoriteProvider = ({ children }) => {
         }
     }
 
-    // qQUitar un favorito
-    const removeFavorite = async (gameid) => {
+    // QUitar un favorito
+    const removeFavorite = async (gameId) => {
+        setLoading(true)
         setError(null)
         try {
             const { data } = await api.delete('/api/favorites/remove', {
-                data: { gameid }
+                data: { gameId }
             })
 
-            // opcional: podrías usar data para mostrar mensaje si quieres
-            setFavorites(prev => prev.filter(f => f._id !== gameid))
-            console.log('Favorito eliminado:', gameid)
+            setFavorites(prev => prev.filter(f => f.id !== gameId))
+            console.log('-->[CONTEXT] favorito eliminado', gameId)
+            console.log('-->[CONTEXT] favorito eliminado', data.game)
 
         } catch (err) {
             console.log('Error al eliminar favorito', err)
             setError(err.message || 'Unknown error')
             throw err
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -80,6 +83,7 @@ export const FavoriteProvider = ({ children }) => {
             favorites,
             loading,
             error,
+            setFavorites,
             addFavorite,
             removeFavorite
         }}>
