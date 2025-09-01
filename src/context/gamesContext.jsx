@@ -7,8 +7,6 @@ export const GameContext = createContext(null)
 // provider
 export const GameProvider = ({ children }) => {
     const [games, setGames] = useState([])
-    const [favorites, setFavorites] = useState([])
-    const [loadingFav, setLoadingFav] = useState(false)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
@@ -63,14 +61,31 @@ export const GameProvider = ({ children }) => {
         }
     }
 
+    // --> search games by name
+    const searchGames = async (query, page = 1, limit = 20) => {
+        setLoading(true)
+        setError(null)
+        try {
+            const { data } = await api.get(`/api/games/search?q=${encodeURIComponent(query)}&limit=${limit}&page=${page}`)
+            setGames(data.games || [])
+            return data
+        } catch (err) {
+            setError("We couldn't find the game.")
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <GameContext.Provider value={{
             error,
             loading,
             games,
+
             getAllGames,
             getGameById,
             getSummary,
+            searchGames,
         }}>
             {children}
         </GameContext.Provider>

@@ -1,7 +1,8 @@
 // imports
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/authContext'
+import { motion } from 'framer-motion'
 
 export default function Navbar() {
     const { user, logout } = useAuth()
@@ -17,6 +18,11 @@ export default function Navbar() {
         logout()
         navigate('/')
     }
+
+    // close when path changes
+    useEffect(() => {
+        setIsOpen(false)
+    }, [location.pathname])
 
     const burgerIcon = (
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -43,7 +49,11 @@ export default function Navbar() {
 
             {/* mobile menu */}
             {isOpen && (
-                <div className="absolute top-full left-1/2 -translate-x-1/2 w-full sm:hidden bg-card rounded-2xl border-arcadia shadow-xl flex flex-col items-center py-6 z-50 text-[#7D4C38]">
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 w-full sm:hidden bg-card rounded-2xl border-arcadia shadow-xl flex flex-col items-center py-6 z-50 text-[#7D4C38]">
                     <Link to="/games" className="uppercase text-[#7D4C38]">games</Link>
 
                     {!user && (
@@ -62,7 +72,7 @@ export default function Navbar() {
                             </Link>
                         </>
                     )}
-                </div>
+                </motion.div>
             )}
 
             {/* desktop menu */}

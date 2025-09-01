@@ -1,5 +1,6 @@
 // imports
 import { Link } from 'react-router-dom'
+import ModalMessage from '../components/ModalMessage'
 import { useFavorite } from '../context/favoriteContext'
 import { useState } from 'react'
 
@@ -67,14 +68,16 @@ export default function GameCard({ id, background_image, name, released }) {
 
                 <Link
                     to={`/games/${id}`}
-                    className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
+                    className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs 
+                    md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
                     details
                 </Link>
 
                 <button
                     disabled={loading}
                     onClick={isFavorite ? handleRemove : handleAdd}
-                    className="absolute top-4 right-4 sm:top-5 sm:right-5 bg-[#FF6108] cursor-pointer text-white w-8 h-8 sm:h-10 sm:w-10 rounded-full flex justify-center items-center hover:bg-[#e45507] transition-colors"
+                    className="absolute top-4 right-4 sm:top-5 sm:right-5 bg-[#FF6108] cursor-pointer text-white w-8 h-8 sm:h-10 
+                    sm:w-10 rounded-full flex justify-center items-center hover:bg-[#e45507] transition-colors"
                 >
                     {localLoading ? (
                         <svg

@@ -3,7 +3,6 @@ import FavoriteCard from './FavoriteCard'
 import { useFavorite } from '../context/favoriteContext'
 import LoadingCard from './LoadingCard'
 import GoBackButton from '../components/GoBackButton'
-import { div } from 'framer-motion/client'
 
 export default function FavoritesList() {
     const { loading, error, favorites } = useFavorite()
