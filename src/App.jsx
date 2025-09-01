@@ -12,6 +12,7 @@ import Register from './pages/Register'
 import NotFound from './pages/NotFound'
 import GameDetail from './pages/GameDetail'
 import Forbidden from './pages/Forbidden'
+import Favorites from './pages/Favorites'
 
 function App() {
   return (
@@ -23,11 +24,14 @@ function App() {
 
             {/* game routes */}
             <Route path='games' element={<Games />} />
-            <Route path='games/:id' element={<GameDetail/>} />
+            <Route path='games/:id' element={<GameDetail />} />
 
             {/* login / register route */}
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
+
+            {/* favorites routes */}
+            <Route path='favorites' element={<Favorites />} />
 
             {/* not found route */}
             <Route path="*" element={<NotFound />} />

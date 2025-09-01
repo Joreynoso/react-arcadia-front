@@ -16,8 +16,7 @@ export default function GameList() {
     useEffect(() => {
         const fetchGames = async () => {
             const data = await getAllGames(page, limit)
-
-            console.log('-->[DATA FROM CONTEXT]', data)
+            console.log('juegos cargados:', data.games)
             if (data?.totalPages) {
                 setTotalPages(data.totalPages)
             }

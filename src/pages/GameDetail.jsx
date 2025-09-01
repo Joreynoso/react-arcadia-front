@@ -23,7 +23,7 @@ export default function GameDetail() {
 
     return (
         <>
-            <div className="relative w-full flex flex-col items-center mt-20 mb-20 gap-4">
+            <div className="relative w-full flex flex-col items-center mt-10 mb-10 gap-4">
                 <h3 className="uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug text-white text-center mb-10">
                     Detail game <br /> <span className='color-arcadia'>{game.name}</span>
                 </h3>

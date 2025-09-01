@@ -22,7 +22,7 @@ export default function Register() {
 
     // return render
     return (
-        <div className='w-full h-full flex justify-center items-center px-4 xl:px-0 flex-1 mt-20'>
+        <div className='w-full h-full flex justify-center items-center px-4 xl:px-0 flex-1 mt-10 mb-10'>
             <div className='w-full sm:min-h-[400px] max-w-md rounded-2xl bg-card border-arcadia flex flex-col justify-center items-center sm:flex-row p-6 sm:p-10 md:p-10'>
 
                 {/* right form */}

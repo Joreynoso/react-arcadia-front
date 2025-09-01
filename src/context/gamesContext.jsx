@@ -7,6 +7,8 @@ export const GameContext = createContext(null)
 // provider
 export const GameProvider = ({ children }) => {
     const [games, setGames] = useState([])
+    const [favorites, setFavorites] = useState([])
+    const [loadingFav, setLoadingFav] = useState(false)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
@@ -68,7 +70,7 @@ export const GameProvider = ({ children }) => {
             games,
             getAllGames,
             getGameById,
-            getSummary
+            getSummary,
         }}>
             {children}
         </GameContext.Provider>
