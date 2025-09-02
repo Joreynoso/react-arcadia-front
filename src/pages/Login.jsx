@@ -78,7 +78,7 @@ export default function Login() {
                         <button
                             type='submit'
                             disabled={loading}
-                            className='bg-[#FF6108] px-4 py-2   uppercase text-white rounded-full text-sm cursor-pointer'
+                            className='bg-[#FF6108] px-4 py-2  uppercase text-white rounded-full text-sm cursor-pointer'
                         >
                             {loading ? 'Authenticating...' : 'Begins adventure'}
                         </button>

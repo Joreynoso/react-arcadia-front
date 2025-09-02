@@ -22,7 +22,7 @@ export default function InfoSection() {
                 </h3>
 
                 {/* grid section */}
-                <div className='w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6'>
+                <div className='w-full max-w-7xl grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-6'>
 
                     {/* block 1 */}
                     <div className='flex flex-col bg-card rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-3 justify-center items-center text-center'>

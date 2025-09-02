@@ -56,28 +56,28 @@ export default function GameList() {
     if (error) return <p className='text-white text-lg'>{error}</p>
 
     const mappedListGames = games?.map(game => {
+        const hasImage = !!game.background_image
 
         return (
             <div
                 key={game._id}
-                className='
-                transition-transform duration-300 ease-in-out 
-                hover:-translate-y-2
-            '>
+                className='transition-transform duration-300 ease-in-out hover:-translate-y-2'
+            >
                 <GameCard
                     id={game._id}
                     name={game.name}
                     released={game.released}
                     background_image={game.background_image}
+                    hasImage={hasImage}
                 />
-            </div >
+            </div>
         )
     })
 
     return (
         <>
             {/* gameList */}
-            <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 max-w-6xl mb-10">
+            <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-10">
                 {mappedListGames}
             </div>
 

@@ -10,6 +10,9 @@ export const GameProvider = ({ children }) => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
+    const [modalOpen, setModalOpen] = useState(false)
+    const [summary, setSummary] = useState(null)
+
     // --> get all games
     const getAllGames = async (page = 1, limit = 20) => {
         setLoading(true)
@@ -17,7 +20,6 @@ export const GameProvider = ({ children }) => {
         try {
             const { data } = await api.get(`/api/games?limit=${limit}&page=${page}`)
             setGames(data.games || [])
-
             return data
         } catch (err) {
             setError('Error to get all games')
@@ -49,13 +51,13 @@ export const GameProvider = ({ children }) => {
     const getSummary = async (id) => {
         setLoading(true)
         setError(null)
-
         try {
             const { data } = await api.post(`/api/games/summary/${id}`)
-            return data
-        } catch (error) {
-            console.log('failed to generate summary from ai', error)
-            setError(error.message || 'Unknown error')
+            setSummary(data.summary)
+            setModalOpen(true)
+        } catch (err) {
+            console.log('failed to generate summary', err)
+            setError('failed to generate summary')
         } finally {
             setLoading(false)
         }
@@ -107,6 +109,10 @@ export const GameProvider = ({ children }) => {
             getSummary,
             searchGames,
             searchByDate,
+
+            summary,
+            setModalOpen,
+            modalOpen,
         }}>
             {children}
         </GameContext.Provider>

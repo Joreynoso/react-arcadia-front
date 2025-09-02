@@ -55,7 +55,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                     className="absolute top-full left-1/2 -translate-x-1/2 w-full sm:hidden bg-card rounded-2xl 
-                    border-arcadia shadow-xl flex flex-col items-center py-6 z-50 text-[#7D4C38]">
+                    border-arcadia shadow-xl flex flex-col items-center py-6 z-50 text-[#7D4C38] gap-2">
 
                     {!user && (
                         <>
@@ -71,7 +71,7 @@ export default function Navbar() {
                             </Link>
                             <Link to="/games" className="uppercase text-[#7D4C38]">games</Link>
                             <Link to="/profile" className="uppercase text-[#7D4C38]">My profile</Link>
-                            <button onClick={handleLogOut} className="cursor-pointer uppercase text-[#7D4C38] mt-2">logout</button>
+                            <button onClick={handleLogOut} className="cursor-pointer uppercase text-[#7D4C38]">logout</button>
                         </>
                     )}
                 </motion.div>

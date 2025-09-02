@@ -1,10 +1,11 @@
 // imports
 import { Link } from 'react-router-dom'
-import ModalMessage from '../components/ModalMessage'
 import { useFavorite } from '../context/favoriteContext'
 import { useState } from 'react'
 
-export default function GameCard({ id, background_image, name, released }) {
+import GameNotImage from '../components/GameNotImage'
+
+export default function GameCard({ id, background_image, name, released, hasImage }) {
     const { favorites, loading, addFavorite, removeFavorite } = useFavorite()
     const [localLoading, setLocalLoading] = useState(false)
 
@@ -52,13 +53,16 @@ export default function GameCard({ id, background_image, name, released }) {
             <div className="relative rounded-xl bg-card flex flex-col p-2 md:p-3 border-arcadia gap-2 md:gap-3 h-auto md:h-72 text-center" >
 
                 <div className="relative rounded-lg h-40 md:h-48 bg-[#FCCE9F] border-arcadia overflow-hidden">
-                    <img
-                        src={background_image}
-                        alt={name}
-                        className="w-full h-full object-cover"
-                    />
+                    {hasImage ? (
+                        <img
+                            src={background_image}
+                            alt={name}
+                            className="w-full h-full object-cover"
+                        />
+                    ) : (
+                        <GameNotImage />
+                    )}
                 </div>
-
                 <div className="flex flex-col text-center px-1 md:px-2" >
                     <h4 className="text-sm md:text-base text-arcadia truncate font-semibold">{name}</h4>
                     <span className="text-[10px] md:text-xs text-arcadia opacity-70 font-semibold">

@@ -24,7 +24,7 @@ export default function SearchBar() {
     )
 
     return (
-        <div className="w-full max-w-6xl mb-6 mx-auto flex flex-col sm:flex-row gap-4">
+        <div className="w-full mb-6 mx-auto flex flex-col sm:flex-row gap-4">
             {/* searchbar */}
             <form
                 onSubmit={handleSearch}
