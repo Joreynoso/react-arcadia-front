@@ -1,7 +1,8 @@
-import { GenreIcon, IconBook, CalendarIcon, FavoriteIcon } from '../helper/icons'
+import { GenreIcon, IconBook, CalendarIcon, FavoriteIcon } from '../../helper/icons'
 import { useState } from 'react'
-import GameNotImage from '../components/GameNotImage'
-import { useGame } from '../context/gamesContext'
+import { useGame } from '../../context/gamesContext'
+import GameNotImage from '../games/GameNotImage'
+
 
 export default function GameInfoCard({ game, hasImage, isInFavorites, id }) {
     const [localLoading, setLocalLoading] = useState(false)

@@ -1,5 +1,5 @@
 //imports
-import GameInfo from '../components/GameInfo'
+import GameInfo from '../components/games/GameInfo'
 import GoBackButton from '../components/GoBackButton'
 
 export default function GameDetail() {

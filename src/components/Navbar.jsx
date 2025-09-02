@@ -38,7 +38,7 @@ export default function Navbar() {
     )
 
     return (
-        <div className="relative w-full flex justify-between items-center">
+        <div className="relative w-full flex justify-between items-center px-4 sm:px-6 lg:px-10 py-4">
 
             {/* logo */}
             <Link to=".." className="uppercase text-[#FCE3CB] text-lg">arcadia</Link>

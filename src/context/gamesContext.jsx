@@ -40,7 +40,8 @@ export const GameProvider = ({ children }) => {
             return game
         } catch (error) {
             console.log('failed to get game by id', error)
-            setError(error.message || 'Unknown error')
+            setError('Unknown error')
+            return null
         } finally {
             console.log('change loading set')
             setLoading(false)
@@ -58,6 +59,7 @@ export const GameProvider = ({ children }) => {
         } catch (err) {
             console.log('failed to generate summary', err)
             setError('failed to generate summary')
+            return null
         } finally {
             setLoading(false)
         }
@@ -75,6 +77,7 @@ export const GameProvider = ({ children }) => {
             return data
         } catch (err) {
             setError("We couldn't find the game.")
+            return null
         } finally {
             setLoading(false)
         }

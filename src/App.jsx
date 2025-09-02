@@ -22,9 +22,11 @@ function App() {
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
 
-            {/* game routes */}
-            <Route path='games' element={<Games />} />
-            <Route path='games/:id' element={<GameDetail />} />
+            {/* travels routes */}
+            <Route path="games">
+              <Route index element={<Games />} />
+              <Route path=":id" element={<GameDetail />} />
+            </Route>
 
             {/* login / register route */}
             <Route path='login' element={<Login />} />

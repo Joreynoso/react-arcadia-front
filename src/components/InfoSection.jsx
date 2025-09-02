@@ -14,10 +14,10 @@ export default function InfoSection() {
     return (
         <>
             {/* informative section */}
-            <div className='w-full h-full flex flex-col justify-center items-center flex-1 mt-20'>
+            <div className='w-full h-full flex flex-col justify-center items-center flex-1 mt-20 px-4 sm:px-6 lg:px-10 py-4'>
 
                 {/* title */}
-                <h3 className="  uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug mb-10 text-white text-center">
+                <h3 className="uppercase text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-snug mb-10 text-white text-center">
                     Your Quest to Build the <span className='color-arcadia'>Ultimate Library</span>
                 </h3>
 

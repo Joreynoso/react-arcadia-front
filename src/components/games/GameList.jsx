@@ -1,12 +1,12 @@
 // imports
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { useGame } from '../context/gamesContext'
+import { useGame } from '../../context/gamesContext'
 
 // components
-import LoadingCard from './LoadingCard'
+import LoadingCard from '../LoadingCard'
 import GameCard from './GameCard'
-import Pagination from './Pagination'
+import Pagination from '../Pagination'
 
 export default function GameList() {
     const { error, loading, games, getAllGames, searchGames, searchByDate } = useGame()
@@ -77,7 +77,7 @@ export default function GameList() {
     return (
         <>
             {/* gameList */}
-            <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-10">
+            <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-4">
                 {mappedListGames}
             </div>
 
