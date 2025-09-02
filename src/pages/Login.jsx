@@ -1,25 +1,42 @@
 import { useAuth } from '../context/authContext'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 export default function Login() {
     const { login, error, loading } = useAuth()
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
     const navigate = useNavigate()
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        const response = await login({ email, password })
+    // useForm hook desctructuring
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({ mode: 'onChange' })
+
+    // handleSubmit
+    const handleLogin = async (data) => {
+        const response = await login(data) // data = { email: "...", password: "..." }
 
         console.log(response)
 
         if (response) {
             console.log('Login exitoso', response)
             navigate('/games')
-            // mostrar toastify o mensaje personalizado
         }
     }
+
+    // validation rules
+    const emailRules = {
+        required: "email is required",
+        pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: "invalid email"
+        }
+    }
+
+    // style validations
+    const styleValidations = "ml-2 text-xs italic text-red-600 font-semibold leading-tigth"
 
     return (
         <div className='w-full h-full flex justify-center items-center px-4 xl:px-0 flex-1 mt-10 mb-10'>
@@ -32,33 +49,42 @@ export default function Login() {
                     </h3>
 
                     <form
-                        onSubmit={handleSubmit}
-                        className='w-full flex flex-col justify-center gap-6 items-start font-semibold'>
-                        <input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Type your email...'
-                            type="email"
-                            className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia'
-                        />
+                        onSubmit={handleSubmit(handleLogin)}
+                        className='w-full flex flex-col justify-center gap-5 items-start font-semibold'>
 
-                        <input
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder='Type your password...'
-                            type="password"
-                            className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia'
-                        />
+                        {/* email */}
+                        <div className='w-full'>
+                            <input
+                                {...register("email", emailRules)}
+                                placeholder='Type your email...'
+                                type="email"
+                                className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
+                            focus:outline-none focus:ring-2 focus:ring-[#A6755A]'
+                            />
+                            {errors.email && <p className={styleValidations}>{errors.email.message}</p>}
+                        </div>
+
+                        {/* password */}
+                        <div className='w-full'>
+                            <input
+                                {...register('password', { required: 'password is required' })}
+                                placeholder='Type your password...'
+                                type="password"
+                                className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
+                            focus:outline-none focus:ring-2 focus:ring-[#A6755A]'
+                            />
+                            {errors.password && <p className={styleValidations}>{errors.password.message}</p>}
+                        </div>
 
                         <button
                             type='submit'
                             disabled={loading}
                             className='bg-[#FF6108] px-4 py-2   uppercase text-white rounded-full text-sm cursor-pointer'
                         >
-                            begins adventure
+                            {loading ? 'Authenticating...' : 'Begins adventure'}
                         </button>
 
-                        {error && <span className="text-red-500">{error}</span>}
+                        {error && <span className="text-red-600">{error}</span>}
                     </form>
                 </div>
             </div>

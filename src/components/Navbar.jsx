@@ -15,6 +15,7 @@ export default function Navbar() {
 
     // handle logOut
     const handleLogOut = () => {
+        setIsOpen(false) // si tenés menú móvil
         logout()
         navigate('/')
     }

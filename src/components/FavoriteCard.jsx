@@ -1,12 +1,21 @@
 // imports
 import { useFavorite } from "../context/favoriteContext"
 import { Link } from "react-router-dom"
+import { useState } from 'react'
 
 export default function FavoriteCard({ id, background_image, name, released }) {
     const { loading, removeFavorite } = useFavorite()
+    const [localLoading, setLocalLoading] = useState(false)
 
     const handleRemove = async () => {
-        await removeFavorite(id)
+        setLocalLoading(true)
+        try {
+            await removeFavorite(id)
+        } catch (err) {
+            console.error(err)
+        } finally {
+            setLocalLoading(false)
+        }
     }
 
     // return render
@@ -39,9 +48,9 @@ export default function FavoriteCard({ id, background_image, name, released }) {
 
                     <button
                         onClick={handleRemove}
-                        disabled={loading}
+                        disabled={localLoading} // opcional, para que no hagan click otra vez
                         className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
-                        remove
+                        {!localLoading ? 'remove' : 'removing'}
                     </button>
                 </div>
             </div>

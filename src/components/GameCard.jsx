@@ -8,7 +8,7 @@ export default function GameCard({ id, background_image, name, released }) {
     const { favorites, loading, addFavorite, removeFavorite } = useFavorite()
     const [localLoading, setLocalLoading] = useState(false)
 
-    // Se calcula en tiempo real con el estado global
+    // check is exist in favorites states
     const isFavorite = favorites.some(fav => fav.id === id)
 
     // handle add or remove

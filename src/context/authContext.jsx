@@ -31,8 +31,11 @@ export const AuthProvider = ({ children }) => {
 
             return data.result
         } catch (err) {
-            setError(err.response?.data?.message || "Registration failed")
-            return null
+            if (err.response?.status === 401) {
+                setError("User already registered")
+            } else {
+                setError("Registration failed")
+            }
         } finally {
             setLoading(false)
         }
@@ -55,7 +58,7 @@ export const AuthProvider = ({ children }) => {
 
             return result
         } catch (err) {
-            setError(err.response?.data?.message || "Login failed")
+            setError("User or passwor wrong")
             return null
         } finally {
             setLoading(false)

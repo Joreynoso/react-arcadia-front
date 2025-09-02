@@ -3,11 +3,31 @@ import FavoriteCard from './FavoriteCard'
 import { useFavorite } from '../context/favoriteContext'
 import LoadingCard from './LoadingCard'
 import GoBackButton from '../components/GoBackButton'
+import { useState } from 'react'
+import Pagination from './Pagination'
 
 export default function FavoritesList() {
     const { loading, error, favorites } = useFavorite()
+    const [currentPage, setCurrentPage] = useState(1)
+    const favoritesPerPage = 10
 
-    const favoritesList = favorites.map(favorite => (
+    // calculate visible favorites in current page
+    const firsFavoriteIndex = (currentPage - 1) * favoritesPerPage
+    const lasFavoriteIndex = firsFavoriteIndex + favoritesPerPage
+    const visibleFavorites = favorites.slice(firsFavoriteIndex, lasFavoriteIndex)
+
+    // totalPages
+    const totalPages = Math.ceil(favorites.length / favoritesPerPage)
+
+    // handle pagination
+    const handlePrevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1))
+    const handleNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages))
+
+    // condicional rendering
+    if (loading) return <LoadingCard />
+    if (error) return <p className='text-white text-lg'>{error}</p>
+
+    const favoritesList = visibleFavorites.map(favorite => (
         <div
             key={favorite.id}
             className='transition-transform duration-300 ease-in-out 
@@ -20,9 +40,6 @@ export default function FavoritesList() {
         </div>
     ))
 
-    if (loading) return <LoadingCard />
-    if (error) return <p className='text-white text-lg'>{error}</p>
-
     // render return
     return (
         <>
@@ -30,8 +47,16 @@ export default function FavoritesList() {
                 <h3 className='text-white mb-4 color-arcadia'>Oops! seems like you don't have added <br />any favorite game yet</h3>
                 <GoBackButton />
             </div>) : (
-                <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 max-w-6xl mb-10">
-                    {favoritesList}
+                <div className='w-full flex flex-col'>
+                    <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 max-w-6xl mb-10">
+                        {favoritesList}
+                    </div>
+                    <Pagination
+                        page={currentPage}
+                        totalPages={totalPages}
+                        handlePrev={handlePrevPage}
+                        handleNext={handleNextPage}
+                    />
                 </div>
             )}
         </>

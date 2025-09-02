@@ -1,11 +1,13 @@
 import { useState, createContext, useContext, useEffect } from 'react'
 import api from '../helper/api'
+import { useAuth } from './authContext'
 
 // crear contexto
 export const FavoriteContext = createContext(null)
 
 // provider
 export const FavoriteProvider = ({ children }) => {
+    const { token } = useAuth()
     const [favorites, setFavorites] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -71,8 +73,6 @@ export const FavoriteProvider = ({ children }) => {
             })
             setFavorites(prev => prev.filter(f => f.id !== gameId))
             showMessage(`${data.game.name} remove from favs!`)
-            console.log('mensaje', modalMessage)
-            console.log('modal state', modalOpen)
 
         } catch (err) {
             console.log('Error al eliminar favorito', err)
@@ -83,10 +83,13 @@ export const FavoriteProvider = ({ children }) => {
         }
     }
 
-    // cargar favoritos al inicio
     useEffect(() => {
-        getFavorites()
-    }, [])
+        if (token) {
+            getFavorites()
+        } else {
+            setFavorites([]) // limpiar favoritos si no hay token
+        }
+    }, [token])
 
     return (
         <FavoriteContext.Provider value={{

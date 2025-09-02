@@ -1,68 +1,113 @@
 import { useAuth } from '../context/authContext'
-import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 export default function Register() {
-    const { error, loading, register } = useAuth()
-    const [email, setEmail] = useState('')
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    const { error, loading, register: registerUser } = useAuth()
     const navigate = useNavigate()
 
-    const handleSubmit = async (e) => {
-        e.preventDefault()
-        const response = await register({ email, username, password })
+    // useForm hook destructuring
+    const {
+        register: registerField,
+        handleSubmit,
+        formState: { errors },
+    } = useForm({ mode: 'onChange' })
+
+    // validation rules
+    const emailRules = {
+        required: "Email is required",
+        pattern: {
+            value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+            message: "Invalid email"
+        }
+    }
+
+    const usernameRules = {
+        required: "Username is required",
+        minLength: {
+            value: 3,
+            message: "Username must be at least 3 characters"
+        }
+    }
+
+    const passwordRules = {
+        required: "Password is required",
+        minLength: {
+            value: 6,
+            message: "Password must be at least 6 characters"
+        }
+    }
+
+    const styleValidations = "ml-2 text-xs italic text-red-600 font-semibold leading-tight"
+
+    // handle form submit
+    const handleRegister = async (data) => {
+        const response = await registerUser(data) // data = { email, username, password }
 
         if (response) {
             console.log('Registro exitoso', response)
             navigate('/games')
-            // mostrar toastify o mensaje personalizado
         }
     }
 
-    // return render
     return (
         <div className='w-full h-full flex justify-center items-center px-4 xl:px-0 flex-1 mt-10 mb-10'>
             <div className='w-full sm:min-h-[400px] max-w-md rounded-2xl bg-card border-arcadia flex flex-col justify-center items-center sm:flex-row p-6 sm:p-10 md:p-10'>
 
-                {/* right form */}
                 <div className='flex flex-col w-full items-start'>
                     <h3 className='text-arcadia mb-6 text-lg sm:text-xl lg:text-2xl font-semibold'>
                         Begin your quest! <br />Create your game library.
                     </h3>
 
                     <form
-                        onSubmit={handleSubmit}
-                        className='w-full flex flex-col justify-center gap-6 items-start font-semibold'>
+                        onSubmit={handleSubmit(handleRegister)}
+                        className='w-full flex flex-col justify-center gap-5 items-start font-semibold'>
 
-                        <input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            placeholder='Type your email...'
-                            type="email"
-                            className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia'
-                        />
+                        {/* email */}
+                        <div className='w-full'>
+                            <input
+                                placeholder='Type your email...'
+                                {...registerField("email", emailRules)}
+                                type="email"
+                                className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia
+                                focus:outline-none focus:ring-2 focus:ring-[#A6755A] mb-2'
+                            />
+                            {errors.email && <p className={styleValidations}>{errors.email.message}</p>}
+                        </div>
 
-                        <input
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder='Type your username...'
-                            type="text"
-                            className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia'
-                        />
+                        {/* username */}
+                        <div className='w-full'>
+                            <input
+                                placeholder='Type your username...'
+                                {...registerField("username", usernameRules)}
+                                type="text"
+                                className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia
+                                focus:outline-none focus:ring-2 focus:ring-[#A6755A] mb-2'
+                            />
+                            {errors.username && <p className={styleValidations}>{errors.username.message}</p>}
+                        </div>
 
-                        <input
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder='Type your password...'
-                            type="password"
-                            className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia' />
+                        {/* password */}
+                        <div className='w-full'>
+                            <input
+                                placeholder='Type your password...'
+                                {...registerField("password", passwordRules)}
+                                type="password"
+                                className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia
+                                focus:outline-none focus:ring-2 focus:ring-[#A6755A] mb-2'
+                            />
+                            {errors.password && <p className={styleValidations}>{errors.password.message}</p>}
+                        </div>
 
+                        {/* submit button */}
                         <button
-                            type='submit' disabled={loading}
-                            className='bg-[#FF6108] px-4 py-2   uppercase text-white rounded-full text-sm cursor-pointer'>
-                            begins adventure
+                            type='submit'
+                            disabled={loading}
+                            className='bg-[#FF6108] px-4 py-2 uppercase text-white rounded-full text-sm cursor-pointer'>
+                            {loading ? 'Authenticating new user...' : 'Begin adventure'}
                         </button>
+
+                        {error && <span className="text-red-500">{error}</span>}
                     </form>
                 </div>
             </div>
