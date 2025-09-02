@@ -23,7 +23,6 @@ export default function Favorites() {
                     message={modalMessage}
                     onClose={() => setModalOpen(false)}
                 />
-
             </div>
         </>
     )

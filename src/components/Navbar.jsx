@@ -91,14 +91,14 @@ export default function Navbar() {
 
                     {user && (
                         <>
+                            <li><Link to="/profile" className="uppercase text-white">My Profile</Link></li>
+                            <li>
+                                <button onClick={logout} className="cursor-pointer uppercase text-white">logout</button>
+                            </li>
                             <li>
                                 <Link to="/favorites" className="uppercase bg-card border-arcadia text-[#7D4C38] rounded-full px-2 py-1 text-sm">
                                     my library
                                 </Link>
-                            </li>
-                            <li><Link to="/profile" className="uppercase text-white">My Profile</Link></li>
-                            <li>
-                                <button onClick={logout} className="cursor-pointer uppercase text-white">logout</button>
                             </li>
                         </>
                     )}

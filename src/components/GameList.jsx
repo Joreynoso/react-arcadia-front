@@ -9,39 +9,46 @@ import GameCard from './GameCard'
 import Pagination from './Pagination'
 
 export default function GameList() {
-    const { error, loading, games, getAllGames, searchGames } = useGame()
+    const { error, loading, games, getAllGames, searchGames, searchByDate } = useGame()
     const [searchParams, setSearchParams] = useSearchParams()
     const [totalPages, setTotalPages] = useState()
 
     const limit = 20
     const page = parseInt(searchParams.get('page')) || 1
     const query = searchParams.get('q') || ''
+    const sort = searchParams.get('sort') || ''
 
     // load games (búsqueda o todos)
     useEffect(() => {
         const fetchGames = async () => {
             let data
             if (query) {
-                data = await searchGames(query, page, limit) // usa endpoint /search
+                // búsqueda por nombre
+                data = await searchGames(query, page, limit)
+            } else if (sort) {
+                // búsqueda por fecha
+                data = await searchByDate(page, limit, sort)
             } else {
+                // todos los juegos
                 data = await getAllGames(page, limit)
             }
+
             if (data?.totalPages) {
                 setTotalPages(data.totalPages)
             }
         }
         fetchGames()
-    }, [page, query])
+    }, [page, query, sort])
 
     // handle pagination
     const handlePrev = () => {
         if (page > 1) {
-            setSearchParams({ q: query, page: page - 1 })
+            setSearchParams({ q: query, sort, page: page - 1 })
         }
     }
 
     const handleNext = () => {
-        setSearchParams({ q: query, page: page + 1 })
+        setSearchParams({ q: query, sort, page: page + 1 })
     }
 
     // condicional rendering

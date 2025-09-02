@@ -66,11 +66,31 @@ export const GameProvider = ({ children }) => {
         setLoading(true)
         setError(null)
         try {
-            const { data } = await api.get(`/api/games/search?q=${encodeURIComponent(query)}&limit=${limit}&page=${page}`)
+            const { data } = await api.get('/api/games/search', {
+                params: { q: query, page, limit }
+            })
             setGames(data.games || [])
             return data
         } catch (err) {
             setError("We couldn't find the game.")
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    // --> search games by released date
+    const searchByDate = async (page = 1, limit = 20, sort = 'desc') => {
+        setLoading(true)
+        setError(null)
+
+        try {
+            const { data } = await api.get(`/api/games/released`, {
+                params: { sort, page, limit }
+            })
+            setGames(data.games || [])
+            return data
+        } catch (error) {
+            setError("Error to sort games by date")
         } finally {
             setLoading(false)
         }
@@ -86,6 +106,7 @@ export const GameProvider = ({ children }) => {
             getGameById,
             getSummary,
             searchGames,
+            searchByDate,
         }}>
             {children}
         </GameContext.Provider>

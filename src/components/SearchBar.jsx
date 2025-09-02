@@ -5,6 +5,9 @@ export default function SearchBar() {
     const [searchQuery, setSearchQuery] = useState("")
     const [searchParams, setSearchParams] = useSearchParams()
 
+    // handle UI toggle
+    const [activeSort, setActiveSort] = useState(null) // 'desc' o 'asc'
+
     // handle search submit
     const handleSearch = (e) => {
         e.preventDefault()
@@ -45,18 +48,37 @@ export default function SearchBar() {
 
             {/* buttons */}
             <div className="w-full sm:w-1/2 flex sm:flex-row gap-2">
-                <button className="w-full flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia 
-                borde-arcadia rounded-full px-3 py-2 cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors">
+                <button
+                    onClick={() => {
+                        setSearchParams({ page: 1, sort: "desc" })
+                        setActiveSort("desc")
+                    }}
+                    className={`
+                        w-full flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia 
+                        borde-arcadia rounded-full px-3 py-2 cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors
+                        ${activeSort === "desc" ? "shadow-inner shadow-black/70" : ""}
+                    `}
+                >
                     newest
                 </button>
-                <button className="w-full flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia 
-                borde-arcadia rounded-full px-3 py-2 cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors">
+                <button
+                    onClick={() => {
+                        setSearchParams({ page: 1, sort: "asc" })
+                        setActiveSort("asc")
+                    }}
+                    className={`
+                        w-full flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia 
+                        borde-arcadia rounded-full px-3 py-2 cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors
+                        ${activeSort === "asc" ? "shadow-inner shadow-black/70" : ""}
+                    `}
+                >
                     oldest
                 </button>
                 <button
                     onClick={() => {
                         setSearchQuery("")
                         setSearchParams({})
+                        setActiveSort(null)
                     }}
                     className="w-full flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia 
                     borde-arcadia rounded-full px-3 py-2 cursor-pointer border border-white/60"
