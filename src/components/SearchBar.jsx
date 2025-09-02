@@ -8,7 +8,7 @@ export default function SearchBar() {
     // handle search submit
     const handleSearch = (e) => {
         e.preventDefault()
-        setSearchParams({ q: searchQuery, page: 1 }) // reinicia a la primera página
+        setSearchParams({ q: searchQuery, page: 1 })
     }
 
     const searchIcon = (
@@ -21,11 +21,11 @@ export default function SearchBar() {
     )
 
     return (
-        <div className="w-full max-w-6xl mb-6 mx-auto flex flex-col sm:flex-row gap-2">
+        <div className="w-full max-w-6xl mb-6 mx-auto flex flex-col sm:flex-row gap-4">
             {/* searchbar */}
             <form
                 onSubmit={handleSearch}
-                className="bg-card rounded-full px-5 py-3 text-sm w-full sm:w-1/2 flex items-center gap-2"
+                className="bg-card rounded-full px-3 py-2 text-sm w-full sm:w-1/2 flex items-center gap-2"
             >
                 <input
                     type="text"
@@ -36,18 +36,21 @@ export default function SearchBar() {
                 />
                 <button
                     type="submit"
-                    className="h-9 w-9 rounded-full aspect-square bg-orange-500 flex items-center justify-center text-white cursor-pointer"
+                    className="h-9 w-9 rounded-full aspect-square flex items-center justify-center text-white 
+                    cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors"
                 >
                     {searchIcon}
                 </button>
             </form>
 
             {/* buttons */}
-            <div className="w-full sm:w-1/2 flex flex-col sm:flex-row gap-2">
-                <button className="w-full sm:flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia borde-arcadia rounded-full px-3 py-2 cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors">
+            <div className="w-full sm:w-1/2 flex sm:flex-row gap-2">
+                <button className="w-full flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia 
+                borde-arcadia rounded-full px-3 py-2 cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors">
                     newest
                 </button>
-                <button className="w-full sm:flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia borde-arcadia rounded-full px-3 py-2 cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors">
+                <button className="w-full flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia 
+                borde-arcadia rounded-full px-3 py-2 cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors">
                     oldest
                 </button>
                 <button
@@ -55,7 +58,8 @@ export default function SearchBar() {
                         setSearchQuery("")
                         setSearchParams({})
                     }}
-                    className="w-full sm:flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia borde-arcadia rounded-full px-3 py-2 cursor-pointer ring-2"
+                    className="w-full flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia 
+                    borde-arcadia rounded-full px-3 py-2 cursor-pointer border border-white/60"
                 >
                     clear
                 </button>

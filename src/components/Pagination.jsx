@@ -15,8 +15,8 @@ export default function Pagination({ page, totalPages, handlePrev, handleNext })
                 <button
                     onClick={handlePrev}
                     disabled={page <= 1}
-                    className='cursor-pointer h-10 w-10 rounded-full bg-[#FF6108] flex justify-center items-center 
-                    text-white transform scale-x-[-1] disabled:bg-gray-400'>
+                    className='cursor-pointer h-10 w-10 rounded-full flex justify-center items-center 
+                    text-white transform scale-x-[-1] disabled:bg-gray-400 bg-[#FF6108] hover:bg-[#e45507] transition-colors'>
                     {arrowIcon}
                 </button>
 
@@ -27,8 +27,8 @@ export default function Pagination({ page, totalPages, handlePrev, handleNext })
                 <button
                     disabled={page === totalPages}
                     onClick={handleNext}
-                    className='cursor-pointer h-10 w-10 rounded-full bg-[#FF6108] flex justify-center items-center 
-                    text-white disabled:bg-gray-400'>
+                    className='cursor-pointer h-10 w-10 rounded-full flex justify-center items-center 
+                    text-white disabled:bg-gray-400 bg-[#FF6108] hover:bg-[#e45507] transition-colors'>
                     {arrowIcon}
                 </button>
             </div>

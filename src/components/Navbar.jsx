@@ -54,8 +54,8 @@ export default function Navbar() {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 w-full sm:hidden bg-card rounded-2xl border-arcadia shadow-xl flex flex-col items-center py-6 z-50 text-[#7D4C38]">
-                    <Link to="/games" className="uppercase text-[#7D4C38]">games</Link>
+                    className="absolute top-full left-1/2 -translate-x-1/2 w-full sm:hidden bg-card rounded-2xl 
+                    border-arcadia shadow-xl flex flex-col items-center py-6 z-50 text-[#7D4C38]">
 
                     {!user && (
                         <>
@@ -66,11 +66,12 @@ export default function Navbar() {
 
                     {user && (
                         <>
-                            <Link to="/profile" className="uppercase text-[#7D4C38]">profile ({user.username})</Link>
-                            <button onClick={handleLogOut} className="cursor-pointer uppercase text-[#7D4C38] mt-2">logout</button>
                             <Link to="/favorites" className="uppercase bg-[#FF6108] border-2 border-[#7D4C38] text-white text-sm rounded-full px-3 py-2 mt-2">
                                 my library
                             </Link>
+                            <Link to="/games" className="uppercase text-[#7D4C38]">games</Link>
+                            <Link to="/profile" className="uppercase text-[#7D4C38]">My profile</Link>
+                            <button onClick={handleLogOut} className="cursor-pointer uppercase text-[#7D4C38] mt-2">logout</button>
                         </>
                     )}
                 </motion.div>
@@ -90,14 +91,14 @@ export default function Navbar() {
 
                     {user && (
                         <>
-                            <li><Link to="/profile" className="uppercase text-white">Profile ({user.username})</Link></li>
-                            <li>
-                                <button onClick={logout} className="cursor-pointer uppercase text-white">logout</button>
-                            </li>
                             <li>
                                 <Link to="/favorites" className="uppercase bg-card border-arcadia text-[#7D4C38] rounded-full px-2 py-1 text-sm">
                                     my library
                                 </Link>
+                            </li>
+                            <li><Link to="/profile" className="uppercase text-white">My Profile</Link></li>
+                            <li>
+                                <button onClick={logout} className="cursor-pointer uppercase text-white">logout</button>
                             </li>
                         </>
                     )}
