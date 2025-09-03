@@ -2,7 +2,8 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'https://react-arcadia.onrender.com'
+  baseURL: import.meta.env.VITE_API_URL, // aquí usamos la variable
+  withCredentials: true // si tu backend usa cookies
 })
 
 api.interceptors.request.use(config => {
