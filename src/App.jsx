@@ -16,6 +16,8 @@ import Favorites from './pages/Favorites'
 import GameCreate from './pages/GameCreate'
 import GameUpdate from './pages/GameUpdate'
 
+import PrivateRoute from './router/PrivateRoute'
+
 function App() {
   return (
     <>
@@ -24,12 +26,20 @@ function App() {
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
 
-            {/* Games routes */}
+            {/* routes games */}
             <Route path="games">
-              <Route index element={<Games />} />
-              <Route path="add" element={<GameCreate />} />
-              <Route path=":id" element={<GameDetail />} />
-              <Route path=":id/edit" element={<GameUpdate />} />
+              <Route element={<PrivateRoute requiredPermission="read:games" />}>
+                <Route index element={<Games />} />
+                <Route path=":id" element={<GameDetail />} />
+              </Route>
+
+              <Route element={<PrivateRoute requiredPermission="create:game" />}>
+                <Route path="add" element={<GameCreate />} />
+              </Route>
+
+              <Route element={<PrivateRoute requiredPermission="update:game" />}>
+                <Route path=":id/edit" element={<GameUpdate />} />
+              </Route>
             </Route>
 
             {/* login / register route */}

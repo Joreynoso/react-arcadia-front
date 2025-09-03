@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from "react"
 import axios from "axios"
+import api from '../helper/api'
 
 export const AuthContext = createContext(null)
 
@@ -65,6 +66,22 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
+    // --> fetch /me
+    const fetchMe = async () => {
+        try {
+            const { data } = await api.get("api/user/me")
+            return data
+        } catch (err) {
+            console.error("No se pudo cargar usuario:", err)
+            return null
+        }
+    }
+
+    // --> check permissions
+    const hasPermission = (perm) => {
+        return user?.permissions?.includes(perm)
+    }
+
     // --> logout
     const logout = () => {
         setUser(null)
@@ -74,16 +91,34 @@ export const AuthProvider = ({ children }) => {
     }
 
     // --> load user & token from localStorage on mount
+    // --> cargar usuario al montar el provider
     useEffect(() => {
-        const storedUser = localStorage.getItem("user")
-        const storedToken = localStorage.getItem("token")
+        const loadUser = async () => {
+            setLoading(true)
+            const token = localStorage.getItem("token")
+            if (!token) {
+                setLoading(false)
+                return
+            }
 
-        if (storedUser) setUser(JSON.parse(storedUser))
-        if (storedToken) setToken(storedToken)
+            const userData = await fetchMe()
+            setUser(userData)
+            setLoading(false)
+        }
+        loadUser()
     }, [])
 
     return (
-        <AuthContext.Provider value={{ user, token, loading, error, register, login, logout }}>
+        <AuthContext.Provider value={{
+            user,
+            token,
+            loading,
+            error,
+            register,
+            login,
+            logout,
+            hasPermission
+        }}>
             {children}
         </AuthContext.Provider>
     )

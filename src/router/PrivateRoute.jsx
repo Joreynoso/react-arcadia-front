@@ -1,20 +1,19 @@
-// import
-import { Navigate } from "react-router-dom"
-import { useAuth } from '../context/authContext'
+import { Navigate, Outlet } from "react-router-dom"
+import { useAuth } from "../context/authContext"
 
-export default function PrivateRoute({ children, permission }) {
+const PrivateRoute = ({ requiredPermission }) => {
+    const { user, hasPermission } = useAuth()
 
-    // context
-    const { user } = useAuth()
+    // si no está logueado → redirige a login
+    if (!user) return <Navigate to="/login" replace />
 
-    // if are not user loggin, redirecto to login
-    if (!user) return <Navigate to={'/login'}/>
-
-    // check if exist user has permission or not
-    if (!permission && !user.permission?.includes(permission)) {
-       return <Navigate to={'/403'} replace/> // prevent user click "back button"
+    // si se requiere un permiso y no lo tiene → redirige a 403
+    if (requiredPermission && !hasPermission(requiredPermission)) {
+        return <Navigate to="/403" replace />
     }
 
-    // all valid, pass through
-    return children
+    // si todo está bien → renderiza las rutas hijas
+    return <Outlet />
 }
+
+export default PrivateRoute
