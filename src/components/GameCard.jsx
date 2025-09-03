@@ -108,7 +108,6 @@ export default function GameCard({ id, background_image, name, released, hasImag
                         isFavorite ? iconStarFilled : iconStar
                     )}
                 </button>
-
             </div>
         </>
     )

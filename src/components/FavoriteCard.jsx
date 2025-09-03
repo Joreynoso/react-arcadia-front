@@ -4,21 +4,9 @@ import { Link } from "react-router-dom"
 import { useState } from 'react'
 
 import GameNotImage from "./GameNotImage"
+import ModalConfirm from "./ModalConfirm"
 
-export default function FavoriteCard({ id, background_image, name, released, hasImage }) {
-    const { removeFavorite } = useFavorite()
-    const [localLoading, setLocalLoading] = useState(false)
-
-    const handleRemove = async () => {
-        setLocalLoading(true)
-        try {
-            await removeFavorite(id)
-        } catch (err) {
-            console.error(err)
-        } finally {
-            setLocalLoading(false)
-        }
-    }
+export default function FavoriteCard({ id, background_image, name, released, hasImage, onRemoveRequest }) {
 
     // return render
     return (
@@ -53,10 +41,9 @@ export default function FavoriteCard({ id, background_image, name, released, has
                     </Link>
 
                     <button
-                        onClick={handleRemove}
-                        disabled={localLoading} // opcional, para que no hagan click otra vez
+                        onClick={onRemoveRequest}
                         className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
-                        {!localLoading ? 'remove' : 'removing'}
+                        remove
                     </button>
                 </div>
             </div>

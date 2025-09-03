@@ -1,9 +1,9 @@
 // import components
-import ActionSection from '../components/ActionSection'
 import HeroSection from '../components/HeroSection'
 import InfoSection from '../components/InfoSection'
 import CloudSection from '../components/CloudSection'
-''
+import CardsSection from '../components/CardsSection'
+
 export default function Home() {
 
     // return render
@@ -13,6 +13,7 @@ export default function Home() {
                 <HeroSection />
                 <InfoSection />
                 <CloudSection />
+                <CardsSection />
             </div>
         </>
     )

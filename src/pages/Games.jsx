@@ -1,5 +1,5 @@
 // imports
-import SearchBar from "../components/SearchBar"
+import GameSearch from "../components/GameSearch"
 import GameList from "../components/GameList"
 import ModalMessage from "../components/ModalMessage"
 import { useFavorite } from "../context/favoriteContext"
@@ -16,7 +16,7 @@ export default function Games() {
             </h3>
 
             {/* search */}
-            <SearchBar />
+            <GameSearch />
 
             {/* list */}
             <GameList />

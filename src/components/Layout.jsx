@@ -2,6 +2,7 @@
 import { Outlet } from "react-router-dom"
 import Navbar from './Navbar'
 import FooterSection from './FooterSection'
+import SizeScreenHelper from "./SizeScreenHelper"
 
 export default function Layout() {
 
@@ -14,6 +15,7 @@ export default function Layout() {
                     <Outlet />
                 </div>
                 <FooterSection />
+                <SizeScreenHelper/>
             </div>
         </>
     )

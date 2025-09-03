@@ -1,70 +1,106 @@
-// import
+// imports
 import { useFavorite } from '../context/favoriteContext'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import LoadingCard from './LoadingCard'
 import GoBackButton from './GoBackButton'
 import FavoriteCard from './FavoriteCard'
 import Pagination from './Pagination'
+import ModalConfirm from './ModalConfirm'
 
-export default function FavoritesList() {
-    const { loading, error, favorites } = useFavorite()
-    const [currentPage, setCurrentPage] = useState(1)
-    const favoritesPerPage = 10
+export default function FavoritesList({ searchQuery }) {
+  const { loading, error, favorites, removeFavorite } = useFavorite()
+  const [confirmOpen, setConfirmOpen] = useState(false)
+  const [selectedFavorite, setSelectedFavorite] = useState(null)
+  const [currentPage, setCurrentPage] = useState(1)
+  const favoritesPerPage = 10
 
-    // calculate visible favorites in current page
-    const firsFavoriteIndex = (currentPage - 1) * favoritesPerPage
-    const lasFavoriteIndex = firsFavoriteIndex + favoritesPerPage
-    const visibleFavorites = favorites.slice(firsFavoriteIndex, lasFavoriteIndex)
+  // reset to re-search
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchQuery])
 
-    // totalPages
-    const totalPages = Math.ceil(favorites.length / favoritesPerPage)
+  if (loading) return <LoadingCard />
+  if (error) return <p className="text-white">{error}</p>
 
-    // handle pagination
-    const handlePrevPage = () => setCurrentPage(prev => Math.max(prev - 1, 1))
-    const handleNextPage = () => setCurrentPage(prev => Math.min(prev + 1, totalPages))
+  // filter favorites, searchQuery comes from /favorites FavoriteSearch
+  const filteredFavorites = favorites.filter(fav =>
+    fav.name.toLowerCase().includes(searchQuery.toLowerCase())
+  )
 
-    // condicional rendering
-    if (loading) return <LoadingCard />
-    if (error) return <p className='text-white text-lg'>{error}</p>
+  // calc index for pagination
+  const firstFavoriteIndex = (currentPage - 1) * favoritesPerPage
+  const lastFavoriteIndex = firstFavoriteIndex + favoritesPerPage
+  const visibleFavorites = filteredFavorites.slice(firstFavoriteIndex, lastFavoriteIndex)
 
-    const favoritesList = visibleFavorites.map(favorite => {
-        const hasImage = !!favorite.background_image
-        return (
-            <div
-                key={favorite.id}
-                className='transition-transform duration-300 ease-in-out hover:-translate-y-2'
-            >
-                <FavoriteCard
-                    id={favorite.id}
-                    name={favorite.name}
-                    released={favorite.released}
-                    background_image={favorite.background_image}
-                    hasImage={hasImage}
-                />
-            </div>
-        )
-    })
+  // calc total pages for results
+  const totalPages = Math.ceil(filteredFavorites.length / favoritesPerPage)
 
-    // render return
+  // modal confirm
+  const handleRemoveRequest = (favorite) => {
+    setSelectedFavorite(favorite)
+    setConfirmOpen(true)
+  }
+
+  const closeModal = () => {
+    setConfirmOpen(false)
+    setSelectedFavorite(null)
+  }
+
+  const confirmRemove = async () => {
+    if (!selectedFavorite) return
+    await removeFavorite(selectedFavorite.id)
+    closeModal()
+  }
+
+  // render favorites map lis
+  const favoritesList = visibleFavorites.map(fav => {
+    const hasImage = !!fav.background_image
     return (
-        <>
-            {favorites.length === 0 ? (<div className='w-full text-center flex flex-col justify-center items-center'>
-                <h3 className='text-white mb-4 color-arcadia'>Oops! seems like you don't have added <br />any favorite game yet</h3>
-                <GoBackButton />
-            </div>) : (
-                <div className='w-full flex flex-col'>
-                    <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-10">
-                        {favoritesList}
-                    </div>
-                    <Pagination
-                        page={currentPage}
-                        totalPages={totalPages}
-                        handlePrev={handlePrevPage}
-                        handleNext={handleNextPage}
-                    />
-                </div>
-            )}
-        </>
+      <div key={fav.id} className='transition-transform duration-300 ease-in-out hover:-translate-y-2'>
+        <FavoriteCard
+          {...fav}
+          hasImage={hasImage}
+          onRemoveRequest={() => handleRemoveRequest(fav)}
+        />
+      </div>
     )
+  })
+
+  // 🔹 Render
+  if (favorites.length === 0) {
+    return (
+      <div className='w-full text-center flex flex-col justify-center items-center'>
+        <h3 className='text-white mb-4 color-arcadia'>
+          Oops! seems like you don't have added <br />any favorite game yet
+        </h3>
+        <GoBackButton />
+      </div>
+    )
+  }
+
+  return (
+    <div className='w-full flex flex-col'>
+      {/* Favoritos */}
+      <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-10">
+        {favoritesList}
+      </div>
+
+      {/* Paginación */}
+        <Pagination
+          page={currentPage}
+          totalPages={totalPages}
+          handlePrev={() => setCurrentPage(p => Math.max(p - 1, 1))}
+          handleNext={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
+        />
+
+      {/* Modal de confirmación */}
+      <ModalConfirm
+        open={confirmOpen}
+        message={`Remove "${selectedFavorite?.name}" from favorites?`}
+        onConfirm={confirmRemove}
+        onCancel={closeModal}
+      />
+    </div>
+  )
 }
