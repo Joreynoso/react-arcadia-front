@@ -1,9 +1,9 @@
 // imports
-import { useFavorite } from "../../context/favoriteContext"
+import { useFavorite } from "../context/favoriteContext"
 import { Link } from "react-router-dom"
 import { useState } from 'react'
 
-import GameNotImage from "../games/GameNotImage"
+import GameNotImage from "./GameNotImage"
 
 export default function FavoriteCard({ id, background_image, name, released, hasImage }) {
     const { removeFavorite } = useFavorite()

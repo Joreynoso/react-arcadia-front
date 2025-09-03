@@ -1,6 +1,6 @@
 // imports
 import { Link } from 'react-router-dom'
-import { useFavorite } from '../../context/favoriteContext'
+import { useFavorite } from '../context/favoriteContext'
 import { useState } from 'react'
 
 import GameNotImage from './GameNotImage'

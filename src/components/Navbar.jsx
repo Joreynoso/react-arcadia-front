@@ -54,8 +54,8 @@ export default function Navbar() {
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="absolute top-full left-1/2 -translate-x-1/2 w-full sm:hidden bg-card rounded-2xl 
-                    border-arcadia shadow-xl flex flex-col items-center py-6 z-50 text-[#7D4C38] gap-2">
+                    className="w-[95%] absolute top-full left-1/2 -translate-x-1/2 sm:hidden bg-card rounded-2xl 
+                    border-arcadia shadow-xl flex flex-col items-center py-6 z-50 text-[#7D4C38] px-4">
 
                     {!user && (
                         <>

@@ -16,10 +16,10 @@ export default function SummaryModal({ open, onClose, message }) {
                 <img
                     src={MagicBook}
                     alt="magicBook"
-                    className="w-32 h-32 sm:w-42 sm:h-42 absolute -top-12 sm:-top-18 left-1/2 transform -translate-x-1/2 object-contain z-50"
+                    className="w-32 h-32 sm:w-42 sm:h-42 absolute -top-16 sm:-top-18 left-1/2 transform -translate-x-1/2 object-contain z-50"
                 />
 
-                <p className="text-arcadia text-xs sm:text-base leading-relaxed mb-6 whitespace-pre-line mt-12">
+                <p className="text-arcadia text-xs sm:text-base leading-relaxed mb-6 whitespace-pre-line mt-10 sm:mt-5">
                     {message}
                 </p>
 

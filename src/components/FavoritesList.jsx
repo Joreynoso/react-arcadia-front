@@ -1,11 +1,11 @@
 // import
-import { useFavorite } from '../../context/favoriteContext'
+import { useFavorite } from '../context/favoriteContext'
 import { useState } from 'react'
 
-import LoadingCard from '../LoadingCard'
-import GoBackButton from '../../components/GoBackButton'
+import LoadingCard from './LoadingCard'
+import GoBackButton from './GoBackButton'
 import FavoriteCard from './FavoriteCard'
-import Pagination from '../Pagination'
+import Pagination from './Pagination'
 
 export default function FavoritesList() {
     const { loading, error, favorites } = useFavorite()

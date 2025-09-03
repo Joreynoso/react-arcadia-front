@@ -1,23 +1,37 @@
 // imports
 import LeftCloud from '../images/leftCloud.svg'
-import RigthCloud from '../images/rightCloud.svg'
+import RightCloud from '../images/rightCloud.svg'
+import { Link } from 'react-router-dom'
 
 export default function CloudSection() {
-
-    // return render
     return (
-        <>
-            {/* clouds section */}
-            <div className='relative w-full sm:min-h-[600px] min-h-[300px] flex flex-col justify-center items-center flex-1 mt-20 border border-red-200'>
+        <section className="relative w-full min-h-[400px] sm:min-h-[700px] flex flex-col justify-center items-center mt-20 overflow-visible">
 
-                {/* title */}
-                <h3 className="uppercase text-2xl md:text-3xl lg:text-4xl xl:text-5xl sm:max-w-2xl max-w-lg leading-snug text-white text-center">
-                    Explore more than<span className='color-arcadia'><br />+500 games</span>
-                </h3>
+            {/* title */}
+            <h3 className="uppercase text-2xl md:text-3xl lg:text-4xl xl:text-5xl max-w-lg sm:max-w-2xl
+             text-white text-center leading-snug z-10 mb-4">
+                Explore more than
+                <span className="color-arcadia">
+                    <br />+500 games
+                </span>
+            </h3>
 
-                <img src={LeftCloud} alt="lefCloud" className='absolute left-0 w-[30%] mt-20'/>
-                <img src={RigthCloud} alt="lefCloud" className='absolute right-0 w-[30%] mb-20'/>
-            </div>
-        </>
+            {/* clouds */}
+            <img
+                src={LeftCloud}
+                alt="left cloud"
+                className="absolute left-0 top-1/2 -translate-y-1/2 w-[40%] sm:w-[35%] h-auto"
+            />
+            <img
+                src={RightCloud}
+                alt="right cloud"
+                className="absolute right-0 top-1/2 -translate-y-1/2 w-[40%] sm:w-[35%] h-auto"
+            />
+
+            <Link to="/games" className="inline-block uppercase bg-card border-arcadia text-[#7D4C38] rounded-full px-4 py-2 text-sm">
+                discover games!
+            </Link>
+
+        </section>
     )
 }

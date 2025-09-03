@@ -1,12 +1,12 @@
 import { useParams } from "react-router-dom"
-import { useGame } from '../../context/gamesContext'
+import { useGame } from '../context/gamesContext'
 import { useState, useEffect } from 'react'
-import { useFavorite } from "../../context/favoriteContext"
+import { useFavorite } from "../context/favoriteContext"
 
-import LoadingCard from '../LoadingCard'
-import ModalSummary from '../ModalSummary'
+import LoadingCard from './LoadingCard'
+import ModalSummary from './ModalSummary'
 import GameInfoCard from "./GameInfoCard"
-import ErrorCard from "../ErrorCard"
+import ErrorCard from "./ErrorCard"
 
 export default function GameDetail() {
     const [game, setGame] = useState(null)
@@ -22,7 +22,7 @@ export default function GameDetail() {
         fetchGame()
     }, [id])
 
-    if (error) return <ErrorCard message={error}/>
+    if (error) return <ErrorCard message={error} />
     if (!game) return <LoadingCard />
 
     const hasImage = !!game.background_image

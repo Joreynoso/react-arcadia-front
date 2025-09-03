@@ -9,7 +9,7 @@ export default function Home() {
     // return render
     return (
         <>
-            <div className='w-full h-full flex flex-col justify-center items-center xl:px-0 flex-1'>
+            <div className='w-full min-h-screen flex flex-col justify-center items-center xl:px-0'>
                 <HeroSection />
                 <InfoSection />
                 <CloudSection />

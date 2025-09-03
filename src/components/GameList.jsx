@@ -1,12 +1,12 @@
 // imports
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
-import { useGame } from '../../context/gamesContext'
+import { useGame } from '../context/gamesContext'
 
 // components
-import LoadingCard from '../LoadingCard'
+import LoadingCard from './LoadingCard'
 import GameCard from './GameCard'
-import Pagination from '../Pagination'
+import Pagination from './Pagination'
 
 export default function GameList() {
     const { error, loading, games, getAllGames, searchGames, searchByDate } = useGame()

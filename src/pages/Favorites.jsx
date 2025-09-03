@@ -1,5 +1,5 @@
 // import
-import FavoritesList from '../components/favorites/FavoritesList'
+import FavoritesList from '../components/FavoritesList'
 import ModalMessage from "../components/ModalMessage"
 import { useFavorite } from "../context/favoriteContext"
 

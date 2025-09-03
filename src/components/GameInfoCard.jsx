@@ -1,7 +1,7 @@
-import { GenreIcon, IconBook, CalendarIcon, FavoriteIcon } from '../../helper/icons'
+import { GenreIcon, IconBook, CalendarIcon, FavoriteIcon } from '../helper/icons'
 import { useState } from 'react'
-import { useGame } from '../../context/gamesContext'
-import GameNotImage from '../games/GameNotImage'
+import { useGame } from '../context/gamesContext'
+import GameNotImage from './GameNotImage'
 
 
 export default function GameInfoCard({ game, hasImage, isInFavorites, id }) {
@@ -17,8 +17,9 @@ export default function GameInfoCard({ game, hasImage, isInFavorites, id }) {
 
     return (
         <>
-            <div className="w-full rounded-xl bg-card border-arcadia flex items-center p-4 box-border">
-                <div className="w-full h-full rounded-lg bg-[#FCCE9F] border-arcadia overflow-hidden">
+            {/* contenedor de imagen con proporción fija */}
+            <div className="w-full rounded-xl bg-card border-arcadia overflow-hidden p-5">
+                <div className="w-full rounded-lg bg-[#FCCE9F] border-arcadia overflow-hidden aspect-[16/9]">
                     {hasImage ? (
                         <img
                             src={game.background_image}
@@ -55,7 +56,7 @@ export default function GameInfoCard({ game, hasImage, isInFavorites, id }) {
                     </p>
                 </div>
 
-                {/* isInFavorites? */}
+                {/* isInFavorites */}
                 <div className="w-full bg-[#ECC799] p-2 rounded-full text-arcadia flex items-center gap-2">
                     <span className="bg-[#DB8E6B]/70 w-8 h-8 rounded-full aspect-square flex justify-center items-center">
                         <FavoriteIcon />
@@ -79,11 +80,12 @@ export default function GameInfoCard({ game, hasImage, isInFavorites, id }) {
                     </div>
                 </div>
 
+                {/* botón generar resumen */}
                 <button
                     onClick={handleSummary}
                     className="w-full px-4 py-2 uppercase text-sm text-white 
-                    cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors 
-                    rounded-full flex gap-2 items-center"
+                cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors 
+                rounded-full flex gap-2 items-center"
                 >
                     <span><IconBook /></span>
                     {localLoading ? 'generating...' : 'generated ai description'}

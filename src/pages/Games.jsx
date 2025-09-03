@@ -1,6 +1,6 @@
 // imports
 import SearchBar from "../components/SearchBar"
-import GameList from "../components/games/GameList"
+import GameList from "../components/GameList"
 import ModalMessage from "../components/ModalMessage"
 import { useFavorite } from "../context/favoriteContext"
 
