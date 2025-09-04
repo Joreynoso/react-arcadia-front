@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useSearchParams, Link } from "react-router-dom"
 
 export default function SearchBar() {
@@ -8,6 +8,12 @@ export default function SearchBar() {
     // handle UI toggle
     const [activeSort, setActiveSort] = useState(null) // 'desc' o 'asc'
 
+    // sincronizar el input con la URL
+    useEffect(() => {
+        const q = searchParams.get('q') || ""
+        setSearchQuery(q)
+    }, [searchParams])
+
     // handle search submit
     const handleSearch = (e) => {
         e.preventDefault()
@@ -15,6 +21,7 @@ export default function SearchBar() {
         if (!searchQuery.trim()) {
             return // do nothing
         }
+        setActiveSort(null) // desactiva los botones de sort
         setSearchParams({ q: searchQuery, page: 1 })
     }
 
@@ -54,6 +61,7 @@ export default function SearchBar() {
             <div className="w-full sm:w-2/3 flex sm:flex-row gap-2">
                 <button
                     onClick={() => {
+                        setSearchQuery("")
                         setSearchParams({ page: 1, sort: "desc" })
                         setActiveSort("desc")
                     }}
@@ -67,6 +75,7 @@ export default function SearchBar() {
                 </button>
                 <button
                     onClick={() => {
+                        setSearchQuery("")
                         setSearchParams({ page: 1, sort: "asc" })
                         setActiveSort("asc")
                     }}

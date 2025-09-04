@@ -10,6 +10,7 @@ import { useForm } from 'react-hook-form'
 
 export default function GameUpdate() {
     const [currentGame, setCurrentGame] = useState(null)
+    const [redirecting, setRedirecting] = useState(false)
     const { error, loading, games, updateGame } = useGame()
     const { id } = useParams()
     const navigate = useNavigate()
@@ -29,6 +30,7 @@ export default function GameUpdate() {
                 platforms: gameFound.platforms.join(', '),
                 genres: gameFound.genres.join(', ')
             })
+
             setCurrentGame(gameFound)
         }
     }, [id, games, reset])
@@ -38,16 +40,17 @@ export default function GameUpdate() {
             const payload = {
                 ...data,
                 platforms: data.platforms
-                .split(',')
-                .map(p => p.trim())
-                .filter(p => p !== ''),
+                    .split(',')
+                    .map(p => p.trim())
+                    .filter(p => p !== ''),
                 genres: data.genres
-                .split(',')
-                .map(g => g.trim())
-                .filter(p => p !== '')
+                    .split(',')
+                    .map(g => g.trim())
+                    .filter(p => p !== '')
             }
 
             await updateGame(id, payload)
+            setRedirecting(true)
             navigate('/games')
         } catch (error) {
             console.error(error)
@@ -55,7 +58,7 @@ export default function GameUpdate() {
     }
 
     // condicional rendering
-    if (loading) return <LoadingCard />
+    if (loading || redirecting) return <LoadingCard />
     if (error) return <ErrorCard />
 
     // validations rules

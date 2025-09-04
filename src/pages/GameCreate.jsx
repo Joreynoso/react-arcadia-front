@@ -6,9 +6,11 @@ import LoadingCard from '../components/LoadingCard'
 import { useGame } from '../context/gamesContext'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
+import { useState } from 'react'
 
 export default function GameUpdate() {
     const { error, loading, createGame } = useGame()
+    const [redirecting, setRedirecting] = useState(false)
     const navigate = useNavigate()
 
     // useForm hook desctructuring
@@ -34,6 +36,7 @@ export default function GameUpdate() {
             }
 
             await createGame(payload)
+            setRedirecting(true)
             navigate("/games")
         } catch (error) {
             console.error(error)
@@ -41,7 +44,7 @@ export default function GameUpdate() {
     }
 
     // condicional rendering
-    if (loading) return <LoadingCard />
+    if (loading || redirecting) return <LoadingCard />
     if (error) return <ErrorCard />
 
     // validations rules
