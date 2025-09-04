@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useSearchParams } from "react-router-dom"
+import { useSearchParams, Link } from "react-router-dom"
 
 export default function SearchBar() {
     const [searchQuery, setSearchQuery] = useState("")
@@ -11,6 +11,10 @@ export default function SearchBar() {
     // handle search submit
     const handleSearch = (e) => {
         e.preventDefault()
+
+        if (!searchQuery.trim()) {
+            return // do nothing
+        }
         setSearchParams({ q: searchQuery, page: 1 })
     }
 
@@ -47,7 +51,7 @@ export default function SearchBar() {
             </form>
 
             {/* buttons */}
-            <div className="w-full sm:w-1/2 flex sm:flex-row gap-2">
+            <div className="w-full sm:w-2/3 flex sm:flex-row gap-2">
                 <button
                     onClick={() => {
                         setSearchParams({ page: 1, sort: "desc" })
@@ -85,6 +89,16 @@ export default function SearchBar() {
                 >
                     clear
                 </button>
+
+                {/* display only if admin user is logged */}
+                <Link
+                    to={'/games/add'}
+                    className="bg-[#DB8E6B] border-arcadia px-4 py-2 rounded-full flex gap-2 text-white uppercase
+                    flex-1 justify-center items-center hover:bg-[#b8704f] duration20 transition-colors ease-in-out
+                    w-full min-h-[38px] text-xs sm:text-sm"
+                >
+                    new
+                </Link>
             </div>
         </div>
     )

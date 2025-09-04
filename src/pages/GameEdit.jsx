@@ -4,37 +4,51 @@ import ErrorCard from '../components/ErrorCard'
 import LoadingCard from '../components/LoadingCard'
 
 import { useGame } from '../context/gamesContext'
-import { useNavigate } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 
 export default function GameUpdate() {
-    const { error, loading, createGame } = useGame()
+    const [currentGame, setCurrentGame] = useState(null)
+    const { error, loading, games, updateGame } = useGame()
+    const { id } = useParams()
     const navigate = useNavigate()
 
-    // useForm hook desctructuring
     const {
         register,
         handleSubmit,
         formState: { errors },
+        reset
     } = useForm({ mode: 'onChange' })
 
-    // handle create function
-    async function handleCreate(data) {
+    useEffect(() => {
+        const gameFound = games.find(game => game._id === id)
+        if (gameFound) {
+            reset({
+                ...gameFound,
+                platforms: gameFound.platforms.join(', '),
+                genres: gameFound.genres.join(', ')
+            })
+            setCurrentGame(gameFound)
+        }
+    }, [id, games, reset])
+
+    async function handleUpdate(data) {
         try {
             const payload = {
                 ...data,
                 platforms: data.platforms
-                    .split(',')
-                    .map(p => p.trim())
-                    .filter(p => p !== ''),
+                .split(',')
+                .map(p => p.trim())
+                .filter(p => p !== ''),
                 genres: data.genres
-                    .split(',')
-                    .map(g => g.trim())
-                    .filter(g => g !== '')
+                .split(',')
+                .map(g => g.trim())
+                .filter(p => p !== '')
             }
 
-            await createGame(payload)
-            navigate("/games")
+            await updateGame(id, payload)
+            navigate('/games')
         } catch (error) {
             console.error(error)
         }
@@ -84,12 +98,11 @@ export default function GameUpdate() {
         <>
             <div className="w-full max-w-7xl h-full flex flex-col justify-center items-center flex-1 mt-10 mb-10 mx-auto px-4 sm:px-6 lg:px-10 py-4">
                 <h3 className="uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug text-white text-center mb-10">
-                    Creatae a new<br /> <span className='color-arcadia'>Game</span>
+                    Keep your games<br /> <span className='color-arcadia'>update {currentGame?.name}</span>
                 </h3>
 
-                <form onSubmit={handleSubmit(handleCreate)}
-                    className="w-full sm:min-h-[400px] max-w-md rounded-2xl bg-card border-arcadia 
-                p-5 flex flex-col justify-center items-center gap-2 mb-10" autoComplete="off">
+                <form onSubmit={handleSubmit(handleUpdate)} className="w-full sm:min-h-[400px] max-w-md rounded-2xl bg-card border-arcadia p-5 flex flex-col
+                justify-center items-center gap-2 mb-10">
 
                     {/* name */}
                     <div className='w-full'>

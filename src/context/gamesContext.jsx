@@ -10,8 +10,19 @@ export const GameProvider = ({ children }) => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
+    // modal summary
     const [modalOpen, setModalOpen] = useState(false)
     const [summary, setSummary] = useState(null)
+
+    // modal message
+    const [openToast, setOpenToast ] = useState(false)
+    const [messageToast, setMessageToast] = useState(null)
+
+    // manejar modal de mensajes
+    const showMessage = (message) => {
+        setMessageToast(message)
+        setOpenToast(true)
+    }
 
     // --> get all games
     const getAllGames = async (page = 1, limit = 20) => {
@@ -20,6 +31,7 @@ export const GameProvider = ({ children }) => {
         try {
             const { data } = await api.get(`/api/games?limit=${limit}&page=${page}`)
             setGames(data.games || [])
+            console.log('-->[CONTEXT GAME] list of games', data)
             return data
         } catch (err) {
             setError('Error to get all games')
@@ -40,10 +52,47 @@ export const GameProvider = ({ children }) => {
             return game
         } catch (error) {
             console.log('failed to get game by id', error)
-            setError('Unknown error')
+            setError(error.message || 'Unknown error')
             return null
         } finally {
             console.log('change loading set')
+            setLoading(false)
+        }
+    }
+
+    // --> create a new game
+    const createGame = async (newGame) => {
+        setLoading(true)
+        setError(null)
+
+        try {
+            const { data } = await api.post('/api/games', newGame)
+            showMessage(`${data.game.name} created`)
+            return data
+
+        } catch (error) {
+            console.log('failed to create a new game', error)
+            setError(error.message || 'Unknown error')
+            return null
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    // --> update a game
+    const updateGame = async (id, dataUpdate) => {
+        setLoading(true)
+        setError
+
+        try {
+            const { data } = await api.put(`/api/games/${id}`, dataUpdate)
+            showMessage(`${data.game.name} updated`)
+            return data
+        } catch (error) {
+            console.log('failed to update a game', error)
+            setError(error.message || 'Unknown error')
+            return null
+        } finally {
             setLoading(false)
         }
     }
@@ -112,10 +161,17 @@ export const GameProvider = ({ children }) => {
             getSummary,
             searchGames,
             searchByDate,
+            createGame,
+            updateGame,
 
             summary,
             setModalOpen,
             modalOpen,
+
+            messageToast,
+            setOpenToast,
+            openToast
+
         }}>
             {children}
         </GameContext.Provider>
@@ -124,3 +180,4 @@ export const GameProvider = ({ children }) => {
 
 // custom hook
 export const useGame = () => useContext(GameContext)
+

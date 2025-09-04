@@ -2,10 +2,14 @@
 import GameSearch from "../components/GameSearch"
 import GameList from "../components/GameList"
 import ModalMessage from "../components/ModalMessage"
+import GameToast from "../components/GameToast"
+
 import { useFavorite } from "../context/favoriteContext"
+import { useGame } from "../context/gamesContext"
 
 export default function Games() {
     const { modalOpen, setModalOpen, modalMessage } = useFavorite()
+    const { openToast, setOpenToast, messageToast} = useGame()
 
     // render return
     return (
@@ -26,6 +30,13 @@ export default function Games() {
                 open={modalOpen}
                 message={modalMessage}
                 onClose={() => setModalOpen(false)}
+            />
+
+            {/* toastMessage */}
+            <GameToast
+                open={openToast}
+                message={messageToast}
+                onClose={() => setOpenToast(false)}
             />
         </div>
     )

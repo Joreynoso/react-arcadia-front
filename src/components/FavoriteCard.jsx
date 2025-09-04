@@ -1,10 +1,6 @@
 // imports
-import { useFavorite } from "../context/favoriteContext"
 import { Link } from "react-router-dom"
-import { useState } from 'react'
-
 import GameNotImage from "./GameNotImage"
-import ModalConfirm from "./ModalConfirm"
 
 export default function FavoriteCard({ id, background_image, name, released, hasImage, onRemoveRequest }) {
 

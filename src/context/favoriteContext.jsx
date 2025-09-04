@@ -29,7 +29,6 @@ export const FavoriteProvider = ({ children }) => {
             const { data } = await api.get('/api/favorites')
             // data.favorites debe ser un array
             setFavorites(data.favorites || [])
-            console.log('-->[CONTEXT] lista de favoritos:', data.favorites)
         } catch (err) {
             console.log('Error al obtener favoritos', err)
             setError(err.message || 'Unknown error')

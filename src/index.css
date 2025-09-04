@@ -15,6 +15,11 @@ body {
   border-color: #7D4C38;
 }
 
+.border-table {
+  border-width: 2px;
+  border-color: #a0644d;
+}
+
 .border-arcadia-small {
   border-width: 1px;
   border-color: #7D4C38;
@@ -23,6 +28,7 @@ body {
 .text-arcadia {
   color: #83503B;
 }
+
 
 .color-arcadia {
   color: #FCE3CB;
