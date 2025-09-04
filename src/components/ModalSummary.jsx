@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import MagicBook from '../images/MagicBook.png'
+import MagicBook from '../images/magicBook.png'
 
 export default function SummaryModal({ open, onClose, message }) {
     if (!open) return null
