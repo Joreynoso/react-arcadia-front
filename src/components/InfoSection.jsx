@@ -1,5 +1,5 @@
 // imports
-import InfoBoy from '../images/InfoBoy.svg'
+import InfoBoy from '../images/infoBoy.svg'
 import InfoSword from '../images/infoSword.svg'
 import InfoShield from '../images/infoShield.svg'
 import InfoDoubleSword from '../images/infoDoubleSword.svg'
