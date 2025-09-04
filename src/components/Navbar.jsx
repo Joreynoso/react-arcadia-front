@@ -1,6 +1,6 @@
 // imports
 import { useState, useEffect } from 'react'
-import { Link, useNavigate, useLocation } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/authContext'
 import { motion } from 'framer-motion'
 
@@ -55,7 +55,7 @@ export default function Navbar() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
                     className="w-[95%] absolute top-full left-1/2 -translate-x-1/2 sm:hidden bg-card rounded-2xl 
-                    border-arcadia shadow-xl flex flex-col items-center py-6 z-50 text-[#7D4C38] px-4">
+                    border-arcadia shadow-xl flex flex-col items-center py-6 z-50 text-[#7D4C38] px-4 gap-4">
 
                     {!user && (
                         <>

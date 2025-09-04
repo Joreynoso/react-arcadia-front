@@ -5,42 +5,17 @@ export const AuthContext = createContext(null)
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
-    const [loadingUser, setLoadingUser] = useState(true)  // empieza true porque aún no sabemos el user
     const [token, setToken] = useState("")
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
-    // --> fetch /me
-    const fetchMe = async () => {
-        try {
-            const { data } = await api.get("/api/user/me")
-            console.log("fetchMe user:", data) // <--- debug
-            return data
-        } catch (err) {
-            console.error("No se pudo cargar usuario:", err)
-            return null
-        }
-    }
-
-    // --> register
     const register = async ({ email, username, password }) => {
         setLoading(true)
         setError(null)
         try {
             const result = await api.register({ email, username, password })
-
-            // guardar token
-            if (result?.token) {
-                setToken(result.token)
-            }
-
-            // traer usuario completo con permisos
-            const userData = await fetchMe()
-            if (userData) {
-                setUser(userData)
-                localStorage.setItem("user", JSON.stringify(userData))
-            }
-
+            if (result?.token) setToken(result.token)
+            if (result?.user) setUser(result.user)
             return result
         } catch (err) {
             setError("Registration failed")
@@ -50,23 +25,13 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    // --> login
     const login = async ({ email, password }) => {
         setLoading(true)
         setError(null)
         try {
             const result = await api.login({ email, password })
-
-            // guardar token
             if (result?.token) setToken(result.token)
-
-            // traer usuario completo con permisos
-            const userData = await fetchMe()
-            if (userData) {
-                setUser(userData)
-                localStorage.setItem("user", JSON.stringify(userData))
-            }
-
+            if (result?.user) setUser(result.user)
             return result
         } catch (err) {
             setError("User or password wrong")
@@ -76,10 +41,6 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    // --> check permissions
-    const hasPermission = (perm) => user?.permissions?.includes(perm)
-
-    // --> logout
     const logout = () => {
         setUser(null)
         setToken("")
@@ -87,42 +48,18 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("token")
     }
 
-    // --> cargar usuario al montar el provider
     useEffect(() => {
-        const loadUser = async () => {
-            try {
-                const token = localStorage.getItem("token")
-                if (!token) return
-                const userData = await fetchMe()
-                if (userData) setUser(userData)
-            } catch (err) {
-                console.error(err)
-                setUser(null)
-            } finally {
-                setLoadingUser(false)  // solo desactiva cuando fetchMe termina
-            }
-        }
-        loadUser()
+        const storedUser = localStorage.getItem("user")
+        const storedToken = localStorage.getItem("token")
+        if (storedUser) setUser(JSON.parse(storedUser))
+        if (storedToken) setToken(storedToken)
     }, [])
 
     return (
-        <AuthContext.Provider
-            value={{
-                user,
-                loadingUser,
-                token,
-                loading,
-                error,
-                register,
-                login,
-                logout,
-                hasPermission
-            }}
-        >
+        <AuthContext.Provider value={{ user, token, loading, error, register, login, logout }}>
             {children}
         </AuthContext.Provider>
     )
 }
 
-// custom hook
 export const useAuth = () => useContext(AuthContext)

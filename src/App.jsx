@@ -25,44 +25,31 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
-
-            {/* Home */}
             <Route index element={<Home />} />
 
-            {/* Auth routes */}
+            {/* Games routes */}
+            <Route path="games">
+              <Route index element={<Games />} />
+              <Route path="add" element={<GameCreate />} />
+              <Route path=":id" element={<GameDetail />} />
+              <Route path=":id/edit" element={<GameUpdate />} />
+            </Route>
+
+            {/* login / register route */}
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
 
-            {/* Profile user route */}
-            <Route element={<PrivateRoute requiredPermission="read:profile" />}>
-              <Route path="profile" element={<Profile/>} />
-            </Route>
+            {/* profile rout */}
+            <Route path='profile' element={<Profile />} />
 
-            {/* Games routes */}
-            <Route element={<PrivateRoute requiredPermission="read:games" />}>
-              <Route path="games">
-                <Route index element={<Games />} />
-                <Route path=":id" element={<GameDetail />} />
-              </Route>
-            </Route>
+            {/* favorites routes */}
+            <Route path='favorites' element={<Favorites />} />
 
-            <Route element={<PrivateRoute requiredPermission="create:game" />}>
-              <Route path="games/add" element={<GameCreate />} />
-            </Route>
-
-            <Route element={<PrivateRoute requiredPermission="update:game" />}>
-              <Route path="games/:id/edit" element={<GameUpdate />} />
-            </Route>
-
-            {/* Favorites routes */}
-            <Route element={<PrivateRoute requiredPermission="read:favorites" />}>
-              <Route path='favorites' element={<Favorites />} />
-            </Route>
-
-            {/* Error routes */}
-            <Route path="403" element={<Forbidden />} />
+            {/* not found route */}
             <Route path="*" element={<NotFound />} />
 
+            {/* forbidden y server error routes */}
+            <Route path="403" element={<Forbidden />} />
           </Route>
         </Routes>
       </BrowserRouter>
