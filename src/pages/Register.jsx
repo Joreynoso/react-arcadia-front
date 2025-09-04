@@ -1,6 +1,7 @@
 import { useAuth } from '../context/authContext'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
+
 
 export default function Register() {
     const { error, loading, register: registerUser } = useAuth()
@@ -46,7 +47,7 @@ export default function Register() {
 
         if (response) {
             console.log('Registro exitoso', response)
-            navigate('/games')
+            navigate('/login')
         }
     }
 
@@ -108,6 +109,16 @@ export default function Register() {
                         </button>
 
                         {error && <span className="text-red-500">{error}</span>}
+
+                        <p className="text-center text-sm text-arcadia">
+                             Already have an account?{" "}
+                            <Link
+                                to="/login"
+                                className="font-medium text-arcadia hover:underline"
+                            >
+                                Log in
+                            </Link>
+                        </p>
                     </form>
                 </div>
             </div>

@@ -1,18 +1,26 @@
-import { Navigate, Outlet } from "react-router-dom"
+import { Navigate, Outlet, useLocation } from "react-router-dom"
 import { useAuth } from "../context/authContext"
+import LoadingCard from '../components/LoadingCard'
 
 const PrivateRoute = ({ requiredPermission }) => {
-    const { user, hasPermission } = useAuth()
+    console.log('1. entrando a al función')
+    const { user, hasPermission,  loadingUser } = useAuth()
+    const location = useLocation()
 
-    // si no está logueado → redirige a login
-    if (!user) return <Navigate to="/login" replace />
+    if (loadingUser) return <LoadingCard />
 
-    // si se requiere un permiso y no lo tiene → redirige a 403
+    console.log('2. usuario que intenta ingresar', user)
+    console.log('3. tiene permiso?', requiredPermission ? hasPermission(requiredPermission) : 'no permission requerido')
+
+    // Usuario no autenticado → login
+    if (!user) return <Navigate to="/login" replace state={{ from: location }} />
+
+    // Usuario autenticado pero sin permisos → 403
     if (requiredPermission && !hasPermission(requiredPermission)) {
         return <Navigate to="/403" replace />
     }
 
-    // si todo está bien → renderiza las rutas hijas
+    // Usuario autenticado y con permisos → renderiza rutas hijas
     return <Outlet />
 }
 

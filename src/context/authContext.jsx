@@ -1,42 +1,50 @@
 import { useState, createContext, useContext, useEffect } from "react"
-import axios from "axios"
-import api from '../helper/api'
+import api from "../helper/api"
 
 export const AuthContext = createContext(null)
 
 export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
+    const [loadingUser, setLoadingUser] = useState(true)  // empieza true porque aún no sabemos el user
     const [token, setToken] = useState("")
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+
+    // --> fetch /me
+    const fetchMe = async () => {
+        try {
+            const { data } = await api.get("/api/user/me")
+            console.log("fetchMe user:", data) // <--- debug
+            return data
+        } catch (err) {
+            console.error("No se pudo cargar usuario:", err)
+            return null
+        }
+    }
 
     // --> register
     const register = async ({ email, username, password }) => {
         setLoading(true)
         setError(null)
         try {
-            const { data } = await axios.post(
-                "https://react-arcadia.onrender.com/api/auth/register",
-                { email, username, password }
-            )
+            const result = await api.register({ email, username, password })
 
-            if (data.result?.token) {
-                setToken(data.result.token)
-                localStorage.setItem("token", data.result.token)
+            // guardar token
+            if (result?.token) {
+                setToken(result.token)
             }
 
-            if (data.result?.user) {
-                setUser(data.result.user)
-                localStorage.setItem("user", JSON.stringify(data.result.user))
+            // traer usuario completo con permisos
+            const userData = await fetchMe()
+            if (userData) {
+                setUser(userData)
+                localStorage.setItem("user", JSON.stringify(userData))
             }
 
-            return data.result
+            return result
         } catch (err) {
-            if (err.response?.status === 401) {
-                setError("User already registered")
-            } else {
-                setError("Registration failed")
-            }
+            setError("Registration failed")
+            return null
         } finally {
             setLoading(false)
         }
@@ -47,40 +55,29 @@ export const AuthProvider = ({ children }) => {
         setLoading(true)
         setError(null)
         try {
-            const { data: { result } } = await axios.post(
-                "https://react-arcadia.onrender.com/api/auth/login",
-                { email, password }
-            )
+            const result = await api.login({ email, password })
 
-            setUser(result.user)
-            setToken(result.token)
-            localStorage.setItem("user", JSON.stringify(result.user))
-            localStorage.setItem("token", result.token)
+            // guardar token
+            if (result?.token) setToken(result.token)
+
+            // traer usuario completo con permisos
+            const userData = await fetchMe()
+            if (userData) {
+                setUser(userData)
+                localStorage.setItem("user", JSON.stringify(userData))
+            }
 
             return result
         } catch (err) {
-            setError("User or passwor wrong")
+            setError("User or password wrong")
             return null
         } finally {
             setLoading(false)
         }
     }
 
-    // --> fetch /me
-    const fetchMe = async () => {
-        try {
-            const { data } = await api.get("api/user/me")
-            return data
-        } catch (err) {
-            console.error("No se pudo cargar usuario:", err)
-            return null
-        }
-    }
-
     // --> check permissions
-    const hasPermission = (perm) => {
-        return user?.permissions?.includes(perm)
-    }
+    const hasPermission = (perm) => user?.permissions?.includes(perm)
 
     // --> logout
     const logout = () => {
@@ -90,35 +87,38 @@ export const AuthProvider = ({ children }) => {
         localStorage.removeItem("token")
     }
 
-    // --> load user & token from localStorage on mount
     // --> cargar usuario al montar el provider
     useEffect(() => {
         const loadUser = async () => {
-            setLoading(true)
-            const token = localStorage.getItem("token")
-            if (!token) {
-                setLoading(false)
-                return
+            try {
+                const token = localStorage.getItem("token")
+                if (!token) return
+                const userData = await fetchMe()
+                if (userData) setUser(userData)
+            } catch (err) {
+                console.error(err)
+                setUser(null)
+            } finally {
+                setLoadingUser(false)  // solo desactiva cuando fetchMe termina
             }
-
-            const userData = await fetchMe()
-            setUser(userData)
-            setLoading(false)
         }
         loadUser()
     }, [])
 
     return (
-        <AuthContext.Provider value={{
-            user,
-            token,
-            loading,
-            error,
-            register,
-            login,
-            logout,
-            hasPermission
-        }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                loadingUser,
+                token,
+                loading,
+                error,
+                register,
+                login,
+                logout,
+                hasPermission
+            }}
+        >
             {children}
         </AuthContext.Provider>
     )

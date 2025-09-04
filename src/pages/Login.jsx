@@ -1,6 +1,6 @@
 import { useAuth } from '../context/authContext'
 import { useForm } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Login() {
     const { login, error, loading } = useAuth()
@@ -21,7 +21,7 @@ export default function Login() {
 
         if (response) {
             console.log('Login exitoso', response)
-            navigate('/games')
+            navigate('/')
         }
     }
 
@@ -84,6 +84,16 @@ export default function Login() {
                         </button>
 
                         {error && <span className="text-red-600">{error}</span>}
+
+                        <p className="text-center text-sm text-arcadia">
+                            Dont have an account yet?{" "}
+                            <Link
+                                to="/register"
+                                className="font-medium text-arcadia hover:underline"
+                            >
+                                Register
+                            </Link>
+                        </p>
                     </form>
                 </div>
             </div>

@@ -17,6 +17,7 @@ import GameCreate from './pages/GameCreate'
 import GameUpdate from './pages/GameUpdate'
 
 import PrivateRoute from './router/PrivateRoute'
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -24,36 +25,44 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Layout />}>
+
+            {/* Home */}
             <Route index element={<Home />} />
 
-            {/* routes games */}
-            <Route path="games">
-              <Route element={<PrivateRoute requiredPermission="read:games" />}>
-                <Route index element={<Games />} />
-                <Route path=":id" element={<GameDetail />} />
-              </Route>
-
-              <Route element={<PrivateRoute requiredPermission="create:game" />}>
-                <Route path="add" element={<GameCreate />} />
-              </Route>
-
-              <Route element={<PrivateRoute requiredPermission="update:game" />}>
-                <Route path=":id/edit" element={<GameUpdate />} />
-              </Route>
-            </Route>
-
-            {/* login / register route */}
+            {/* Auth routes */}
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
 
-            {/* favorites routes */}
-            <Route path='favorites' element={<Favorites />} />
+            {/* Profile user route */}
+            <Route element={<PrivateRoute requiredPermission="read:profile" />}>
+              <Route path="profile" element={<Profile/>} />
+            </Route>
 
-            {/* not found route */}
+            {/* Games routes */}
+            <Route element={<PrivateRoute requiredPermission="read:games" />}>
+              <Route path="games">
+                <Route index element={<Games />} />
+                <Route path=":id" element={<GameDetail />} />
+              </Route>
+            </Route>
+
+            <Route element={<PrivateRoute requiredPermission="create:game" />}>
+              <Route path="games/add" element={<GameCreate />} />
+            </Route>
+
+            <Route element={<PrivateRoute requiredPermission="update:game" />}>
+              <Route path="games/:id/edit" element={<GameUpdate />} />
+            </Route>
+
+            {/* Favorites routes */}
+            <Route element={<PrivateRoute requiredPermission="read:favorites" />}>
+              <Route path='favorites' element={<Favorites />} />
+            </Route>
+
+            {/* Error routes */}
+            <Route path="403" element={<Forbidden />} />
             <Route path="*" element={<NotFound />} />
 
-            {/* forbidden y server error routes */}
-            <Route path="403" element={<Forbidden />} />
           </Route>
         </Routes>
       </BrowserRouter>
