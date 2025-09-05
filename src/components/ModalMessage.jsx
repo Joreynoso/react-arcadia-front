@@ -5,12 +5,13 @@ export default function ModalMessage({ open, onClose, message }) {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
-            className="fixed top-10 left-1/2 -translate-x-1/2 flex items-center justify-center z-50 max-w-[60%] ">
-            <div className="bg-card border-arcadia border rounded-full px-6 py-3 shadow-lg flex items-center gap-3w-auto">
-                <p className="text-arcadia text-center text-sm font-medium truncate mr-2">
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="fixed top-10 left-1/2 -translate-x-1/2 flex items-center justify-center z-50 w-auto max-w-xs sm:max-w-sm px-4"
+        >
+            <div className="bg-card border-arcadia border rounded-full px-6 py-3 shadow-lg flex items-center gap-3">
+                <p className="text-arcadia text-center text-sm font-medium truncate max-w-[200px] sm:max-w-[300px]">
                     {message}
                 </p>
                 <button

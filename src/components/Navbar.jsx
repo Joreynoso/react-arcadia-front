@@ -4,6 +4,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/authContext'
 import { motion } from 'framer-motion'
 
+
 export default function Navbar() {
     const { user, logout } = useAuth()
     const [isOpen, setIsOpen] = useState(false)

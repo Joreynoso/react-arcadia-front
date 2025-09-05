@@ -44,7 +44,7 @@ export default function CardsSection() {
             <button
                 className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs 
                     md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
-                details
+                detalle
             </button>
         </motion.div>
     ))
