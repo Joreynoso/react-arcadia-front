@@ -8,7 +8,7 @@ export default function MusicPlayer() {
     // setear volumen al cargar el componente
     useEffect(() => {
         if (audioRef.current) {
-            audioRef.current.volume = 0.3 // 20% del volumen máximo
+            audioRef.current.volume = 0.1 // 20% del volumen máximo
         }
     }, [])
 

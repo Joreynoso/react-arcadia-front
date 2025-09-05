@@ -48,7 +48,7 @@ function App() {
               {/* cualquier usuario logeado */}
               <Route index element={<Games />} />
 
-              <Route element={<PrivateRoute rolesAllowed={["admin", "editor"]} />}>
+              <Route element={<PrivateRoute rolesAllowed={["admin"]} />}>
                 <Route path="add" element={<GameCreate />} />
               </Route>
 
