@@ -17,7 +17,7 @@ export default function HeroSection() {
       <div className="py-10 sm:px-10 sm:py-10 text-center flex flex-col justify-center items-center ">
         <h3 className="uppercase text-3xl sm:text-4xl md:text-5xl sm:max-w-2xl max-w-lg 
                     leading-tight text-white mb-4">
-          Explora +500 de <br />
+          Explora + de 500 <br />
           <span className='color-arcadia'>aventuras únicas.</span>
         </h3>
 
