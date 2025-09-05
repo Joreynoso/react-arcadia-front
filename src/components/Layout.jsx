@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom"
 import Navbar from './Navbar'
 import FooterSection from './FooterSection'
 import SizeScreenHelper from "./SizeScreenHelper"
+import MusicPlayer from "./MusicPlayer"
 
 export default function Layout() {
 
@@ -16,6 +17,8 @@ export default function Layout() {
                 </div>
                 <FooterSection />
                 {/* <SizeScreenHelper/> */}
+
+                <MusicPlayer />
             </div>
         </>
     )
