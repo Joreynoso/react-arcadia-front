@@ -4,7 +4,7 @@ export default function SizeScreenHelper() {
     return (
         <>
             {/* helper size screen tailwind */}
-            <div className="fixed bottom-2 right-2 z-50 bg-black text-white px-3 py-1 rounded text-sm pointer-events-none select-none">
+            <div className="fixed bottom-2 right-2 z-50 bg-card text-arcadia px-3 py-1 rounded text-sm pointer-events-none select-none">
                 <span className="block sm:hidden">xs</span>
                 <span className="hidden sm:block md:hidden">sm</span>
                 <span className="hidden md:block lg:hidden">md</span>

@@ -7,86 +7,110 @@ import { useGame } from '../context/gamesContext'
 import LoadingCard from './LoadingCard'
 import GameCard from './GameCard'
 import Pagination from './Pagination'
+import ModalConfirm from '../components/ModalConfirm'
 
 export default function GameList() {
-    const { error, loading, games, getAllGames, searchGames, searchByDate } = useGame()
+    const { error, loading, games, getAllGames, searchGames, searchByDate, deleteGame } = useGame()
     const [searchParams, setSearchParams] = useSearchParams()
     const [totalPages, setTotalPages] = useState()
 
+    // modal state
+    const [modalOpen, setModalOpen] = useState(false)
+    const [selectedGame, setSelectedGame] = useState(null)
+
+    // abrir modal
+    const handleDeleteClick = (game) => {
+        setSelectedGame(game)
+        setModalOpen(true)
+    }
+
+    // confirmar borrado
+    const confirmDelete = async () => {
+        setModalOpen(false)
+        if (!selectedGame) return
+        await deleteGame(selectedGame._id)
+        setSelectedGame(null)
+    }
+
+    // cancelar borrado
+    const cancelDelete = () => {
+        setModalOpen(false)
+        setSelectedGame(null)
+    }
+
+    // parámetros de búsqueda/paginación
     const limit = 20
     const page = parseInt(searchParams.get('page')) || 1
     const query = searchParams.get('q') || ''
     const sort = searchParams.get('sort') || ''
 
-    // load games (búsqueda o todos)
+    // cargar juegos
     useEffect(() => {
         const fetchGames = async () => {
             let data
             if (query) {
-                // búsqueda por nombre
                 data = await searchGames(query, page, limit)
             } else if (sort) {
-                // búsqueda por fecha
                 data = await searchByDate(page, limit, sort)
             } else {
-                // todos los juegos
                 data = await getAllGames(page, limit)
             }
 
-            if (data?.totalPages) {
-                setTotalPages(data.totalPages)
-            }
+            if (data?.totalPages) setTotalPages(data.totalPages)
         }
+
         fetchGames()
     }, [page, query, sort])
 
-    // handle pagination
+    // paginación
     const handlePrev = () => {
-        if (page > 1) {
-            setSearchParams({ q: query, sort, page: page - 1 })
-        }
+        if (page > 1) setSearchParams({ q: query, sort, page: page - 1 })
     }
 
     const handleNext = () => {
         setSearchParams({ q: query, sort, page: page + 1 })
     }
 
-    // condicional rendering
+    // renderizado condicional
     if (loading) return <LoadingCard />
     if (error) return <p className='text-white text-lg'>{error}</p>
 
-    const mappedListGames = games?.map(game => {
-        const hasImage = !!game.background_image
-
-        return (
-            <div
-                key={game._id}
-                className='transition-transform duration-300 ease-in-out hover:-translate-y-2'
-            >
-                <GameCard
-                    id={game._id}
-                    name={game.name}
-                    released={game.released}
-                    background_image={game.background_image}
-                    hasImage={hasImage}
-                />
-            </div>
-        )
-    })
-
     return (
         <>
-            {/* gameList */}
             <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-4">
-                {mappedListGames}
+                {games?.map(game => {
+                    const hasImage = !!game.background_image
+                    return (
+                        <div
+                            key={game._id}
+                            className='transition-transform duration-300 ease-in-out hover:-translate-y-2'
+                        >
+                            <GameCard
+                                id={game._id}
+                                name={game.name}
+                                released={game.released}
+                                background_image={game.background_image}
+                                hasImage={hasImage}
+                                onDelete={() => handleDeleteClick(game)}
+                            />
+                        </div>
+                    )
+                })}
             </div>
 
-            {/* pagination */}
             <Pagination
                 page={page}
                 totalPages={totalPages}
                 handleNext={handleNext}
-                handlePrev={handlePrev} />
+                handlePrev={handlePrev}
+            />
+
+            <ModalConfirm
+                open={modalOpen}
+                onConfirm={confirmDelete}
+                onCancel={cancelDelete}
+                message={`¿Estás seguro que quieres borrar ${selectedGame?.name}?`}
+            />
         </>
     )
 }

@@ -9,7 +9,7 @@ import { useGame } from "../context/gamesContext"
 
 export default function Games() {
     const { modalOpen, setModalOpen, modalMessage } = useFavorite()
-    const { openToast, setOpenToast, messageToast } = useGame()
+    const { games, openToast, setOpenToast, messageToast } = useGame()
 
     // render return
     return (
@@ -18,12 +18,6 @@ export default function Games() {
                 Explora +500 de <br />
                 <span className='color-arcadia'>aventuras únicas.</span>
             </h3>
-
-            {/* search */}
-            <GameSearch />
-
-            {/* list */}
-            <GameList />
 
             {/* modal msg */}
             <ModalMessage
@@ -38,6 +32,12 @@ export default function Games() {
                 message={messageToast}
                 onClose={() => setOpenToast(false)}
             />
+
+            {/* search */}
+            <GameSearch />
+            
+            {/* list */}
+            <GameList />
         </div>
     )
 }

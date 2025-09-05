@@ -67,7 +67,6 @@ export default function FavoritesList({ searchQuery }) {
     )
   })
 
-  // 🔹 Render
   if (favorites.length === 0) {
     return (
       <div className='w-full text-center flex flex-col justify-center items-center'>
@@ -79,6 +78,7 @@ export default function FavoritesList({ searchQuery }) {
     )
   }
 
+
   return (
     <div className='w-full flex flex-col'>
       {/* Favoritos */}
@@ -87,12 +87,12 @@ export default function FavoritesList({ searchQuery }) {
       </div>
 
       {/* Paginación */}
-        <Pagination
-          page={currentPage}
-          totalPages={totalPages}
-          handlePrev={() => setCurrentPage(p => Math.max(p - 1, 1))}
-          handleNext={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
-        />
+      <Pagination
+        page={currentPage}
+        totalPages={totalPages}
+        handlePrev={() => setCurrentPage(p => Math.max(p - 1, 1))}
+        handleNext={() => setCurrentPage(p => Math.min(p + 1, totalPages))}
+      />
 
       {/* Modal de confirmación */}
       <ModalConfirm

@@ -6,7 +6,7 @@ import { useState } from 'react'
 
 import GameNotImage from './GameNotImage'
 
-export default function GameCard({ id, background_image, name, released, hasImage }) {
+export default function GameCard({ id, background_image, name, released, hasImage, onDelete }) {
     const { can } = usePermission()
     const { favorites, loading, addFavorite, removeFavorite } = useFavorite()
     const [localLoading, setLocalLoading] = useState(false)
@@ -90,13 +90,13 @@ export default function GameCard({ id, background_image, name, released, hasImag
                             editar
                         </Link>
 
-                        <Link
-                            to={`/games/${id}`}
+                        <button
+                            onClick={onDelete}
                             className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-0.5 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
                         md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
                         >
                             borrar
-                        </Link>
+                        </button>
                     </div>)}
 
 

@@ -15,7 +15,7 @@ export const GameProvider = ({ children }) => {
     const [summary, setSummary] = useState(null)
 
     // modal message
-    const [openToast, setOpenToast ] = useState(false)
+    const [openToast, setOpenToast] = useState(false)
     const [messageToast, setMessageToast] = useState(null)
 
     // manejar modal de mensajes
@@ -80,16 +80,35 @@ export const GameProvider = ({ children }) => {
     }
 
     // --> update a game
-    const updateGame = async (id, dataUpdate) => {
+    const updateGame = async (id, payload) => {
         setLoading(true)
-        setError
+        setError(null)
+        try {
+            const { data } = await api.put(`/api/games/${id}`, payload)
+
+            setGames(prev => prev.map(g => g._id === id ? data.game : g))
+            showMessage(`${data.game.name} actualizado`)
+            return data.game
+        } catch (err) {
+            setError(err.message || 'Unknown error')
+            return null
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    // --> delete a game
+    const deleteGame = async (id) => {
+        setLoading(true)
+        setError(null)
 
         try {
-            const { data } = await api.put(`/api/games/${id}`, dataUpdate)
-            showMessage(`${data.game.name} updated`)
+            const { data } = await api.delete(`/api/games/${id}`)
+            showMessage(`${data.game.name} borrado`)
+            setGames(prev => prev.filter(g => g._id !== id))
             return data
         } catch (error) {
-            console.log('failed to update a game', error)
+            console.log('failed to delete a game', error)
             setError(error.message || 'Unknown error')
             return null
         } finally {
@@ -125,7 +144,7 @@ export const GameProvider = ({ children }) => {
             setGames(data.games || [])
             return data
         } catch (err) {
-            setError("We couldn't find the game.")
+            setError("No pudimos encontrar el juego")
             return null
         } finally {
             setLoading(false)
@@ -163,6 +182,7 @@ export const GameProvider = ({ children }) => {
             searchByDate,
             createGame,
             updateGame,
+            deleteGame,
 
             summary,
             setModalOpen,

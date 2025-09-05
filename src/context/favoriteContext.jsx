@@ -27,11 +27,16 @@ export const FavoriteProvider = ({ children }) => {
 
         try {
             const { data } = await api.get('/api/favorites')
-            // data.favorites debe ser un array
-            setFavorites(data.favorites || [])
+            const favoritesData = Array.isArray(data.favorites) ? data.favorites : []
+            setFavorites(favoritesData)
         } catch (err) {
-            console.log('Error al obtener favoritos', err)
-            setError(err.message || 'Unknown error')
+            if (err.response?.status === 401) {
+                setFavorites([])
+                setError('Usuario no autenticado')
+            } else {
+                console.log('Error al obtener favoritos', err)
+                setError(err.message || err.response?.data?.message || 'Unknown error')
+            }
         } finally {
             setLoading(false)
         }
@@ -86,7 +91,7 @@ export const FavoriteProvider = ({ children }) => {
         if (token) {
             getFavorites()
         } else {
-            setFavorites([]) // limpiar favoritos si no hay token
+            setFavorites([])
         }
     }, [token])
 

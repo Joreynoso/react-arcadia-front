@@ -10,8 +10,8 @@ import { useForm } from 'react-hook-form'
 
 export default function GameUpdate() {
     const [currentGame, setCurrentGame] = useState(null)
-    const [redirecting, setRedirecting] = useState(false)
     const { error, loading, games, updateGame } = useGame()
+    const [redirecting, setRedirecting] = useState(false)
     const { id } = useParams()
     const navigate = useNavigate()
 
@@ -36,8 +36,8 @@ export default function GameUpdate() {
     }, [id, games, reset])
 
     // condicional rendering
-    if (loading || redirecting) return <LoadingCard />
-    if (error) return <ErrorCard />
+    if (loading) return <LoadingCard />
+    if (error) return <ErrorCard message={error} />
 
     // 🚨 validar si no existe el juego
     if (!currentGame) {
@@ -178,7 +178,7 @@ export default function GameUpdate() {
                         disabled={loading}
                         className='bg-[#FF6108] px-4 py-2  uppercase text-white rounded-full text-sm cursor-pointer'
                     >
-                        {loading ? 'Updating...' : 'Update game'}
+                        Actualizar juego
                     </button>
                 </form>
 
