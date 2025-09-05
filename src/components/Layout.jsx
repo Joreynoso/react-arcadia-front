@@ -15,7 +15,7 @@ export default function Layout() {
                     <Outlet />
                 </div>
                 <FooterSection />
-                <SizeScreenHelper/>
+                {/* <SizeScreenHelper/> */}
             </div>
         </>
     )

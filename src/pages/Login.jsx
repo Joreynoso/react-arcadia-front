@@ -27,10 +27,10 @@ export default function Login() {
 
     // validation rules
     const emailRules = {
-        required: "email is required",
+        required: "El email es obligatorio",
         pattern: {
             value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            message: "invalid email"
+            message: "Email incorrecto"
         }
     }
 
@@ -44,7 +44,7 @@ export default function Login() {
                 {/* form */}
                 <div className='flex flex-col w-full items-start'>
                     <h3 className='text-arcadia mb-6 text-lg sm:text-xl lg:text-2xl font-semibold'>
-                        Welcome back, hero! <br />Continue bryour journey.
+                        Bienvenido de nuevo, <br />héroe! Continúa tu viaje.
                     </h3>
 
                     <form
@@ -55,7 +55,7 @@ export default function Login() {
                         <div className='w-full'>
                             <input
                                 {...register("email", emailRules)}
-                                placeholder='Type your email...'
+                                placeholder='Escribe tu email...'
                                 type="email"
                                 className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
                             focus:outline-none focus:ring-2 focus:ring-[#A6755A]'
@@ -67,7 +67,7 @@ export default function Login() {
                         <div className='w-full'>
                             <input
                                 {...register('password', { required: 'password is required' })}
-                                placeholder='Type your password...'
+                                placeholder='Escribe tu contraseña...'
                                 type="password"
                                 className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
                             focus:outline-none focus:ring-2 focus:ring-[#A6755A]'
@@ -80,18 +80,18 @@ export default function Login() {
                             disabled={loading}
                             className='bg-[#FF6108] px-4 py-2  uppercase text-white rounded-full text-sm cursor-pointer'
                         >
-                            {loading ? 'Authenticating...' : 'Begins adventure'}
+                            {loading ? 'Autenticando...' : 'Comenzar Aventura'}
                         </button>
 
                         {error && <span className="text-red-600">{error}</span>}
 
                         <p className="text-center text-sm text-arcadia">
-                            Dont have an account yet?{" "}
+                            No tienes una cuan aún?{" "}
                             <Link
                                 to="/register"
                                 className="font-medium text-arcadia hover:underline"
                             >
-                                Register
+                                Registrarme
                             </Link>
                         </p>
                     </form>

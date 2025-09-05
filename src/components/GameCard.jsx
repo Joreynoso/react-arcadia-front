@@ -84,7 +84,7 @@ export default function GameCard({ id, background_image, name, released, hasImag
                     <div className='actions w-full flex gap-1'>
                         <Link
                             to={`/games/${id}/edit`}
-                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-0.5 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
+                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-1 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
                         md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
                         >
                             editar
@@ -92,7 +92,7 @@ export default function GameCard({ id, background_image, name, released, hasImag
 
                         <button
                             onClick={onDelete}
-                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-0.5 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
+                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-1 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
                         md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
                         >
                             borrar
@@ -105,7 +105,7 @@ export default function GameCard({ id, background_image, name, released, hasImag
                     <div className='actions w-full flex gap-1'>
                         <Link
                             to={`/games/${id}/edit`}
-                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-0.5 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
+                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-1 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
                         md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
                         >
                             editar

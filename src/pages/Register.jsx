@@ -24,18 +24,18 @@ export default function Register() {
     }
 
     const usernameRules = {
-        required: "Username is required",
+        required: "El usuario es oblitarorio",
         minLength: {
             value: 3,
-            message: "Username must be at least 3 characters"
+            message: "Debe tener al menos 3 caracteres"
         }
     }
 
     const passwordRules = {
-        required: "Password is required",
+        required: "La contraseña es oblitaroria",
         minLength: {
             value: 6,
-            message: "Password must be at least 6 characters"
+            message: "La contraseña debe tener al menos 6 caracteres"
         }
     }
 
@@ -57,7 +57,7 @@ export default function Register() {
 
                 <div className='flex flex-col w-full items-start'>
                     <h3 className='text-arcadia mb-6 text-lg sm:text-xl lg:text-2xl font-semibold'>
-                        Begin your quest! <br />Create your game library.
+                        ¡Empieza tu misión! Crea <br /> tu biblioteca de juegos.
                     </h3>
 
                     <form
@@ -67,7 +67,7 @@ export default function Register() {
                         {/* email */}
                         <div className='w-full'>
                             <input
-                                placeholder='Type your email...'
+                                placeholder='Escribe tu email...'
                                 {...registerField("email", emailRules)}
                                 type="email"
                                 className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia
@@ -79,7 +79,7 @@ export default function Register() {
                         {/* username */}
                         <div className='w-full'>
                             <input
-                                placeholder='Type your username...'
+                                placeholder='Crea un nombre de usuario...'
                                 {...registerField("username", usernameRules)}
                                 type="text"
                                 className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia
@@ -91,7 +91,7 @@ export default function Register() {
                         {/* password */}
                         <div className='w-full'>
                             <input
-                                placeholder='Type your password...'
+                                placeholder='Crea una contraseña...'
                                 {...registerField("password", passwordRules)}
                                 type="password"
                                 className='w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia
@@ -105,18 +105,18 @@ export default function Register() {
                             type='submit'
                             disabled={loading}
                             className='bg-[#FF6108] px-4 py-2 uppercase text-white rounded-full text-sm cursor-pointer'>
-                            {loading ? 'Authenticating new user...' : 'Begin adventure'}
+                            {loading ? 'Creando nuevo usuario...' : 'Comenzar viaje!'}
                         </button>
 
                         {error && <span className="text-red-500">{error}</span>}
 
                         <p className="text-center text-sm text-arcadia">
-                             Already have an account?{" "}
+                             Tienes una cuenta ya?{" "}
                             <Link
                                 to="/login"
                                 className="font-medium text-arcadia hover:underline"
                             >
-                                Log in
+                                Iniciar sesión
                             </Link>
                         </p>
                     </form>

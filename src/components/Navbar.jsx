@@ -1,6 +1,6 @@
 // imports
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/authContext'
 import { motion } from 'framer-motion'
 
@@ -41,7 +41,7 @@ export default function Navbar() {
         <div className="relative w-full flex justify-between items-center px-4 sm:px-6 lg:px-10 py-4">
 
             {/* logo */}
-            <Link to=".." className="uppercase text-[#FCE3CB] text-lg">arcadia</Link>
+            <NavLink to=".." className="uppercase text-[#FCE3CB] text-lg">arcadia</NavLink>
 
             {/* mobile menu button */}
             <button onClick={handleShown} className="block sm:hidden cursor-pointer text-[#FCE3CB]">
@@ -59,18 +59,28 @@ export default function Navbar() {
 
                     {!user && (
                         <>
-                            <Link to="/login" className="uppercase text-[#7D4C38]">login</Link>
-                            <Link to="/register" className="uppercase text-[#7D4C38]">register</Link>
+                            <NavLink to="/login" className={({ isActive }) =>
+                                `uppercase ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-[#7D4C38] hover:text-[#DB8E6B]'}`
+                            }>login</NavLink>
+                            <NavLink to="/register" className={({ isActive }) =>
+                                `uppercase ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-[#7D4C38] hover:text-[#DB8E6B]'}`
+                            }>register</NavLink>
                         </>
                     )}
 
                     {user && (
                         <>
-                            <Link to="/favorites" className="uppercase bg-[#FF6108] border-2 border-[#7D4C38] text-white text-sm rounded-full px-3 py-2 mt-2">
-                                biblioteca
-                            </Link>
-                            <Link to="/games" className="uppercase text-[#7D4C38]">juegos</Link>
-                            <Link to="/profile" className="uppercase text-[#7D4C38]">mi perfil</Link>
+                            <NavLink to="/favorites" className={({ isActive }) =>
+                                `uppercase ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-[#7D4C38] hover:text-[#DB8E6B]'}`
+                            }>
+                                mi biblioteca
+                            </NavLink>
+                            <NavLink to="/games" className={({ isActive }) =>
+                                `uppercase ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-[#7D4C38] hover:text-[#DB8E6B]'}`
+                            }>juegos</NavLink>
+                            <NavLink to="/profile" className={({ isActive }) =>
+                                `uppercase ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-[#7D4C38] hover:text-[#DB8E6B]'}`
+                            }>mi perfil</NavLink>
                             <button onClick={handleLogOut} className="cursor-pointer uppercase text-[#7D4C38]">salir</button>
                         </>
                     )}
@@ -80,25 +90,57 @@ export default function Navbar() {
             {/* desktop menu */}
             <div className="hidden sm:block">
                 <ul className="flex justify-center items-center gap-4 xl:gap-6">
-                    <li><Link to="/games" className="uppercase text-white">juegos</Link></li>
+                    <li>
+                        <NavLink
+                            to="/games"
+                            className={({ isActive }) =>
+                                `uppercase transition-colors duration-200 ease-in-out 
+                            ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-white hover:text-[#DB8E6B]'}`
+                            }>juegos</NavLink></li>
 
                     {!user && (
                         <>
-                            <li><Link to="/login" className="uppercase text-white">login</Link></li>
-                            <li><Link to="/register" className="uppercase text-white">register</Link></li>
+                            <li>
+                                <NavLink to="/login"
+                                    className={({ isActive }) =>
+                                        `uppercase transition-colors duration-200 ease-in-out 
+                                    ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-white hover:text-[#DB8E6B]'}`
+                                    }>login
+                                </NavLink></li>
+                            <li>
+                                <NavLink to="/register"
+                                    className={({ isActive }) =>
+                                        `uppercase transition-colors duration-200 ease-in-out 
+                                        ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-white hover:text-[#DB8E6B]'}`
+                                    }>register
+                                </NavLink></li>
                         </>
                     )}
 
                     {user && (
                         <>
-                            <li><Link to="/profile" className="uppercase text-white">mi perfil</Link></li>
                             <li>
-                                <button onClick={logout} className="cursor-pointer uppercase text-white">salir</button>
+                                <NavLink
+                                    to="/profile"
+                                    className={({ isActive }) =>
+                                        `uppercase transition-colors duration-200 ease-in-out 
+                                        ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-white hover:text-[#DB8E6B]'}`
+                                    }>mi perfil
+                                </NavLink>
                             </li>
                             <li>
-                                <Link to="/favorites" className="uppercase bg-card border-arcadia text-[#7D4C38] rounded-full px-2 py-1 text-sm">
-                                    biblioteca
-                                </Link>
+                                <button onClick={logout} className="cursor-pointer uppercase text-white hover:text-[#DB8E6B]
+                                 transition-colors duration-200 ease-in-out">salir</button>
+                            </li>
+                            <li>
+                                <NavLink
+                                    to="/favorites"
+                                    className={({ isActive }) =>
+                                        `uppercase transition-colors duration-200 ease-in-out 
+                                        ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-white hover:text-[#DB8E6B]'}`
+                                    }>
+                                    mi biblioteca
+                                </NavLink>
                             </li>
                         </>
                     )}
