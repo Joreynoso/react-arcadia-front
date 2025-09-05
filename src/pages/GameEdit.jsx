@@ -106,7 +106,7 @@ export default function GameUpdate() {
         <>
             <div className="w-full max-w-7xl h-full flex flex-col justify-center items-center flex-1 mt-10 mb-10 mx-auto px-4 sm:px-6 lg:px-10 py-4">
                 <h3 className="uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug text-white text-center mb-10">
-                    Keep your games<br /> <span className='color-arcadia'>update {currentGame?.name}</span>
+                    Actualiza tu<br /> <span className='color-arcadia'>juego {currentGame?.name}</span>
                 </h3>
 
                 <form onSubmit={handleSubmit(handleUpdate)} className="w-full sm:min-h-[400px] max-w-md rounded-2xl bg-card border-arcadia p-5 flex flex-col
