@@ -33,3 +33,19 @@ body {
 .color-arcadia {
   color: #FCE3CB;
 }
+
+.bg-leftCloud {
+  background-image: url('/images/leftCloud.svg');
+}
+
+.bg-rightCloud {
+  background-image: url('/images/rightCloud.svg');
+}
+
+.bg-topCloud {
+  background-image: url('/images/topCloud.svg');
+}
+
+.bg-midCloud {
+  background-image: url('/images/midCloud.svg');
+}

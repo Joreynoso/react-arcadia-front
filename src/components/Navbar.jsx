@@ -67,11 +67,11 @@ export default function Navbar() {
                     {user && (
                         <>
                             <Link to="/favorites" className="uppercase bg-[#FF6108] border-2 border-[#7D4C38] text-white text-sm rounded-full px-3 py-2 mt-2">
-                                my library
+                                biblioteca
                             </Link>
-                            <Link to="/games" className="uppercase text-[#7D4C38]">games</Link>
-                            <Link to="/profile" className="uppercase text-[#7D4C38]">My profile</Link>
-                            <button onClick={handleLogOut} className="cursor-pointer uppercase text-[#7D4C38]">logout</button>
+                            <Link to="/games" className="uppercase text-[#7D4C38]">juegos</Link>
+                            <Link to="/profile" className="uppercase text-[#7D4C38]">mi perfil</Link>
+                            <button onClick={handleLogOut} className="cursor-pointer uppercase text-[#7D4C38]">salir</button>
                         </>
                     )}
                 </motion.div>
@@ -80,7 +80,7 @@ export default function Navbar() {
             {/* desktop menu */}
             <div className="hidden sm:block">
                 <ul className="flex justify-center items-center gap-4 xl:gap-6">
-                    <li><Link to="/games" className="uppercase text-white">games</Link></li>
+                    <li><Link to="/games" className="uppercase text-white">juegos</Link></li>
 
                     {!user && (
                         <>
@@ -91,13 +91,13 @@ export default function Navbar() {
 
                     {user && (
                         <>
-                            <li><Link to="/profile" className="uppercase text-white">My Profile</Link></li>
+                            <li><Link to="/profile" className="uppercase text-white">mi perfil</Link></li>
                             <li>
-                                <button onClick={logout} className="cursor-pointer uppercase text-white">logout</button>
+                                <button onClick={logout} className="cursor-pointer uppercase text-white">salir</button>
                             </li>
                             <li>
                                 <Link to="/favorites" className="uppercase bg-card border-arcadia text-[#7D4C38] rounded-full px-2 py-1 text-sm">
-                                    my library
+                                    biblioteca
                                 </Link>
                             </li>
                         </>

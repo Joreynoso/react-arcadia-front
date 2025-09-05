@@ -35,6 +35,15 @@ export default function GameUpdate() {
         }
     }, [id, games, reset])
 
+    // condicional rendering
+    if (loading || redirecting) return <LoadingCard />
+    if (error) return <ErrorCard />
+
+    // 🚨 validar si no existe el juego
+    if (!currentGame) {
+        return <ErrorCard message="El juego no fue encontrado" />
+    }
+
     async function handleUpdate(data) {
         try {
             const payload = {
@@ -57,10 +66,6 @@ export default function GameUpdate() {
         }
     }
 
-    // condicional rendering
-    if (loading || redirecting) return <LoadingCard />
-    if (error) return <ErrorCard />
-
     // validations rules
     const background_imageRules = {
         required: 'Background image URL is required',
@@ -71,31 +76,31 @@ export default function GameUpdate() {
     }
 
     const nameRules = {
-        required: 'Game name is required',
-        minLength: { value: 2, message: 'Name must be at least 2 characters' },
-        maxLength: { value: 100, message: 'Name must be less than 100 characters' }
+        required: 'El nombre es obligatorio',
+        minLength: { value: 3, message: 'EL nombre debe tener al menos 3 caracteres' },
+        maxLength: { value: 60, message: 'El nombre debe tener como máximo 60 caracteres' }
     }
 
     const releasedRules = {
-        required: 'Release date is required',
+        required: 'La fecha de lanzamiento es obligatoria',
         pattern: {
             // YYYY-MM-DD
             value: /^\d{4}-\d{2}-\d{2}$/,
-            message: 'Date must be in format YYYY-MM-DD'
+            message: 'Fecha debe estar en formato AÑO-MES-DIA'
         }
     }
 
     const platformsRules = {
-        required: 'Platforms are required',
-        validate: value => value.split(',').filter(v => v.trim() !== '').length > 0 || 'Enter at least one platform'
+        required: 'La plataforma es obligatoria',
+        validate: value => value.split(',').filter(v => v.trim() !== '').length > 0 || 'Al menos una plataforma'
     }
 
     const genresRules = {
-        required: 'Genres are required',
-        validate: value => value.split(',').filter(v => v.trim() !== '').length > 0 || 'Enter at least one genre'
+        required: 'El genero es obligatorio',
+        validate: value => value.split(',').filter(v => v.trim() !== '').length > 0 || 'Al menos un genero'
     }
 
-    const styleValidations = "text-xs italic text-red-400 font-semibold leading-tight"
+    const styleValidations = "ml-2 text-xs italic text-red-400 font-semibold leading-tight"
 
     return (
         <>
@@ -112,9 +117,9 @@ export default function GameUpdate() {
                         <input
                             {...register("name", nameRules)}
                             type="text"
-                            placeholder="game name here"
+                            placeholder="Nombre del juego aqui"
                             className="w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
-                            focus:outline-none focus:ring-2 focus:ring-[#A6755A]"
+                            focus:outline-none focus:ring-2 focus:ring-[#A6755A] placeholder:italic"
                         />
                         {errors.name && <p className={styleValidations}>{errors.name.message}</p>}
                     </div>
@@ -124,9 +129,9 @@ export default function GameUpdate() {
                         <input
                             {...register("released", releasedRules)}
                             type="text"
-                            placeholder="Type released date YYYY-MM-DD"
+                            placeholder="Fecha en formato ALOD-MES-DIA"
                             className="w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
-                            focus:outline-none focus:ring-2 focus:ring-[#A6755A]"
+                            focus:outline-none focus:ring-2 focus:ring-[#A6755A] placeholder:italic"
                         />
                         {errors.released && <p className={styleValidations}>{errors.released.message}</p>}
                     </div>
@@ -138,7 +143,7 @@ export default function GameUpdate() {
                             type="text"
                             placeholder="PC, PlayStation 4, Xbox One"
                             className="w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
-                            focus:outline-none focus:ring-2 focus:ring-[#A6755A]"
+                            focus:outline-none focus:ring-2 focus:ring-[#A6755A] placeholder:italic"
                         />
                         {errors.platforms && <p className={styleValidations}>{errors.platforms.message}</p>}
                     </div>
@@ -150,7 +155,7 @@ export default function GameUpdate() {
                             type="text"
                             placeholder="Action, Adventure, Puzzle"
                             className="w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
-                            focus:outline-none focus:ring-2 focus:ring-[#A6755A]"
+                            focus:outline-none focus:ring-2 focus:ring-[#A6755A] placeholder:italic"
                         />
                         {errors.genres && <p className={styleValidations}>{errors.genres.message}</p>}
                     </div>
@@ -163,7 +168,7 @@ export default function GameUpdate() {
                             type="text"
                             placeholder="https://example.com/image.jp"
                             className="w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
-                            focus:outline-none focus:ring-2 focus:ring-[#A6755A]"
+                            focus:outline-none focus:ring-2 focus:ring-[#A6755A] placeholder:italic"
                         />
                         {errors.background_image && <p className={styleValidations}>{errors.background_image.message}</p>}
                     </div>

@@ -18,7 +18,7 @@ export default function Profile() {
         <>
             <div className="w-full max-w-7xl h-full flex flex-col justify-center items-center flex-1 mt-10 mb-10 mx-auto px-4 sm:px-6 lg:px-10 py-4">
                 <h3 className="uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug text-white text-center mb-10">
-                    welcome to your profile <br /><span className='color-arcadia'>{user.email}</span>
+                    Bienvenido a tu perfil<br /><span className='color-arcadia'>{user.username}</span>
                 </h3>
 
                 <GoBackButton />

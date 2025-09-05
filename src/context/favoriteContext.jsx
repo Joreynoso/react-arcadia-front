@@ -47,9 +47,9 @@ export const FavoriteProvider = ({ children }) => {
 
             if (data.game) {
                 setFavorites(prev => [...prev, data.game])
-                showMessage(`${data.game.name} addet to favs!`)
+                showMessage(`${data.game.name} agregado!`)
             } else {
-                showMessage(`${data.game.name} already in favs!`)
+                showMessage(`${data.game.name} ya está en favoritos!`)
                 console.log('mensaje', message)
                 console.log('modal state', modalOpen)
             }
@@ -71,7 +71,7 @@ export const FavoriteProvider = ({ children }) => {
                 data: { gameId }
             })
             setFavorites(prev => prev.filter(f => f.id !== gameId))
-            showMessage(`${data.game.name} remove from favs!`)
+            showMessage(`${data.game.name} removido de favoritos!`)
 
         } catch (err) {
             console.log('Error al eliminar favorito', err)

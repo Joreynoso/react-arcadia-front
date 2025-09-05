@@ -1,6 +1,4 @@
 import { motion, useScroll, useTransform, useSpring } from "framer-motion"
-import LeftCloud from '../images/leftCloud.svg'
-import RightCloud from '../images/rightCloud.svg'
 import { Link } from 'react-router-dom'
 
 export default function CloudSection() {
@@ -24,23 +22,23 @@ export default function CloudSection() {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
-                viewport={{ once: true, amount: 0.4 }}
+                viewport={{ once: true, amount: 0.8 }}
             >
-                Explore more than
+                Explora mundos que no 
                 <span className="color-arcadia">
-                    <br />+500 games
+                    <br />sabías que existían
                 </span>
             </motion.h3>
 
             {/* clouds */}
             <motion.img
-                src={LeftCloud}
+                src="/images/leftCloud.svg"
                 alt="left cloud"
                 style={{ y: leftCloudY }}
                 className="absolute left-0 top-1/2 -translate-y-1/2 w-[40%] sm:w-[35%]"
             />
             <motion.img
-                src={RightCloud}
+                src="/images/rightCloud.svg"
                 alt="right cloud"
                 style={{ y: rightCloudY }}
                 className="absolute right-0 top-1/2 -translate-y-1/2 w-[40%] sm:w-[35%]"
@@ -51,14 +49,14 @@ export default function CloudSection() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.8 }}
             >
                 <Link
                     to="/games"
                     className="inline-block uppercase bg-card border-arcadia text-[#7D4C38] 
           rounded-full px-4 py-2 text-sm transition-transform duration-300 ease-in-out hover:-translate-y-2"
                 >
-                    discover games!
+                    empieza tu colección hoy
                 </Link>
             </motion.div>
         </section>

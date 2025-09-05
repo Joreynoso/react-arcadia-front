@@ -9,7 +9,7 @@ export default function ModalMessage({ open, onClose, message }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeInOut" }}
             className="fixed top-10 left-1/2 -translate-x-1/2 flex items-center justify-center z-50">
-            <div className="bg-card border-arcadia border rounded-full px-6 py-3 shadow-lg flex items-center gap-3 max-w-xs w-auto">
+            <div className="bg-card border-arcadia border rounded-full px-6 py-3 shadow-lg flex items-center gap-3 max-w-md w-auto">
                 <p className="text-arcadia text-center text-sm font-medium truncate">
                     {message}
                 </p>

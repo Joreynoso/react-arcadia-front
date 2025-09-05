@@ -43,7 +43,7 @@ export default function GameInfoCard({ game, hasImage, isInFavorites, id }) {
                     <span className="bg-[#DB8E6B]/70 w-8 h-8 rounded-full aspect-square flex justify-center items-center">
                         <CalendarIcon />
                     </span>
-                    <p className="text-arcadia text-sm">Released date: {game.released}</p>
+                    <p className="text-arcadia text-sm">Lanzamiento: {game.released}</p>
                 </div>
 
                 {/* genres */}
@@ -52,7 +52,7 @@ export default function GameInfoCard({ game, hasImage, isInFavorites, id }) {
                         <GenreIcon />
                     </span>
                     <p className="text-arcadia text-sm">
-                        Genres: {game.genres?.join(', ') || 'N/A'}
+                        Generos: {game.genres?.join(', ') || 'N/A'}
                     </p>
                 </div>
 
@@ -62,7 +62,7 @@ export default function GameInfoCard({ game, hasImage, isInFavorites, id }) {
                         <FavoriteIcon />
                     </span>
                     <p className="text-arcadia text-sm">
-                        In favorites?: {isInFavorites ? 'already in favs' : 'not added'}
+                        ¿En favoritos?: {isInFavorites ? 'en favoritos' : 'no'}
                     </p>
                 </div>
 
@@ -88,7 +88,7 @@ export default function GameInfoCard({ game, hasImage, isInFavorites, id }) {
                 rounded-full flex gap-2 items-center"
                 >
                     <span><IconBook /></span>
-                    {localLoading ? 'generating...' : 'generated ai description'}
+                    {localLoading ? 'generando' : 'generar descripción con ia'}
                 </button>
             </div>
         </>

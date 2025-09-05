@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import MagicBook from '../images/magicBook.png'
 
 export default function SummaryModal({ open, onClose, message }) {
     if (!open) return null
@@ -14,7 +13,7 @@ export default function SummaryModal({ open, onClose, message }) {
 
                 {/* Libro sobresaliendo del borde superior */}
                 <img
-                    src={MagicBook}
+                    src="/images/magicBook.png"
                     alt="magicBook"
                     className="w-32 h-32 sm:w-42 sm:h-42 absolute -top-16 sm:-top-18 left-1/2 transform -translate-x-1/2 object-contain z-50"
                 />
@@ -28,7 +27,7 @@ export default function SummaryModal({ open, onClose, message }) {
                     className="w-full px-4 py-2 uppercase text-sm text-white 
                     cursor-pointer bg-[#FF6108] hover:bg-[#e45507] transition-colors 
                     rounded-full">
-                    Close Description
+                    cerrar ventana
                 </button>
             </motion.div>
         </div>

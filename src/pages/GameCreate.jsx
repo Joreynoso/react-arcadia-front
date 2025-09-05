@@ -57,41 +57,41 @@ export default function GameUpdate() {
     }
 
     const nameRules = {
-        required: 'Game name is required',
-        minLength: { value: 2, message: 'Name must be at least 2 characters' },
-        maxLength: { value: 100, message: 'Name must be less than 100 characters' }
+        required: 'El nombre es obligatorio',
+        minLength: { value: 3, message: 'EL nombre debe tener al menos 3 caracteres' },
+        maxLength: { value: 60, message: 'El nombre debe tener como máximo 60 caracteres' }
     }
 
     const releasedRules = {
-        required: 'Release date is required',
+        required: 'La fecha de lanzamiento es obligatoria',
         pattern: {
             // YYYY-MM-DD
             value: /^\d{4}-\d{2}-\d{2}$/,
-            message: 'Date must be in format YYYY-MM-DD'
+            message: 'Fecha debe estar en formato AÑO-MES-DIA'
         }
     }
 
     const platformsRules = {
-        required: 'Platforms are required',
-        validate: value => value.split(',').filter(v => v.trim() !== '').length > 0 || 'Enter at least one platform'
+        required: 'La plataforma es obligatoria',
+        validate: value => value.split(',').filter(v => v.trim() !== '').length > 0 || 'Al menos una plataforma'
     }
 
     const genresRules = {
-        required: 'Genres are required',
-        validate: value => value.split(',').filter(v => v.trim() !== '').length > 0 || 'Enter at least one genre'
+        required: 'El genero es obligatorio',
+        validate: value => value.split(',').filter(v => v.trim() !== '').length > 0 || 'Al menos un genero'
     }
 
-    const styleValidations = "text-xs italic text-red-400 font-semibold leading-tight"
+    const styleValidations = "ml-2 text-xs italic text-red-400 font-semibold leading-tight"
 
     return (
         <>
             <div className="w-full max-w-7xl h-full flex flex-col justify-center items-center flex-1 mt-10 mb-10 mx-auto px-4 sm:px-6 lg:px-10 py-4">
                 <h3 className="uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug text-white text-center mb-10">
-                    Creatae a new<br /> <span className='color-arcadia'>Game</span>
+                   Crea un nuevo<br /> <span className='color-arcadia'>Juego</span>
                 </h3>
 
                 <form onSubmit={handleSubmit(handleCreate)}
-                    className="w-full sm:min-h-[400px] max-w-md rounded-2xl bg-card border-arcadia 
+                    className="w-full sm:min-h-[500px] max-w-md rounded-2xl bg-card border-arcadia 
                 p-5 flex flex-col justify-center items-center gap-2 mb-10" autoComplete="off">
 
                     {/* name */}
@@ -99,9 +99,9 @@ export default function GameUpdate() {
                         <input
                             {...register("name", nameRules)}
                             type="text"
-                            placeholder="game name here"
+                            placeholder="Nombre del juego aqui"
                             className="w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
-                            focus:outline-none focus:ring-2 focus:ring-[#A6755A]"
+                            focus:outline-none focus:ring-2 focus:ring-[#A6755A] placeholder:italic"
                         />
                         {errors.name && <p className={styleValidations}>{errors.name.message}</p>}
                     </div>
@@ -111,9 +111,9 @@ export default function GameUpdate() {
                         <input
                             {...register("released", releasedRules)}
                             type="text"
-                            placeholder="Type released date YYYY-MM-DD"
+                            placeholder="Fecha en formato AÑO-MES-DIA"
                             className="w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
-                            focus:outline-none focus:ring-2 focus:ring-[#A6755A]"
+                            focus:outline-none focus:ring-2 focus:ring-[#A6755A] placeholder:italic"
                         />
                         {errors.released && <p className={styleValidations}>{errors.released.message}</p>}
                     </div>
@@ -125,7 +125,7 @@ export default function GameUpdate() {
                             type="text"
                             placeholder="PC, PlayStation 4, Xbox One"
                             className="w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
-                            focus:outline-none focus:ring-2 focus:ring-[#A6755A]"
+                            focus:outline-none focus:ring-2 focus:ring-[#A6755A] placeholder:italic"
                         />
                         {errors.platforms && <p className={styleValidations}>{errors.platforms.message}</p>}
                     </div>
@@ -137,7 +137,7 @@ export default function GameUpdate() {
                             type="text"
                             placeholder="Action, Adventure, Puzzle"
                             className="w-full bg-[#ECC799] px-4 py-2 rounded-full text-arcadia mb-2
-                            focus:outline-none focus:ring-2 focus:ring-[#A6755A]"
+                            focus:outline-none focus:ring-2 focus:ring-[#A6755A] placeholder:italic"
                         />
                         {errors.genres && <p className={styleValidations}>{errors.genres.message}</p>}
                     </div>
@@ -160,7 +160,7 @@ export default function GameUpdate() {
                         disabled={loading}
                         className='bg-[#FF6108] px-4 py-2  uppercase text-white rounded-full text-sm cursor-pointer'
                     >
-                        {loading ? 'Updating...' : 'Update game'}
+                        {loading ? 'Creando juego...' : 'Crear juego'}
                     </button>
                 </form>
 

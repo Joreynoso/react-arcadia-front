@@ -23,7 +23,7 @@ export default function Modal({ open, onConfirm, onCancel, message }) {
                         cursor-pointer
                         px-4 py-2 rounded-full bg-[#7D4C38] text-white text-sm hover:bg-[#6a3e2f] transition-colors"
                     >
-                        Cancel
+                        Cancelar
                     </button>
 
                     <button
@@ -32,7 +32,7 @@ export default function Modal({ open, onConfirm, onCancel, message }) {
                         cursor-pointer
                         px-4 py-2 rounded-full bg-[#FF6108] text-white text-sm hover:bg-[#e45507] transition-colors"
                     >
-                        Confirm
+                        Confirmar
                     </button>
                 </div>
 

@@ -24,7 +24,7 @@ export default function FavoriteCard({ id, background_image, name, released, has
                 <div className="flex flex-col text-center px-1 md:px-2" >
                     <h4 className="text-sm md:text-base text-arcadia truncate font-semibold">{name}</h4>
                     <span className="text-[10px] md:text-xs text-arcadia opacity-70 font-semibold">
-                        Released date: {released}
+                        Lanzamiento: <br /> {released}
                     </span>
                 </div>
 

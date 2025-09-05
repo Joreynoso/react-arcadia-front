@@ -11,7 +11,7 @@ export default function GoBackButton() {
                 onClick={() => navigate(-1)}
                 className="w-40 bg-card border-arcadia text-arcadia   uppercase text-sm px-4 py-2 rounded-full font-semibold
                 cursor-pointer">
-                go back
+                volver
             </button>
         </>
     )

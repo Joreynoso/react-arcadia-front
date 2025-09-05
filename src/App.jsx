@@ -24,6 +24,9 @@ import DashboardUsers from './pages/DashboardUsers'
 import DashboardRoles from './pages/DashboardRoles'
 import DashboardPermissions from './pages/DashboardPermissions'
 
+// --> private route
+import PrivateRoute from './router/PrivateRoute'
+
 function App() {
   return (
     <>
@@ -40,23 +43,38 @@ function App() {
               <Route path="games" element={<DashboardGames />} />
             </Route>
 
-            {/* Games routes */}
-            <Route path="games">
+            {/* Game routes */}
+            <Route path="games" element={<PrivateRoute rolesAllowed={["user", "editor", "admin"]} />}>
+              {/* cualquier usuario logeado */}
               <Route index element={<Games />} />
-              <Route path="add" element={<GameCreate />} />
-              <Route path=":id" element={<GameDetail />} />
-              <Route path=":id/edit" element={<GameEdit />} />
+
+              <Route element={<PrivateRoute rolesAllowed={["admin", "editor"]} />}>
+                <Route path="add" element={<GameCreate />} />
+              </Route>
+
+              <Route element={<PrivateRoute rolesAllowed={["user", "editor", "admin"]} />}>
+                <Route path=":id" element={<GameDetail />} />
+              </Route>
+
+              <Route element={<PrivateRoute rolesAllowed={["editor", "admin"]} />}>
+                <Route path=":id/edit" element={<GameEdit />} />
+              </Route>
+
             </Route>
 
             {/* login / register route */}
             <Route path='login' element={<Login />} />
             <Route path='register' element={<Register />} />
 
-            {/* profile rout */}
-            <Route path='profile' element={<Profile />} />
+            {/* profile route */}
+            <Route element={<PrivateRoute rolesAllowed={["user", "editor", "admin"]} />}>
+              <Route path="profile" element={<Profile />} />
+            </Route>
 
             {/* favorites routes */}
-            <Route path='favorites' element={<Favorites />} />
+            <Route element={<PrivateRoute rolesAllowed={["user", "editor", "admin"]} />}>
+              <Route path='favorites' element={<Favorites />} />
+            </Route>
 
             {/* not found route */}
             <Route path="*" element={<NotFound />} />

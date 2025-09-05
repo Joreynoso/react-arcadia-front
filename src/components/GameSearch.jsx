@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react"
+import { use, useEffect, useState } from "react"
 import { useSearchParams, Link } from "react-router-dom"
+import { usePermission } from '../hooks/usePermission'
 
 export default function SearchBar() {
     const [searchQuery, setSearchQuery] = useState("")
     const [searchParams, setSearchParams] = useSearchParams()
+    const { can } = usePermission()
 
     // handle UI toggle
     const [activeSort, setActiveSort] = useState(null) // 'desc' o 'asc'
@@ -45,8 +47,8 @@ export default function SearchBar() {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full text-arcadia font-bold px-3 py-2 rounded-full focus:outline-none"
-                    placeholder="Type a game name to search.."
+                    className="w-full text-arcadia font-bold px-3 py-2 rounded-full focus:outline-none placeholder:italic"
+                    placeholder="Busca tu juego favorito..."
                 />
                 <button
                     type="submit"
@@ -71,7 +73,7 @@ export default function SearchBar() {
                         ${activeSort === "desc" ? "shadow-inner shadow-black/70" : ""}
                     `}
                 >
-                    newest
+                    nuevos
                 </button>
                 <button
                     onClick={() => {
@@ -85,7 +87,7 @@ export default function SearchBar() {
                         ${activeSort === "asc" ? "shadow-inner shadow-black/70" : ""}
                     `}
                 >
-                    oldest
+                    viejos
                 </button>
                 <button
                     onClick={() => {
@@ -96,18 +98,21 @@ export default function SearchBar() {
                     className="w-full flex-1 min-h-[38px] text-xs sm:text-sm uppercase color-arcadia 
                     borde-arcadia rounded-full px-3 py-2 cursor-pointer border border-white/60"
                 >
-                    clear
+                    limpiar
                 </button>
 
                 {/* display only if admin user is logged */}
-                <Link
-                    to={'/games/add'}
-                    className="bg-[#DB8E6B] border-arcadia px-4 py-2 rounded-full flex gap-2 text-white uppercase
+                {can('adming') && (
+                    <Link
+                        to={'/games/add'}
+                        className="bg-[#DB8E6B] border-arcadia px-4 py-2 rounded-full flex gap-2 text-white uppercase
                     flex-1 justify-center items-center hover:bg-[#b8704f] duration20 transition-colors ease-in-out
-                    w-full min-h-[38px] text-xs sm:text-sm"
-                >
-                    new
-                </Link>
+                    w-full min-h-[38px] text-xs sm:text-sm text-arcadia font-bold"
+                    >
+                        crear
+                    </Link>
+                )}
+
             </div>
         </div>
     )

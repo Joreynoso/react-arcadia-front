@@ -22,7 +22,7 @@ export default function CardsSection() {
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.4 }}
+            viewport={{ once: true, amount: 0.8  }}
             key={game.id}
             className="relative rounded-xl bg-card flex flex-col p-2 md:p-3 border-arcadia gap-2 md:gap-3 h-auto md:h-72 text-center" >
             <div className="relative rounded-lg h-40 md:h-48 bg-[#FCCE9F] border-arcadia overflow-hidden">
@@ -36,7 +36,7 @@ export default function CardsSection() {
             <div className="flex flex-col text-center px-1 md:px-2" >
                 <h4 className="text-sm md:text-base text-arcadia truncate font-semibold">{game.name}</h4>
                 <span className="text-[10px] md:text-xs text-arcadia opacity-70 font-semibold">
-                   Released: {game.released}
+                   Lanzamiento: {game.released}
                 </span>
             </div>
 
@@ -61,7 +61,7 @@ export default function CardsSection() {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     viewport={{ once: true, amount: 0.4 }}
                     className="uppercase text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-snug mb-10 text-white text-center">
-                    Your Quest to Build the <br /><span className='color-arcadia'>Ultimate Library</span>
+                    Clasicos de todos <br /><span className='color-arcadia'>los tiempos</span>
                 </motion.h3>
 
                 {/* game list */}
@@ -71,7 +71,7 @@ export default function CardsSection() {
 
                 <Link to="/games" className="inline-block uppercase bg-card border-arcadia text-[#7D4C38] 
                 rounded-full px-4 py-2 text-sm transition-transform duration-300 ease-in-out hover:-translate-y-2">
-                    discover games!
+                    ver lista de juegos
                 </Link>
             </div>
         </>

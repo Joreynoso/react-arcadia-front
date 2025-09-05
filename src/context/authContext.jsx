@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [token, setToken] = useState("")
     const [loading, setLoading] = useState(false)
+    const [loadingUser, setLoadingUser] = useState(true)
     const [error, setError] = useState(null)
 
     const register = async ({ email, username, password }) => {
@@ -53,10 +54,12 @@ export const AuthProvider = ({ children }) => {
         const storedToken = localStorage.getItem("token")
         if (storedUser) setUser(JSON.parse(storedUser))
         if (storedToken) setToken(storedToken)
+
+        setLoadingUser(false)
     }, [])
 
     return (
-        <AuthContext.Provider value={{ user, token, loading, error, register, login, logout }}>
+        <AuthContext.Provider value={{ user, token, loading, error, register, login, logout, loadingUser }}>
             {children}
         </AuthContext.Provider>
     )

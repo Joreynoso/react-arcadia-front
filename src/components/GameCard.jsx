@@ -1,11 +1,13 @@
 // imports
 import { Link } from 'react-router-dom'
 import { useFavorite } from '../context/favoriteContext'
+import { usePermission } from '../hooks/usePermission'
 import { useState } from 'react'
 
 import GameNotImage from './GameNotImage'
 
 export default function GameCard({ id, background_image, name, released, hasImage }) {
+    const { can } = usePermission()
     const { favorites, loading, addFavorite, removeFavorite } = useFavorite()
     const [localLoading, setLocalLoading] = useState(false)
 
@@ -66,7 +68,7 @@ export default function GameCard({ id, background_image, name, released, hasImag
                 <div className="flex flex-col text-center px-1 md:px-2" >
                     <h4 className="text-sm md:text-base text-arcadia truncate font-semibold">{name}</h4>
                     <span className="text-[10px] md:text-xs text-arcadia opacity-70 font-semibold">
-                        Released {released}
+                        Lanzamiento <br /> {released}
                     </span>
                 </div>
 
@@ -74,38 +76,42 @@ export default function GameCard({ id, background_image, name, released, hasImag
                     to={`/games/${id}`}
                     className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs 
                     md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
-                    details
+                    detalle
                 </Link>
 
                 {/* display admin */}
-                <div className='actions w-full flex gap-1'>
-                    <Link
-                        to={`/games/${id}/edit`}
-                        className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-0.5 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
+                {can(['admin']) && (
+                    <div className='actions w-full flex gap-1'>
+                        <Link
+                            to={`/games/${id}/edit`}
+                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-0.5 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
                         md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
-                    >
-                        edit
-                    </Link>
+                        >
+                            editar
+                        </Link>
 
-                    <Link
-                        to={`/games/${id}`}
-                        className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-0.5 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
+                        <Link
+                            to={`/games/${id}`}
+                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-0.5 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
                         md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
-                    >
-                        delete
-                    </Link>
-                </div>
+                        >
+                            borrar
+                        </Link>
+                    </div>)}
+
 
                 {/* display editor */}
-                <div className='actions w-full flex gap-1'>
-                    <Link
-                        to={`/games/${id}/edit`}
-                        className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-0.5 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
+                {can(['editor']) && (
+                    <div className='actions w-full flex gap-1'>
+                        <Link
+                            to={`/games/${id}/edit`}
+                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-0.5 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
                         md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
-                    >
-                        edit
-                    </Link>
-                </div>
+                        >
+                            editar
+                        </Link>
+                    </div>
+                )}
 
                 <button
                     disabled={loading}

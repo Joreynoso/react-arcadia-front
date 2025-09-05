@@ -29,8 +29,8 @@ export default function FavoriteSearch({ searchQuery, setSearchQuery }) {
                         value={searchQuery}
                         onChange={e => handleSearchChange(e.target.value, setSearchQuery)}
                         type="text"
-                        className="w-full text-arcadia font-bold px-3 py-2 rounded-full focus:outline-none"
-                        placeholder="Type a game name to search.."
+                        className="w-full text-arcadia font-bold px-3 py-2 rounded-full focus:outline-none placeholder:italic"
+                        placeholder="Buscar un juego en favoritos.."
                     />
                     <div className="h-9 w-9 rounded-full flex items-center justify-center text-white bg-[#FF6108]">
                         {searchIcon}

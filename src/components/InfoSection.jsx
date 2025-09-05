@@ -1,8 +1,4 @@
 // imports
-import InfoBoy from '../images/infoBoy.svg'
-import InfoSword from '../images/infoSword.svg'
-import InfoShield from '../images/infoShield.svg'
-import InfoDoubleSword from '../images/infoDoubleSword.svg'
 import { motion } from 'framer-motion'
 
 export default function InfoSection() {
@@ -22,9 +18,9 @@ export default function InfoSection() {
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    viewport={{ once: true, amount: 0.4 }}
+                    viewport={{ once: true, amount: 0.8 }}
                     className="uppercase text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-snug mb-10 text-white text-center">
-                    Your Quest to Build the <br /><span className='color-arcadia'>Ultimate Library</span>
+                    Tu misión para crear la <br /><span className='color-arcadia'>biblioteca definitiva</span>
                 </motion.h3>
 
                 {/* grid section */}
@@ -36,10 +32,10 @@ export default function InfoSection() {
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
-                        viewport={{ once: true, amount: 0.4 }}
+                        viewport={{ once: true, amount: 0.8 }}
                         className='flex flex-col bg-card rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-3 justify-center items-center text-center'>
                         <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
-                            Save your favorite games to your library and access them anytime you want.
+                            Guarda tus juegos favoritos en tu biblioteca y accede a ellos cuando quieras.
                         </h4>
 
                         <span className='bg-[#DB8E6B] border-arcadia px-4 py-2 rounded-full flex gap-2'>
@@ -48,13 +44,15 @@ export default function InfoSection() {
                     </motion.div>
 
                     {/* block 2 */}
+                    {/* block 2 */}
                     <motion.div
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
-                        viewport={{ once: true, amount: 0.4 }}
-                        className='flex justify-center items-center bg-[#FCCE9F] rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
-                        <img src={InfoBoy} alt="infoBoy" className='h-[125%]' />
+                        viewport={{ once: true, amount: 0.8 }}
+                        className='flex justify-center items-center bg-[#FCCE9F] rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-2'
+                    >
+                        <img src="/images/infoBoy.svg" alt="infoBoy" className='h-[125%]' />
                     </motion.div>
 
                     {/* block 3 */}
@@ -62,15 +60,15 @@ export default function InfoSection() {
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
-                        viewport={{ once: true, amount: 0.4 }}
+                        viewport={{ once: true, amount: 0.8 }}
                         className='flex flex-col justify-center items-center text-center bg-[#FCCE9F] rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
                         <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
-                            Easily search through your library and find the games you love.
+                            Busca fácilmente en tu biblioteca y encuentra los juegos que más amas.
                         </h4>
                         <span className='bg-[#DB8E6B] border-arcadia px-4 py-2 rounded-full flex gap-2'>
-                            <img src={InfoShield} alt="infoshield" className='size-6' />
-                            <img src={InfoDoubleSword} alt="InfoDoubleSword" className='size-6' />
-                            <img src={InfoSword} alt="InfoSword" className='size-6' />
+                            <img src="/images/infoShield.svg" alt="infoShield" className='size-6' />
+                            <img src="/images/infoDoubleSword.svg" alt="InfoDoubleSword" className='size-6' />
+                            <img src="/images/infoSword.svg" alt="InfoSword" className='size-6' />
                         </span>
                     </motion.div>
 
@@ -79,10 +77,10 @@ export default function InfoSection() {
                         initial={{ opacity: 0, y: 50 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, ease: "easeOut" }}
-                        viewport={{ once: true, amount: 0.4 }}
+                        viewport={{ once: true, amount: 0.8 }}
                         className='flex flex-col justify-center items-center text-center bg-card rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-3'>
                         <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
-                            Discover new adventures and never miss a game worth playing.
+                           Descubre nuevas aventuras y no te pierdas ningún juego que valga la pena.
                         </h4>
                         <span className='bg-[#DB8E6B] border-arcadia px-4 py-2 rounded-full flex gap-2'>
                             {iconStar} {iconStar} {iconStar} {iconStar} {iconStar}

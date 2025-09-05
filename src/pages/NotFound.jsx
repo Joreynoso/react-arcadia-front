@@ -17,7 +17,7 @@ export default function NotFound() {
                 {/* subtitle */}
                 <p className='  text-white mb-6 
                 text-base sm:text-lg md:text-xl lg:text-2xl'>
-                    Oops! seems like you got a <br /> black cat as a response.
+                   ¡Ups! Parece que te respondió<br /> un gato negro
                 </p>
 
                 {/* gobackbutton */}

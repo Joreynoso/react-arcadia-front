@@ -17,7 +17,7 @@ export default function Forbidden() {
                 {/* subtitle */}
                 <p className='  text-white mb-6 
                 text-base sm:text-lg md:text-xl lg:text-2xl'>
-                    Oops! seems like you dont <br /> have permission.
+                    ¡Ups! Parece que no <br /> tienes permiso.
                 </p>
 
                 {/* go back button */}

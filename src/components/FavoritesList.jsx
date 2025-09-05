@@ -72,7 +72,7 @@ export default function FavoritesList({ searchQuery }) {
     return (
       <div className='w-full text-center flex flex-col justify-center items-center'>
         <h3 className='text-white mb-4 color-arcadia'>
-          Oops! seems like you don't have added <br />any favorite game yet
+          ¡Ups! Parece que aún no has agregado <br />ningún juego a favoritos.
         </h3>
         <GoBackButton />
       </div>
@@ -97,7 +97,7 @@ export default function FavoritesList({ searchQuery }) {
       {/* Modal de confirmación */}
       <ModalConfirm
         open={confirmOpen}
-        message={`Remove "${selectedFavorite?.name}" from favorites?`}
+        message={`Remover "${selectedFavorite?.name}" de tus favoritos?`}
         onConfirm={confirmRemove}
         onCancel={closeModal}
       />
