@@ -1,4 +1,5 @@
-import { useState, createContext, useContext, useEffect } from 'react'
+import { useState, createContext, useContext } from 'react'
+import { useFavorite } from './favoriteContext'
 import api from '../helper/api'
 
 // create context
@@ -6,6 +7,7 @@ export const GameContext = createContext(null)
 
 // provider
 export const GameProvider = ({ children }) => {
+    const { getFavorites, setFavorites } = useFavorite()
     const [games, setGames] = useState([])
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
@@ -88,6 +90,10 @@ export const GameProvider = ({ children }) => {
 
             setGames(prev => prev.map(g => g._id === id ? data.game : g))
             showMessage(`${data.game.name} actualizado`)
+
+            // refresh favorites
+            await getFavorites()
+
             return data.game
         } catch (err) {
             setError(err.message || 'Unknown error')
@@ -106,6 +112,10 @@ export const GameProvider = ({ children }) => {
             const { data } = await api.delete(`/api/games/${id}`)
             showMessage(`${data.game.name} borrado`)
             setGames(prev => prev.filter(g => g._id !== id))
+
+            // refresh favorites
+            await getFavorites()
+
             return data
         } catch (error) {
             console.log('failed to delete a game', error)

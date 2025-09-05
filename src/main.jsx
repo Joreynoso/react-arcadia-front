@@ -11,11 +11,11 @@ import { FavoriteProvider } from './context/favoriteContext.jsx'
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-      <GameProvider>
-        <FavoriteProvider>
+      <FavoriteProvider>
+        <GameProvider>
           <App />
-        </FavoriteProvider>
-      </GameProvider>
+        </GameProvider>
+      </FavoriteProvider>
     </AuthProvider>
   </StrictMode>,
 )

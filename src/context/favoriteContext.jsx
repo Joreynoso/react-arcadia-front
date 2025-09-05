@@ -106,6 +106,7 @@ export const FavoriteProvider = ({ children }) => {
             setmodalMessage,
             setModalOpen,
 
+            getFavorites,
             setFavorites,
             addFavorite,
             removeFavorite
