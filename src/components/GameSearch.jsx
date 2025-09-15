@@ -1,4 +1,4 @@
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { useSearchParams, Link } from "react-router-dom"
 import { usePermission } from '../hooks/usePermission'
 
@@ -37,7 +37,7 @@ export default function SearchBar() {
     )
 
     return (
-        <div className="w-full mb-6 mx-auto flex flex-col sm:flex-row gap-4">
+        <div className="w-full mb-4 mx-auto flex flex-col sm:flex-row gap-4">
             {/* searchbar */}
             <form
                 onSubmit={handleSearch}

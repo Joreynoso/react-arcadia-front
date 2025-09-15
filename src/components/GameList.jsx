@@ -40,22 +40,28 @@ export default function GameList() {
 
     // parámetros de búsqueda/paginación
     const limit = 20
-    const page = parseInt(searchParams.get('page')) || 1
-    const query = searchParams.get('q') || ''
-    const sort = searchParams.get('sort') || ''
+    const page = parseInt(searchParams.get('page')) || 1  // página actual (default 1)
+    const query = searchParams.get('q') || '' // texto de búsqueda (default vacío)
+    const sort = searchParams.get('sort') || '' // criterio de orden (default vacío)
 
     // cargar juegos
     useEffect(() => {
         const fetchGames = async () => {
             let data
+            // Si hay un query en la URL → buscar juegos por nombre
             if (query) {
                 data = await searchGames(query, page, limit)
+
+                // Si no hay query pero hay sort → buscar juegos ordenados por fecha
             } else if (sort) {
                 data = await searchByDate(page, limit, sort)
+
+                // Si no hay ni query ni sort → obtener todos los juegos
             } else {
                 data = await getAllGames(page, limit)
             }
 
+            // Guardar la cantidad de páginas para la paginación
             if (data?.totalPages) setTotalPages(data.totalPages)
         }
 
@@ -63,6 +69,7 @@ export default function GameList() {
     }, [page, query, sort])
 
     // paginación
+    // ir a la página anterior (si no es la primera)
     const handlePrev = () => {
         if (page > 1) setSearchParams({ q: query, sort, page: page - 1 })
     }

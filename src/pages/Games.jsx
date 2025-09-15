@@ -3,6 +3,7 @@ import GameSearch from "../components/GameSearch"
 import GameList from "../components/GameList"
 import ModalMessage from "../components/ModalMessage"
 import GameToast from "../components/GameToast"
+import GameGenres from "../components/GameGenres"
 
 import { useFavorite } from "../context/favoriteContext"
 import { useGame } from "../context/gamesContext"
@@ -35,6 +36,8 @@ export default function Games() {
 
             {/* search */}
             <GameSearch />
+
+            <GameGenres/>
             
             {/* list */}
             <GameList />

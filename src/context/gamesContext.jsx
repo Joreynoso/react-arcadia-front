@@ -179,6 +179,24 @@ export const GameProvider = ({ children }) => {
         }
     }
 
+    // --> search games by gender
+    const searchByGenre = async (page = 1, limit = 20, genre) => {
+        setLoading(true)
+        setError(null)
+
+        try {
+            const { data } = await api.get('/api/games/genres', {
+                params: { genre, page, limit }
+            })
+            setGames(data.games || [])
+            return data
+        } catch (error) {
+            setError("Error to sort games by genre", genre)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return (
         <GameContext.Provider value={{
             error,
@@ -190,6 +208,7 @@ export const GameProvider = ({ children }) => {
             getSummary,
             searchGames,
             searchByDate,
+            searchByGenre,
             createGame,
             updateGame,
             deleteGame,
