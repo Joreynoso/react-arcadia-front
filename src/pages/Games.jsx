@@ -7,8 +7,10 @@ import GameGenres from "../components/GameGenres"
 
 import { useFavorite } from "../context/favoriteContext"
 import { useGame } from "../context/gamesContext"
+import { useState } from 'react'
 
 export default function Games() {
+    const [selectedGenre, setSelectedGenre] = useState('')
     const { modalOpen, setModalOpen, modalMessage } = useFavorite()
     const { games, openToast, setOpenToast, messageToast } = useGame()
 
@@ -37,8 +39,10 @@ export default function Games() {
             {/* search */}
             <GameSearch />
 
-            <GameGenres/>
-            
+            <GameGenres 
+            selectedGenre={selectedGenre}
+            onSelectedGenre={genre => setSelectedGenre(genre)}/>
+
             {/* list */}
             <GameList />
         </div>

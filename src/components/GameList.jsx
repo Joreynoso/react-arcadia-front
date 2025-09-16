@@ -10,9 +10,10 @@ import Pagination from './Pagination'
 import ModalConfirm from '../components/ModalConfirm'
 
 export default function GameList() {
-    const { error, loading, games, getAllGames, searchGames, searchByDate, deleteGame } = useGame()
+    const { error, loading, games, getAllGames, searchGames, searchByDate, deleteGame, searchByGenre } = useGame()
     const [searchParams, setSearchParams] = useSearchParams()
     const [totalPages, setTotalPages] = useState()
+    const genre = searchParams.get('genre') || ''
 
     // modal state
     const [modalOpen, setModalOpen] = useState(false)
@@ -48,34 +49,30 @@ export default function GameList() {
     useEffect(() => {
         const fetchGames = async () => {
             let data
-            // Si hay un query en la URL → buscar juegos por nombre
             if (query) {
-                data = await searchGames(query, page, limit)
-
-                // Si no hay query pero hay sort → buscar juegos ordenados por fecha
+                await searchGames(query, page, limit)
             } else if (sort) {
-                data = await searchByDate(page, limit, sort)
-
-                // Si no hay ni query ni sort → obtener todos los juegos
+                await searchByDate(page, limit, sort)
+            } else if (genre) {          // <-- agregamos este caso
+                await searchByGenre(page, limit, genre)
             } else {
-                data = await getAllGames(page, limit)
+                await getAllGames(page, limit)
             }
 
-            // Guardar la cantidad de páginas para la paginación
             if (data?.totalPages) setTotalPages(data.totalPages)
         }
 
         fetchGames()
-    }, [page, query, sort])
+    }, [page, query, sort, genre])
 
     // paginación
     // ir a la página anterior (si no es la primera)
     const handlePrev = () => {
-        if (page > 1) setSearchParams({ q: query, sort, page: page - 1 })
+        if (page > 1) setSearchParams({ q: query, sort, genre, page: page - 1 })
     }
 
     const handleNext = () => {
-        setSearchParams({ q: query, sort, page: page + 1 })
+        setSearchParams({ q: query, sort, genre, page: page + 1 })
     }
 
     // renderizado condicional
