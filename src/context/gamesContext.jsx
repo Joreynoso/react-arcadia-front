@@ -1,4 +1,4 @@
-import { useState, createContext, useContext } from 'react'
+import { useState, createContext, useContext, useEffect } from 'react'
 import { useFavorite } from './favoriteContext'
 import api from '../helper/api'
 
@@ -7,10 +7,15 @@ export const GameContext = createContext(null)
 
 // provider
 export const GameProvider = ({ children }) => {
-    const { getFavorites, setFavorites } = useFavorite()
+    const { getFavorites } = useFavorite()
     const [games, setGames] = useState([])
+    const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
+
+    // set limit items per page
+    const limit = 20
 
     // modal summary
     const [modalOpen, setModalOpen] = useState(false)
@@ -33,6 +38,7 @@ export const GameProvider = ({ children }) => {
         try {
             const { data } = await api.get(`/api/games?limit=${limit}&page=${page}`)
             setGames(data.games || [])
+            setTotalPages(data.totalPages || 1)
             console.log('-->[CONTEXT GAME] list of games', data)
             return data
         } catch (err) {
@@ -197,6 +203,11 @@ export const GameProvider = ({ children }) => {
         }
     }
 
+    // cuando cambia la página, refresco
+    useEffect(() => {
+        getAllGames(page, limit)
+    }, [page])
+
     return (
         <GameContext.Provider value={{
             error,
@@ -204,6 +215,10 @@ export const GameProvider = ({ children }) => {
             games,
 
             getAllGames,
+            page,
+            setPage,
+            totalPages,
+
             getGameById,
             getSummary,
             searchGames,

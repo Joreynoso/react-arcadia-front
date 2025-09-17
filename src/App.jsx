@@ -26,6 +26,7 @@ import DashboardPermissions from './pages/DashboardPermissions'
 
 // --> private route
 import PrivateRoute from './router/PrivateRoute'
+import GamesPage from './pages/GamesPage'
 
 function App() {
   return (
@@ -46,7 +47,7 @@ function App() {
             {/* Game routes */}
             <Route path="games" element={<PrivateRoute rolesAllowed={["user", "editor", "admin"]} />}>
               {/* cualquier usuario logeado */}
-              <Route index element={<Games />} />
+              <Route index element={<GamesPage />} />
 
               <Route element={<PrivateRoute rolesAllowed={["admin"]} />}>
                 <Route path="add" element={<GameCreate />} />
@@ -55,7 +56,7 @@ function App() {
               <Route element={<PrivateRoute rolesAllowed={["user", "editor", "admin"]} />}>
                 <Route path=":id" element={<GameDetail />} />
               </Route>
-
+              
               <Route element={<PrivateRoute rolesAllowed={["editor", "admin"]} />}>
                 <Route path=":id/edit" element={<GameEdit />} />
               </Route>

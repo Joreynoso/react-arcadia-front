@@ -87,6 +87,12 @@ export const FavoriteProvider = ({ children }) => {
         }
     }
 
+    // quitar todos los favoritos
+    const removeAllFavs = () => {
+        setFavorites([])
+        showMessage("Todos los favoritos eliminados")
+    }
+
     useEffect(() => {
         if (token) {
             getFavorites()
@@ -109,7 +115,8 @@ export const FavoriteProvider = ({ children }) => {
             getFavorites,
             setFavorites,
             addFavorite,
-            removeFavorite
+            removeFavorite,
+            removeAllFavs
         }}>
             {children}
         </FavoriteContext.Provider>

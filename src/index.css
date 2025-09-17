@@ -49,3 +49,19 @@ body {
 .bg-midCloud {
   background-image: url('/images/midCloud.svg');
 }
+
+/* styles.css o tu tailwind global */
+.scrollbar-arcadia::-webkit-scrollbar {
+  width: 8px;              /* ancho del scroll */
+}
+
+.scrollbar-arcadia::-webkit-scrollbar-track {
+  background: #f0f0f0;     /* color del track */
+  border-radius: 9999px;   /* redondeado total */
+}
+
+.scrollbar-arcadia::-webkit-scrollbar-thumb {
+  background-color: #83503B; /* color arcadia */
+  border-radius: 9999px;     /* redondeado total */
+  border: 2px solid #f0f0f0; /* espacio entre scroll y track */
+}
