@@ -9,6 +9,9 @@ export const GameContext = createContext(null)
 export const GameProvider = ({ children }) => {
     const { getFavorites } = useFavorite()
     const [games, setGames] = useState([])
+    const [genres, setGenres] = useState([])
+    const [sort, setSort] = useState('desc')
+    const [platforms, setPlatforms] = useState([])
     const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1)
     const [loading, setLoading] = useState(false)
@@ -43,6 +46,36 @@ export const GameProvider = ({ children }) => {
             return data
         } catch (err) {
             setError('Error to get all games')
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    // --> get all genres
+    const getAllGenres = async () => {
+        setLoading(true)
+        setError(null)
+        try {
+            const { data } = await api.get('/api/games/all-genres')
+            setGenres(data.totalGenres || [])
+            return data
+        } catch (err) {
+            setError(err.message || 'Error al cargar géneros')
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    // --> get all genres
+    const getAllPlatforms = async () => {
+        setLoading(true)
+        setError(null)
+        try {
+            const { data } = await api.get('/api/games/all-platforms')
+            setPlatforms(data.totalPlatforms || [])
+            return data
+        } catch (err) {
+            setError(err.message || 'Error al cargar plataformas')
         } finally {
             setLoading(false)
         }
@@ -185,34 +218,22 @@ export const GameProvider = ({ children }) => {
         }
     }
 
-    // --> search games by gender
-    const searchByGenre = async (page = 1, limit = 20, genre) => {
-        setLoading(true)
-        setError(null)
-
-        try {
-            const { data } = await api.get('/api/games/genres', {
-                params: { genre, page, limit }
-            })
-            setGames(data.games || [])
-            return data
-        } catch (error) {
-            setError("Error to sort games by genre", genre)
-        } finally {
-            setLoading(false)
-        }
-    }
-
-    // cuando cambia la página, refresco
     useEffect(() => {
         getAllGames(page, limit)
     }, [page])
+
+    useEffect(() => {
+        getAllGenres()
+        getAllPlatforms()
+    }, [])
 
     return (
         <GameContext.Provider value={{
             error,
             loading,
             games,
+            genres,
+            platforms,
 
             getAllGames,
             page,
@@ -223,7 +244,6 @@ export const GameProvider = ({ children }) => {
             getSummary,
             searchGames,
             searchByDate,
-            searchByGenre,
             createGame,
             updateGame,
             deleteGame,
