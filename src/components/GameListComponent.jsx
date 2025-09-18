@@ -1,147 +1,92 @@
-// imports
+import { useState } from 'react'
 import { useGame } from "../context/gamesContext"
-import { useState } from "react"
 import GameCard from "./GameCard"
 
 export default function GameListComponent({ onDelete }) {
-    const { games, genres, platforms } = useGame()
-    const [openGenres, setOpenGenres] = useState(false)
-    const [openPlatform, setOpenPlatform] = useState(false)
+    const { games, genres, platforms, setPage, getAllGames } = useGame()
 
-    function toggleOpenGenres() {
-        setOpenPlatform(false)
-        setOpenGenres(prev => !prev)
-    }
-
-    function toggleOpenPlatforms() {
-        setOpenGenres(false)
-        setOpenPlatform(prev => !prev)
-    }
-
-    const listGamesMap = games?.map(game => {
-        const hasImage = !!game.background_image
-        return (
-            <GameCard
-                key={game.id}
-                id={game._id}
-                name={game.name}
-                released={game.released}
-                background_image={game.background_image}
-                hasImage={hasImage}
-                onDelete={() => onDelete(game)}
-            />
-        )
+    const [query, setQuery] = useState({
+        genre: "",
+        platform: "",
+        sort: "desc"
     })
 
-    const arrowDownIcon = (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-arcadia size-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-        </svg>
-    )
+    // función genérica para actualizar filtros
+    const updateQuery = (newValues) => {
+        const updatedQuery = { ...query, ...newValues }
+        setQuery(updatedQuery)
+        setPage(1) // resetear página
+        getAllGames({ page: 1, ...updatedQuery })
+    }
 
-    const arrowUpIcon = (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-arcadia size-6">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-        </svg>
-    )
+    const handleGenreChange = (e) => updateQuery({ genre: e.target.value })
+    const handlePlatformChange = (e) => updateQuery({ platform: e.target.value })
+    const handleSortChange = (e) => updateQuery({ sort: e.target.value })
 
-    const searchIcon = (
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-            strokeWidth={1.5} stroke="currentColor" className="size-6">
-            <path strokeLinecap="round" strokeLinejoin="round"
-                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 
-                5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-        </svg>
-    )
+    const clearFilters = () => {
+        const resetQuery = { genre: "", platform: "", sort: "desc" }
+        setQuery(resetQuery)
+        setPage(1)
+        getAllGames({ page: 1, ...resetQuery })
+    }
 
-    // render return
     return (
         <>
-            <div className="w-full flex flex-col sm:flex-row gap-2">
-                <div className='w-full sm:w-1/2'>
-                    {/* searchbar */}
-                    <div className="w-full mx-auto flex flex-col">
-                        <div className="bg-card px-2 py-2 rounded-lg text-sm w-full flex items-center gap-2 border-arcadia">
-                            <input
-                                type="text"
-                                className="w-full text-arcadia font-bold px-2 py-2 rounded-lg focus:outline-none placeholder:italic"
-                                placeholder="Busca tu juego favorito.."
-                            />
-                            <div className="h-9 w-9 rounded-md flex items-center justify-center text-white bg-[#FF6108]">
-                                {searchIcon}
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            {/* filtros */}
+            <div className="w-full flex filters gap-2 mb-4 flex-wrap">
+                <select
+                    className="flex-1 bg-card rounded-lg border-arcadia text-arcadia px-3 py-2"
+                    value={query.genre}
+                    onChange={handleGenreChange}
+                >
+                    <option value="">Todos los géneros</option>
+                    {genres.map(g => (
+                        <option key={g} value={g}>{g}</option>
+                    ))}
+                </select>
 
-                <div className='w-full sm:w-1/2 flex justify-start items-center gap-2'>
-                    {/* dropdown menu platform */}
-                    <div className="relative w-40 mb-4 flex-1">
-                        {/* Botón */}
-                        <button
-                            onClick={toggleOpenPlatforms}
-                            className="text-xs sm:text-sm lg:text-base flex justify-center items-center gap-2 bg-card 
-                             border-arcadia text-arcadia cursor-pointer px-2 py-2 rounded-lg
-                            mb-2 w-full h-[56px]"
-                        >
-                            plataformas
-                            {openPlatform ? arrowUpIcon : arrowDownIcon}
-                        </button>
+                <select
+                    className="flex-1 bg-card rounded-lg border-arcadia text-arcadia px-3 py-2"
+                    value={query.platform}
+                    onChange={handlePlatformChange}
+                >
+                    <option value="">Todas las plataformas</option>
+                    {platforms.map(p => (
+                        <option key={p} value={p}>{p}</option>
+                    ))}
+                </select>
 
-                        {/* Dropdown */}
-                        {openPlatform && (
-                            <div className="absolute top-full left-0 mt-1 w-full bg-card border border-arcadia rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto scrollbar-arcadia">
-                                {platforms.map((plat) => (
-                                    <button
-                                        key={plat}
-                                        className="text-xs sm:text-sm
-                w-full text-left px-4 py-2 hover:bg-arcadia text-arcadia cursor-pointer
-                hover:bg-[#f1cea6] transition-colors duration-100 ease-in-out"
-                                    >
-                                        {plat}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
+                <select
+                    className="flex-1 bg-card rounded-lg border-arcadia text-arcadia px-3 py-2"
+                    value={query.sort}
+                    onChange={handleSortChange}
+                >
+                    <option value="desc">Más recientes</option>
+                    <option value="asc">Más antiguos</option>
+                </select>
 
-                    {/* dropdown menu genres */}
-                    <div className="relative w-40 mb-4 flex-1">
-                        {/* Botón */}
-                        <button
-                            onClick={toggleOpenGenres}
-                            className="text-xs sm:text-sm lg:text-base flex justify-center items-center gap-2 bg-card 
-                             border-arcadia text-arcadia cursor-pointer px-2 py-2 rounded-lg
-                            mb-2 w-full h-[56px]"
-                        >
-                            generos
-                            {openGenres ? arrowUpIcon : arrowDownIcon}
-                        </button>
-
-                        {/* Dropdown */}
-                        {openGenres && (
-                            <div className="absolute top-full left-0 mt-1 w-full bg-card border border-arcadia rounded-lg shadow-lg z-10 max-h-60 overflow-y-auto scrollbar-arcadia">
-                                {genres.map((genre) => (
-                                    <button
-                                        key={genre}
-                                        className="text-xs sm:text-sm
-                w-full text-left px-4 py-2 hover:bg-arcadia text-arcadia cursor-pointer
-                hover:bg-[#f1cea6] transition-colors duration-100 ease-in-out"
-                                    >
-                                        {genre}
-                                    </button>
-                                ))}
-                            </div>
-                        )}
-                    </div>
-                </div>
+                <button
+                    onClick={clearFilters}
+                    className="bg-arcadia text-white px-3 py-2 rounded-lg"
+                >
+                    Limpiar filtros
+                </button>
             </div>
 
-            {/* list game container */}
+            {/* lista de juegos */}
             <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-4">
-                {listGamesMap}
+                {games.map(game => (
+                    <GameCard
+                        key={game._id}
+                        id={game._id}
+                        name={game.name}
+                        released={game.released}
+                        background_image={game.background_image}
+                        hasImage={!!game.background_image}
+                        onDelete={() => onDelete(game)}
+                    />
+                ))}
             </div>
         </>
     )
-
 }

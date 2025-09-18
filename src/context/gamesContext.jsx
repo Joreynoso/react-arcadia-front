@@ -8,6 +8,8 @@ export const GameContext = createContext(null)
 // provider
 export const GameProvider = ({ children }) => {
     const { getFavorites } = useFavorite()
+
+    // --> estados principales
     const [games, setGames] = useState([])
     const [genres, setGenres] = useState([])
     const [sort, setSort] = useState('desc')
@@ -17,16 +19,14 @@ export const GameProvider = ({ children }) => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState(null)
 
-    // set limit items per page
-    const limit = 20
-
-    // modal summary
+    // --> estados modales
     const [modalOpen, setModalOpen] = useState(false)
     const [summary, setSummary] = useState(null)
-
-    // modal message
     const [openToast, setOpenToast] = useState(false)
     const [messageToast, setMessageToast] = useState(null)
+
+    // set limit items per page
+    const limit = 20
 
     // manejar modal de mensajes
     const showMessage = (message) => {
@@ -35,17 +35,23 @@ export const GameProvider = ({ children }) => {
     }
 
     // --> get all games
-    const getAllGames = async (page = 1, limit = 20) => {
+    const getAllGames = async ({ page = 1, limit = 20, genre, platform, sort = 'desc' }) => {
         setLoading(true)
         setError(null)
+
         try {
-            const { data } = await api.get(`/api/games?limit=${limit}&page=${page}`)
+            // construyo el objeto de params sin los vacíos
+            const params = { page, limit, sort }
+            if (genre) params.genre = genre
+            if (platform) params.platform = platform
+
+            const { data } = await api.get('/api/games', { params })
+
             setGames(data.games || [])
             setTotalPages(data.totalPages || 1)
-            console.log('-->[CONTEXT GAME] list of games', data)
             return data
         } catch (err) {
-            setError('Error to get all games')
+            setError(err.message || 'Error al cargar juegos')
         } finally {
             setLoading(false)
         }
@@ -144,16 +150,24 @@ export const GameProvider = ({ children }) => {
 
     // --> delete a game
     const deleteGame = async (id) => {
+        console.log('1. entrando a la función..')
         setLoading(true)
         setError(null)
 
         try {
+            console.log('2. dentro del bloque try..')
             const { data } = await api.delete(`/api/games/${id}`)
+
+            console.log('3. borrando juego', data + data.game.name)
             showMessage(`${data.game.name} borrado`)
+
+            console.log('4. array antes de borrar', games)
             setGames(prev => prev.filter(g => g._id !== id))
 
+            console.log('5. borrando de favoritos')
             // refresh favorites
             await getFavorites()
+            console.log('6. borrando de favoritos')
 
             return data
         } catch (error) {
@@ -219,8 +233,8 @@ export const GameProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        getAllGames(page, limit)
-    }, [page])
+        getAllGames({ page, limit, sort })
+    }, [page, sort])
 
     useEffect(() => {
         getAllGenres()
@@ -239,6 +253,8 @@ export const GameProvider = ({ children }) => {
             page,
             setPage,
             totalPages,
+            sort,
+            setSort,
 
             getGameById,
             getSummary,

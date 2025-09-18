@@ -13,6 +13,7 @@ import { useFavorite } from '../context/favoriteContext'
 
 export default function GamesPage() {
     const { modalOpen, setModalOpen, modalMessage, removeFavorite } = useFavorite()
+
     const [confirmOpen, setConfirmOpen] = useState(false)
     const {
         page,
@@ -21,6 +22,7 @@ export default function GamesPage() {
         loading,
         error,
         openToast,
+        deleteGame,
         setOpenToast,
         messageToast }
         = useGame()
@@ -38,7 +40,7 @@ export default function GamesPage() {
     const handleConfirmDelete = async () => {
         if (!selectedGame) return
         try {
-            await removeFavorite(selectedGame._id)
+            await deleteGame(selectedGame._id)
         } finally {
             setModalOpen(false)
             setSelectedGame(null)
