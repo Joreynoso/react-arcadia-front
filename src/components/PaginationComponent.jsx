@@ -8,13 +8,13 @@ export default function PaginationComponent({ page, setPage, totalPages }) {
                 <button
                     className='cursor-pointer'
                     onClick={() => setPage(page - 1)} disabled={page === 1}>
-                    Prev
+                    Atrás
                 </button>
                 <span>{page} / {totalPages}</span>
                 <button
                     className='cursor-pointer'
                     onClick={() => setPage(page + 1)} disabled={page === totalPages}>
-                    Next
+                    Siguiente
                 </button>
             </div>
         </>

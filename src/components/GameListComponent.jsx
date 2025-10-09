@@ -29,15 +29,13 @@ export default function GameListComponent({ onDelete }) {
         setPage(1)
         getAllGames({ page: 1, ...resetQuery })
     }
-
+    
     return (
         <>
             {/* filtros */}
             <div className="w-full flex filters gap-2 mb-4 flex-wrap">
                 <select
                     className="flex-1 bg-card rounded-lg border-arcadia text-arcadia px-3 py-2"
-                    value={query.genre}
-                    onChange={handleGenreChange}
                 >
                     <option value="">Todos los géneros</option>
                     {genres.map(g => (
@@ -47,8 +45,6 @@ export default function GameListComponent({ onDelete }) {
 
                 <select
                     className="flex-1 bg-card rounded-lg border-arcadia text-arcadia px-3 py-2"
-                    value={query.platform}
-                    onChange={handlePlatformChange}
                 >
                     <option value="">Todas las plataformas</option>
                     {platforms.map(p => (
@@ -58,15 +54,12 @@ export default function GameListComponent({ onDelete }) {
 
                 <select
                     className="flex-1 bg-card rounded-lg border-arcadia text-arcadia px-3 py-2"
-                    value={query.sort}
-                    onChange={handleSortChange}
                 >
                     <option value="desc">Más recientes</option>
                     <option value="asc">Más antiguos</option>
                 </select>
 
                 <button
-                    onClick={clearFilters}
                     className="bg-arcadia text-white px-3 py-2 rounded-lg"
                 >
                     Limpiar filtros

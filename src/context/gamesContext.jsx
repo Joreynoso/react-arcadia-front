@@ -9,15 +9,22 @@ export const GameContext = createContext(null)
 export const GameProvider = ({ children }) => {
     const { getFavorites } = useFavorite()
 
-    // --> estados principales
-    const [games, setGames] = useState([])
+    // --> estados para llenar select
     const [genres, setGenres] = useState([])
-    const [sort, setSort] = useState('desc')
     const [platforms, setPlatforms] = useState([])
-    const [page, setPage] = useState(1)
-    const [totalPages, setTotalPages] = useState(1)
+
+    // --> estados control de UI
     const [loading, setLoading] = useState(false)
+    const [games, setGames] = useState([])
     const [error, setError] = useState(null)
+
+    // --> estados de paginación
+    const [platform, setPlatform] = useState('')  // plataforma seleccionada
+    const [genre, setGenre] = useState('')
+    const [sort, setSort] = useState('desc')      // asc o desc
+    const [q, setQ] = useState('')
+    const [page, setPage] = useState(1)
+    const [totalPages, setTotalPages] = useState(1)          // texto de búsqueda
 
     // --> estados modales
     const [modalOpen, setModalOpen] = useState(false)
@@ -35,15 +42,19 @@ export const GameProvider = ({ children }) => {
     }
 
     // --> get all games
-    const getAllGames = async ({ page = 1, limit = 20, genre, platform, sort = 'desc' }) => {
+    const getAllGames = async ({ page = 1, limit = 20, genre, platform, sort = 'desc', q }) => {
         setLoading(true)
         setError(null)
 
         try {
             // construyo el objeto de params sin los vacíos
             const params = { page, limit, sort }
+
             if (genre) params.genre = genre
             if (platform) params.platform = platform
+            if (q) params.q = q
+
+            console.log('parametros construidos', params)
 
             const { data } = await api.get('/api/games', { params })
 
@@ -233,8 +244,9 @@ export const GameProvider = ({ children }) => {
     }
 
     useEffect(() => {
-        getAllGames({ page, limit, sort })
-    }, [page, sort])
+        getAllGames({ page, limit, sort, genre, platform, q })
+    }, [page, genre, platform, sort, q])
+
 
     useEffect(() => {
         getAllGenres()
@@ -255,6 +267,13 @@ export const GameProvider = ({ children }) => {
             totalPages,
             sort,
             setSort,
+            platform,
+            genre,
+            setGenre,
+            setPlatform,
+            setGenres,
+            q,
+            setQ,
 
             getGameById,
             getSummary,
