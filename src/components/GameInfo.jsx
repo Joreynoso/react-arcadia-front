@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { useGame } from '../context/gamesContext'
 import { useState, useEffect } from 'react'
 import { useFavorite } from "../context/favoriteContext"
@@ -11,13 +11,19 @@ import ErrorCard from "./ErrorCard"
 export default function GameDetail() {
     const [game, setGame] = useState(null)
     const { favorites } = useFavorite()
+    const navigate = useNavigate()
     const { id } = useParams()
     const { error, getGameById, summary, modalOpen, setModalOpen } = useGame()
 
     useEffect(() => {
         const fetchGame = async () => {
             const data = await getGameById(id)
-            if (data) setGame(data)
+            if (!data) {
+                navigate('/404', { replace: true })
+                return
+            }
+
+            setGame(data)
         }
         fetchGame()
     }, [id])

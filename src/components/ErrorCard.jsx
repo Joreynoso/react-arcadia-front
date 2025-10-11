@@ -1,9 +1,14 @@
 
 export default function ErrorCard({ message }) {
     // Si el mensaje incluye "403", mostrar texto personalizado
-    const displayMessage = message?.includes('403')
-        ? 'Sesión expirada, por favor logueate de nuevo'
-        : message
+    const errorMap = [
+        { code: '403', text: 'Sesión expirada, por favor logueate de nuevo.' },
+        { code: '500', text: 'Error interno del servidor.' },
+        { code: '404', text: 'No se encontraron juegos con esos parametros.' }
+    ]
+
+    const displayMessage =
+        errorMap.find(e => message?.includes(e.code))?.text || message
 
     return (
         <div className="w-full max-w-md mx-auto mt-6 mb-10 flex flex-col justify-center items-center">
