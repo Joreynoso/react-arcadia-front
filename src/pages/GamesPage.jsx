@@ -73,8 +73,6 @@ export default function GamesPage() {
         }
     }
 
-    if (loading) return <LoadingCard />
-
     return (
         <div className="w-full max-w-7xl h-full flex flex-col justify-center items-center flex-1 mt-10 mb-10 mx-auto px-4 sm:px-6 lg:px-10 py-4">
 
@@ -153,21 +151,27 @@ export default function GamesPage() {
                 </button>
             </div>
 
-            {/* listado de juegos */}
-            {games.length > 0 ? (<div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-4">
-                {games.map(game => (
-                    <GameCard
-                        key={game._id}
-                        id={game._id}
-                        name={game.name}
-                        released={game.released}
-                        background_image={game.background_image}
-                        hasImage={!!game.background_image}
-                        onDelete={() => handleDeleteClick(game)}
-                    />
-                ))}
-            </div>) : <ErrorCard message={error} /> }
+            {loading && <LoadingCard />}
 
+            {!loading && games.length > 0 && (
+                <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-4">
+                    {games.map(game => (
+                        <GameCard
+                            key={game._id}
+                            id={game._id}
+                            name={game.name}
+                            released={game.released}
+                            background_image={game.background_image}
+                            hasImage={!!game.background_image}
+                            onDelete={() => handleDeleteClick(game)}
+                        />
+                    ))}
+                </div>
+            )}
+
+            {!loading && games.length === 0 && error && (
+                <ErrorCard message={error} />
+            )}
 
             {/* paginación */}
             <PaginationComponent

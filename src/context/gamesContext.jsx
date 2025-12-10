@@ -62,7 +62,8 @@ export const GameProvider = ({ children }) => {
             setTotalPages(data.totalPages || 1)
             return data
         } catch (err) {
-            setError(err.message || 'Error al cargar juegos')
+            setGames([])
+            setError(err.message)
         } finally {
             setLoading(false)
         }
@@ -102,14 +103,15 @@ export const GameProvider = ({ children }) => {
     const getGameById = async (id) => {
         setLoading(true)
         setError(null)
-        console.log('loading function')
 
         try {
+
             const { data: { game } } = await api.get(`/api/games/${id}`)
-            console.log('data from api', game)
             return game
+
         } catch (error) {
-            console.log('failed to get game by id', error)
+            console.log('2. entro por aqui...')
+            console.log('failed to get game by id', error.message)
             setError(error.message || 'Unknown error')
             return null
         } finally {
@@ -126,12 +128,12 @@ export const GameProvider = ({ children }) => {
         try {
             const { data } = await api.post('/api/games', newGame)
             showMessage(`${data.game.name} created`)
+
             return data
 
         } catch (error) {
             console.log('failed to create a new game', error)
             setError(error.message || 'Unknown error')
-            return null
         } finally {
             setLoading(false)
         }
