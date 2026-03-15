@@ -7,6 +7,7 @@ import GoBackButton from './GoBackButton'
 import FavoriteCard from './FavoriteCard'
 import Pagination from './Pagination'
 import ModalConfirm from './ModalConfirm'
+import ErrorCard from './ErrorCard'
 
 export default function FavoritesList({ searchQuery }) {
   const { loading, error, favorites, removeFavorite } = useFavorite()
@@ -21,7 +22,7 @@ export default function FavoritesList({ searchQuery }) {
   }, [searchQuery])
 
   if (loading) return <LoadingCard />
-  if (error) return <p className="text-white">{error}</p>
+  if (error) return <ErrorCard message={error} />
 
   // filter favorites, searchQuery comes from /favorites FavoriteSearch
   const filteredFavorites = favorites.filter(fav =>

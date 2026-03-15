@@ -56,6 +56,14 @@ export const AuthProvider = ({ children }) => {
         if (storedToken) setToken(storedToken)
 
         setLoadingUser(false)
+
+        // Escuchar evento de sesión expirada desde el interceptor de API
+        const handleSessionExpired = () => {
+            logout()
+        }
+
+        window.addEventListener('session-expired', handleSessionExpired)
+        return () => window.removeEventListener('session-expired', handleSessionExpired)
     }, [])
 
     return (

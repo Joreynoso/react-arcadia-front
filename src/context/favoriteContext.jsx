@@ -30,13 +30,8 @@ export const FavoriteProvider = ({ children }) => {
             const favoritesData = Array.isArray(data.favorites) ? data.favorites : []
             setFavorites(favoritesData)
         } catch (err) {
-            if (err.response?.status === 401) {
-                setFavorites([])
-                setError('Usuario no autenticado')
-            } else {
-                console.log('Error al obtener favoritos', err)
-                setError(err.message || err.response?.data?.message || 'Unknown error')
-            }
+            setFavorites([])
+            setError(err.message || 'Error al obtener favoritos')
         } finally {
             setLoading(false)
         }

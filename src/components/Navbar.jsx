@@ -66,6 +66,9 @@ export default function Navbar() {
                             <NavLink to="/register" className={({ isActive }) =>
                                 `uppercase ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-[#7D4C38] hover:text-[#DB8E6B]'}`
                             }>register</NavLink>
+                            <NavLink to="/about" className={({ isActive }) =>
+                                `uppercase ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-[#7D4C38] hover:text-[#DB8E6B]'}`
+                            }>about</NavLink>
                         </>
                     )}
 
@@ -98,6 +101,13 @@ export default function Navbar() {
                                 `uppercase transition-colors duration-200 ease-in-out 
                             ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-white hover:text-[#DB8E6B]'}`
                             }>juegos</NavLink></li>
+                    <li>
+                        <NavLink
+                            to="/about"
+                            className={({ isActive }) =>
+                                `uppercase transition-colors duration-200 ease-in-out 
+                            ${isActive ? 'text-[#DB8E6B] font-semibold' : 'text-white hover:text-[#DB8E6B]'}`
+                            }>about</NavLink></li>
 
                     {!user && (
                         <>

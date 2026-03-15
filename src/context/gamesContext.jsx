@@ -1,5 +1,6 @@
 import { useState, createContext, useContext, useEffect } from 'react'
 import { useFavorite } from './favoriteContext'
+import { useAuth } from './authContext'
 import api from '../helper/api'
 
 // create context
@@ -8,6 +9,7 @@ export const GameContext = createContext(null)
 // provider
 export const GameProvider = ({ children }) => {
     const { getFavorites } = useFavorite()
+    const { token } = useAuth()
 
     // --> estados para llenar select
     const [genres, setGenres] = useState([])
@@ -247,13 +249,13 @@ export const GameProvider = ({ children }) => {
 
     useEffect(() => {
         getAllGames({ page, limit, sort, genre, platform, q })
-    }, [page, genre, platform, sort, q])
+    }, [page, genre, platform, sort, q, token])
 
 
     useEffect(() => {
         getAllGenres()
         getAllPlatforms()
-    }, [])
+    }, [token])
 
     return (
         <GameContext.Provider value={{

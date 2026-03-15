@@ -16,6 +16,7 @@ import Favorites from './pages/Favorites'
 import GameCreate from './pages/GameCreate'
 import GameEdit from './pages/GameEdit'
 import Profile from './pages/Profile'
+import About from './pages/About'
 
 // --> dashboard
 import Dashboard from './pages/Dashboard'
@@ -35,6 +36,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path='about' element={<About />} />
 
             {/* dashboard routes */}
             <Route path="dashboard" element={<Dashboard />}>

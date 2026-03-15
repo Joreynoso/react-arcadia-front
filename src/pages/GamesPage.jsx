@@ -62,13 +62,22 @@ export default function GamesPage() {
         return () => clearTimeout(timeout)
     }, [search])
 
+    // abrir modal de confirmación
+    const handleDeleteClick = (game) => {
+        setSelectedGame(game)
+        setConfirmOpen(true)
+    }
+
     // confirmar borrado
     const handleConfirmDelete = async () => {
         if (!selectedGame) return
+        
+        const gameId = selectedGame._id;
+        setConfirmOpen(false)
+        
         try {
-            await deleteGame(selectedGame._id)
+            await deleteGame(gameId)
         } finally {
-            setConfirmOpen(false)
             setSelectedGame(null)
         }
     }
@@ -163,6 +172,8 @@ export default function GamesPage() {
                             released={game.released}
                             background_image={game.background_image}
                             hasImage={!!game.background_image}
+                            // tengo un errro aqui
+                            // GamesPage.jsx:233 Uncaught ReferenceError: handleDeleteClick is not defined
                             onDelete={() => handleDeleteClick(game)}
                         />
                     ))}
