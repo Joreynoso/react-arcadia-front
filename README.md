@@ -70,3 +70,7 @@ La app incluye distintos niveles de usuario (**user, editor, admin**) y un siste
   "react-router-dom": "^7.8.2",
   "tailwindcss": "^4.1.12"
 }
+
+## 🌐 Enlace al demo en vivo
+
+[🚀 Ver demo en Netlify](https://arcadia-front.netlify.app/)
