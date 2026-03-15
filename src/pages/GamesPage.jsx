@@ -19,6 +19,7 @@ import GameToast from "../components/GameToast"
 import GameCard from '../components/GameCard'
 import ModalConfirm from "../components/ModalConfirm"
 import PaginationComponent from '../components/PaginationComponent'
+import { motion } from 'framer-motion'
 
 export default function GamesPage() {
     const { modalOpen, setModalOpen, modalMessage } = useFavorite()
@@ -82,9 +83,19 @@ export default function GamesPage() {
         }
     }
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+            }
+        }
+    }
+
     return (
         <div className="w-full max-w-7xl h-full flex flex-col justify-center items-center flex-1 mt-10 mb-10 mx-auto px-4 sm:px-6 lg:px-10 py-4">
-
             {/* título principal */}
             <h3 className="uppercase text-2xl md:text-3xl lg:text-4xl sm:max-w-2xl max-w-lg leading-snug mb-10 text-white text-center">
                 Explora +500 de <br />
@@ -160,10 +171,15 @@ export default function GamesPage() {
                 </button>
             </div>
 
-            {loading && <LoadingCard />}
-
-            {!loading && games.length > 0 && (
-                <div className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-4">
+            {loading ? (
+                <LoadingCard />
+            ) : games.length > 0 && (
+                <motion.div 
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="w-full mx-auto grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 mb-4"
+                >
                     {games.map(game => (
                         <GameCard
                             key={game._id}
@@ -172,12 +188,10 @@ export default function GamesPage() {
                             released={game.released}
                             background_image={game.background_image}
                             hasImage={!!game.background_image}
-                            // tengo un errro aqui
-                            // GamesPage.jsx:233 Uncaught ReferenceError: handleDeleteClick is not defined
                             onDelete={() => handleDeleteClick(game)}
                         />
                     ))}
-                </div>
+                </motion.div>
             )}
 
             {!loading && games.length === 0 && error && (

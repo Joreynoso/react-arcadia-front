@@ -1,18 +1,28 @@
-// imports
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { useFavorite } from '../context/favoriteContext'
 import { usePermission } from '../hooks/usePermission'
 import { useState } from 'react'
-
 import GameNotImage from './GameNotImage'
 
 export default function GameCard({ id, background_image, name, released, hasImage, onDelete }) {
     const { can } = usePermission()
     const { favorites, loading, addFavorite, removeFavorite } = useFavorite()
     const [localLoading, setLocalLoading] = useState(false)
+    const [imageLoaded, setImageLoaded] = useState(false)
 
     // check is exist in favorites states
     const isFavorite = favorites.some(fav => fav.id === id)
+
+    // item variants (inherited from parent stagger)
+    const cardVariants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: { 
+            opacity: 1, 
+            y: 0,
+            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+        }
+    }
 
     // handle add or remove
     const handleAdd = async () => {
@@ -49,102 +59,109 @@ export default function GameCard({ id, background_image, name, released, hasImag
         </svg>
     )
 
-    // return render
     return (
-        <>
-            <div className="relative rounded-xl bg-card flex flex-col p-2 md:p-3 border-arcadia gap-2 md:gap-3 h-auto md:h-72 text-center" >
-
-                <div className="relative rounded-lg h-40 md:h-48 bg-[#FCCE9F] border-arcadia overflow-hidden">
-                    {hasImage ? (
-                        <img
+        <motion.div 
+            variants={cardVariants}
+            className="relative rounded-xl bg-card flex flex-col p-2 md:p-3 border-arcadia gap-2 md:gap-3 h-auto md:h-72 text-center group" 
+        >
+            <div className="relative rounded-lg h-40 md:h-48 bg-[#DB8E6BC] border-arcadia overflow-hidden">
+                {hasImage ? (
+                    <>
+                        <motion.img
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: imageLoaded ? 1 : 0 }}
+                            transition={{ duration: 0.5 }}
                             src={background_image}
                             alt={name}
+                            onLoad={() => setImageLoaded(true)}
+                            loading="lazy"
                             className="w-full h-full object-cover"
                         />
-                    ) : (
-                        <GameNotImage />
-                    )}
-                </div>
-                <div className="flex flex-col text-center px-1 md:px-2" >
-                    <h4 className="text-sm md:text-base text-arcadia truncate font-semibold">{name}</h4>
-                    <span className="text-[10px] md:text-xs text-arcadia opacity-70 font-semibold">
-                        Lanzamiento <br /> {released}
-                    </span>
-                </div>
-
-                <Link
-                    to={`/games/${id}`}
-                    className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs 
-                    md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
-                    detalle
-                </Link>
-
-                {/* display admin */}
-                {can(['admin']) && (
-                    <div className='actions w-full flex gap-1'>
-                        <Link
-                            to={`/games/${id}/edit`}
-                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-1 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
-                        md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
-                        >
-                            editar
-                        </Link>
-
-                        <button
-                            onClick={onDelete}
-                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-1 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
-                        md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
-                        >
-                            borrar
-                        </button>
-                    </div>)}
-
-
-                {/* display editor */}
-                {can(['editor']) && (
-                    <div className='actions w-full flex gap-1'>
-                        <Link
-                            to={`/games/${id}/edit`}
-                            className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-1 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
-                        md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
-                        >
-                            editar
-                        </Link>
-                    </div>
+                    </>
+                ) : (
+                    <GameNotImage />
                 )}
-
-                <button
-                    disabled={loading}
-                    onClick={isFavorite ? handleRemove : handleAdd}
-                    className="absolute top-4 right-4 sm:top-5 sm:right-5 bg-[#FF6108] cursor-pointer text-white w-8 h-8 sm:h-10 
-                    sm:w-10 rounded-full flex justify-center items-center hover:bg-[#e45507] transition-colors"
-                >
-                    {localLoading ? (
-                        <svg
-                            className="animate-spin h-4 w-4 text-white"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                        >
-                            <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                            />
-                            <path
-                                className="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                            />
-                        </svg>
-                    ) : (
-                        isFavorite ? iconStarFilled : iconStar
-                    )}
-                </button>
             </div>
-        </>
+            
+            <div className="flex flex-col text-center px-1 md:px-2" >
+                <h4 className="text-sm md:text-base text-arcadia truncate font-semibold group-hover:text-[#FF6108] transition-colors">{name}</h4>
+                <span className="text-[10px] md:text-xs text-arcadia opacity-70 font-semibold">
+                    Lanzamiento <br /> {released}
+                </span>
+            </div>
+
+            <Link
+                to={`/games/${id}`}
+                className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs 
+                md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
+                detalle
+            </Link>
+
+            {/* display admin */}
+            {can(['admin']) && (
+                <div className='actions w-full flex gap-1'>
+                    <Link
+                        to={`/games/${id}/edit`}
+                        className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-1 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
+                    md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
+                    >
+                        editar
+                    </Link>
+
+                    <button
+                        onClick={onDelete}
+                        className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-1 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
+                    md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
+                    >
+                        borrar
+                    </button>
+                </div>)}
+
+
+            {/* display editor */}
+            {can(['editor']) && (
+                <div className='actions w-full flex gap-1'>
+                    <Link
+                        to={`/games/${id}/edit`}
+                        className='w-full bg-[#DB8E6B]/70 text-arcadia font-bold px-2 py-1 md:px-3 md:py-1 uppercase text-white rounded-full text-[10px] 
+                    md:text-xs cursor-pointer leading-none hover:bg-[#DB8E6B]/50 transition-colors'
+                    >
+                        editar
+                    </Link>
+                </div>
+            )}
+
+            <button
+                disabled={loading}
+                onClick={isFavorite ? handleRemove : handleAdd}
+                className="absolute top-4 right-4 sm:top-5 sm:right-5 bg-[#FF6108] cursor-pointer text-white w-8 h-8 sm:h-10 
+                sm:w-10 rounded-full flex justify-center items-center hover:bg-[#e45507] transition-colors"
+            >
+                {localLoading ? (
+                    <svg
+                        className="animate-spin h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                    >
+                        <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                        />
+                        <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                        />
+                    </svg>
+                ) : (
+                    isFavorite ? iconStarFilled : iconStar
+                )}
+            </button>
+        </motion.div>
     )
 }
