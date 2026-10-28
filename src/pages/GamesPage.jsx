@@ -108,15 +108,15 @@ export default function GamesPage() {
                 placeholder="Buscar juegos..."
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full flex-1 bg-card rounded-lg border-arcadia text-arcadia px-3 py-2 mb-3"
+                className="w-full bg-[#FFE8D6] rounded-full border-arcadia text-arcadia px-4 py-2 mb-4 focus:outline-none focus:ring-2 focus:ring-[#DB8E6B]"
             />
 
             {/* filtros */}
-            <div className="w-full flex filters gap-2 mb-4 flex-wrap">
+            <div className="w-full flex gap-2 mb-4 flex-wrap items-center">
 
                 {/* filtro por género */}
                 <select
-                    className="flex-1 bg-card rounded-lg border-arcadia text-arcadia px-3 py-2"
+                    className="flex-1 min-w-[160px] bg-[#FFE8D6] rounded-full border-arcadia text-arcadia px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#DB8E6B] cursor-pointer"
                     value={genre}
                     onChange={(e) => {
                         setPage(1)
@@ -131,7 +131,7 @@ export default function GamesPage() {
 
                 {/* filtro por plataforma */}
                 <select
-                    className="flex-1 bg-card rounded-lg border-arcadia text-arcadia px-3 py-2"
+                    className="flex-1 min-w-[160px] bg-[#FFE8D6] rounded-full border-arcadia text-arcadia px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#DB8E6B] cursor-pointer"
                     value={platform}
                     onChange={(e) => {
                         setPage(1)
@@ -146,7 +146,7 @@ export default function GamesPage() {
 
                 {/* orden */}
                 <select
-                    className="flex-1 bg-card rounded-lg border-arcadia text-arcadia px-3 py-2"
+                    className="flex-1 min-w-[160px] bg-[#FFE8D6] rounded-full border-arcadia text-arcadia px-4 py-2 focus:outline-none focus:ring-2 focus:ring-[#DB8E6B] cursor-pointer"
                     value={sort}
                     onChange={(e) => {
                         setPage(1)
@@ -163,9 +163,11 @@ export default function GamesPage() {
                         setGenre('')
                         setPlatform('')
                         setSort('desc')
+                        setSearch('')
+                        setQ('')
                         setPage(1)
                     }}
-                    className="bg-arcadia text-white px-3 py-2 rounded-lg"
+                    className="bg-[#DB8E6B] text-white px-4 py-2 rounded-full border-arcadia hover:bg-[#c77d5c] transition-colors"
                 >
                     Limpiar filtros
                 </button>
