@@ -43,13 +43,23 @@ export default function Login() {
 
                 {/* form */}
                 <div className='flex flex-col w-full items-start'>
-                    <h3 className='text-arcadia mb-6 text-lg sm:text-xl lg:text-2xl font-semibold'>
+                    <h3 className='text-arcadia mb-4 text-lg sm:text-xl lg:text-2xl font-semibold'>
                         Bienvenido de nuevo, <br />héroe! Continúa tu viaje.
                     </h3>
 
                     <form
                         onSubmit={handleSubmit(handleLogin)}
-                        className='w-full flex flex-col justify-center gap-5 items-start font-semibold'>
+                        className='w-full flex flex-col justify-center gap-4 items-start font-semibold'>
+
+                        <div className='w-full bg-[#FCCE9F]/70 border-arcadia rounded-xl p-3 flex flex-col gap-1 text-xs text-arcadia'>
+                            <span className='font-semibold'>Cuenta de prueba</span>
+                            <div className='flex flex-wrap gap-2 items-center'>
+                                <span>jose@gmail.com</span>
+                                <button type='button' onClick={() => { try { if (navigator.clipboard) navigator.clipboard.writeText('jose@gmail.com') } catch(e){} }} className='px-2 py-0.5 rounded-full bg-[#DB8E6B] text-white hover:bg-[#c77d5c] transition-colors'>Copiar email</button>
+                                <span className='w-full'>Contraseña: jose123</span>
+                                <button type='button' onClick={() => { try { if (navigator.clipboard) navigator.clipboard.writeText('jose123') } catch(e){} }} className='px-2 py-0.5 rounded-full bg-[#DB8E6B] text-white hover:bg-[#c77d5c] transition-colors'>Copiar contraseña</button>
+                            </div>
+                        </div>
 
                         {/* email */}
                         <div className='w-full'>
@@ -78,7 +88,7 @@ export default function Login() {
                         <button
                             type='submit'
                             disabled={loading}
-                            className='bg-[#FF6108] px-4 py-2  uppercase text-white rounded-full text-sm cursor-pointer'
+                            className='bg-[#FF6108] px-4 py-2 uppercase text-white rounded-full text-sm cursor-pointer hover:bg-[#e45507] transition-colors'
                         >
                             {loading ? 'Autenticando...' : 'Comenzar Aventura'}
                         </button>
@@ -86,7 +96,7 @@ export default function Login() {
                         {error && <span className="text-red-600">{error}</span>}
 
                         <p className="text-center text-sm text-arcadia">
-                            No tienes una cuan aún?{" "}
+                            No tienes una cuenta aún?{" "}
                             <Link
                                 to="/register"
                                 className="font-medium text-arcadia hover:underline"

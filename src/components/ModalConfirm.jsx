@@ -5,9 +5,9 @@ export default function Modal({ open, onConfirm, onCancel, message }) {
 
     return (
         <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeInOut" }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
             className="w-full fixed top-10 left-1/2 -translate-x-1/2 flex items-center justify-center z-50"
         >
             <div className="bg-card border-arcadia border rounded-xl px-6 py-6 shadow-lg flex flex-col items-center gap-4 max-w-xs w-auto">

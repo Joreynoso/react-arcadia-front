@@ -15,10 +15,10 @@ export default function InfoSection() {
 
                 {/* title */}
                 <motion.h3
-                    initial={{ opacity: 0, y: 50 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
-                    viewport={{ once: true, amount: 0.8 }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    viewport={{ once: true, amount: 0.6 }}
                     className="uppercase text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-snug mb-10 text-white text-center">
                     Tu misión para crear la <br /><span className='color-arcadia'>biblioteca definitiva</span>
                 </motion.h3>
@@ -29,10 +29,10 @@ export default function InfoSection() {
 
                     {/* block 1 */}
                     <motion.div
-                        initial={{ opacity: 0, y: 50 }}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        viewport={{ once: true, amount: 0.8 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        viewport={{ once: true, amount: 0.4 }}
                         className='flex flex-col bg-card rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-3 justify-center items-center text-center'>
                         <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
                             Guarda tus juegos favoritos en tu biblioteca y accede a ellos cuando quieras.
@@ -46,10 +46,10 @@ export default function InfoSection() {
                     {/* block 2 */}
                     {/* block 2 */}
                     <motion.div
-                        initial={{ opacity: 0, y: 50 }}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        viewport={{ once: true, amount: 0.8 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        viewport={{ once: true, amount: 0.4 }}
                         className='flex justify-center items-center bg-[#FCCE9F] rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-2'
                     >
                         <img src="/images/infoBoy.svg" alt="infoBoy" className='h-[125%]' />
@@ -57,10 +57,10 @@ export default function InfoSection() {
 
                     {/* block 3 */}
                     <motion.div
-                        initial={{ opacity: 0, y: 50 }}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        viewport={{ once: true, amount: 0.8 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        viewport={{ once: true, amount: 0.4 }}
                         className='flex flex-col justify-center items-center text-center bg-[#FCCE9F] rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-2'>
                         <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
                             Busca fácilmente en tu biblioteca y encuentra los juegos que más amas.
@@ -74,10 +74,10 @@ export default function InfoSection() {
 
                     {/* block 4 */}
                     <motion.div
-                        initial={{ opacity: 0, y: 50 }}
+                        initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, ease: "easeOut" }}
-                        viewport={{ once: true, amount: 0.8 }}
+                        transition={{ duration: 0.4, ease: "easeOut" }}
+                        viewport={{ once: true, amount: 0.4 }}
                         className='flex flex-col justify-center items-center text-center bg-card rounded-2xl border-arcadia h-60 md:col-span-1 xl:col-span-3'>
                         <h4 className='text-arcadia   leading-tight text-xl max-w-[70%] mb-4'>
                            Descubre nuevas aventuras y no te pierdas ningún juego que valga la pena.

@@ -6,9 +6,9 @@ export default function SummaryModal({ open, onClose, message }) {
     return (
         <div className="fixed inset-0 bg-[#321C16]/50 flex justify-center items-center text-center px-4 z-50">
             <motion.div
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
+                transition={{ duration: 0.25, ease: "easeOut" }}
                 className="bg-card rounded-xl shadow-xl max-w-lg w-full relative p-6 sm:p-12">
 
                 {/* Libro sobresaliendo del borde superior */}

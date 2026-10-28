@@ -120,42 +120,34 @@ export default function AboutPage() {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.3
+                staggerChildren: 0.08,
+                delayChildren: 0.2
             }
         }
     }
 
     const itemVariants = {
-        hidden: { y: 40, opacity: 0 },
+        hidden: { y: 20, opacity: 0 },
         visible: {
             y: 0,
             opacity: 1,
             transition: {
-                duration: 0.8,
-                ease: [0.16, 1, 0.3, 1] // cubic-bezier smooth ease
+                duration: 0.4,
+                ease: "easeOut"
             }
         }
     }
 
     return (
         <div className="w-full py-10 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
-            >
-            
-            </motion.div>
-
             {/* header */}
             <motion.div 
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ 
-                    duration: 0.8, 
-                    ease: [0.16, 1, 0.3, 1],
-                    delay: 0.1 
+                    duration: 0.4, 
+                    ease: "easeOut",
+                    delay: 0.05 
                 }}
                 className="flex flex-col gap-3 mb-12 text-center md:text-left"
             >
@@ -191,10 +183,10 @@ export default function AboutPage() {
 
             {/* motivational footer */}
             <motion.div 
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                viewport={{ once: true }}
+                transition={{ duration: 0.4 }}
+                viewport={{ once: true, amount: 0.4 }}
                 className="mt-20 p-10 bg-card rounded-3xl border-arcadia text-center"
             >
                 <h2 className="font-serif text-2xl md:text-3xl text-arcadia mb-4">

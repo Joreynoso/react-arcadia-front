@@ -1,16 +1,12 @@
-import { motion, useScroll, useTransform, useSpring } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
 import { Link } from 'react-router-dom'
 
 export default function CloudSection() {
     const { scrollY } = useScroll()
 
-    // Parallax vertical invertido
-    const leftCloudBase = useTransform(scrollY, [0, 400], [0, 100])   // baja
-    const rightCloudBase = useTransform(scrollY, [0, 400], [0, -100]) // sube
-
-    const springConfig = { stiffness: 40, damping: 20 }
-    const leftCloudY = useSpring(leftCloudBase, springConfig)
-    const rightCloudY = useSpring(rightCloudBase, springConfig)
+    // Parallax vertical invertido optimizado
+    const leftCloudY = useTransform(scrollY, [0, 300], [0, 40])
+    const rightCloudY = useTransform(scrollY, [0, 300], [0, -40])
 
     return (
         <section className="relative min-h-[300px] sm:min-h-screen w-full flex flex-col justify-center items-center overflow-visible">
@@ -19,10 +15,10 @@ export default function CloudSection() {
             <motion.h3
                 className="uppercase text-2xl md:text-3xl lg:text-4xl xl:text-5xl max-w-lg sm:max-w-2xl
           text-white text-center leading-snug z-10 mb-4"
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: "easeOut" }}
-                viewport={{ once: true, amount: 0.8 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                viewport={{ once: true, amount: 0.6 }}
             >
                 Explora mundos que no 
                 <span className="color-arcadia">
@@ -35,26 +31,26 @@ export default function CloudSection() {
                 src="/images/leftCloud.svg"
                 alt="left cloud"
                 style={{ y: leftCloudY }}
-                className="absolute left-0 top-1/2 -translate-y-1/2 w-[40%] sm:w-[35%]"
+                className="will-change-transform absolute left-0 top-1/2 -translate-y-1/2 w-[40%] sm:w-[35%]"
             />
             <motion.img
                 src="/images/rightCloud.svg"
                 alt="right cloud"
                 style={{ y: rightCloudY }}
-                className="absolute right-0 top-1/2 -translate-y-1/2 w-[40%] sm:w-[35%]"
+                className="will-change-transform absolute right-0 top-1/2 -translate-y-1/2 w-[40%] sm:w-[35%]"
             />
 
             {/* button */}
             <motion.div
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true, amount: 0.8 }}
+                transition={{ duration: 0.4, delay: 0.1, ease: "easeOut" }}
+                viewport={{ once: true, amount: 0.6 }}
             >
                 <Link
                     to="/games"
                     className="inline-block uppercase bg-card border-arcadia text-[#7D4C38] 
-          rounded-full px-4 py-2 text-sm transition-transform duration-300 ease-in-out hover:-translate-y-2"
+          rounded-full px-4 py-2 text-sm transition-transform duration-200 ease-out hover:-translate-y-1"
                 >
                     empieza tu colección hoy
                 </Link>

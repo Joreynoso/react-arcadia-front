@@ -16,11 +16,11 @@ export default function GameCard({ id, background_image, name, released, hasImag
 
     // item variants (inherited from parent stagger)
     const cardVariants = {
-        hidden: { opacity: 0, y: 30 },
+        hidden: { opacity: 0, y: 20 },
         visible: { 
             opacity: 1, 
             y: 0,
-            transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } 
+            transition: { duration: 0.4, ease: "easeOut" } 
         }
     }
 
@@ -70,7 +70,7 @@ export default function GameCard({ id, background_image, name, released, hasImag
                         <motion.img
                             initial={{ opacity: 0 }}
                             animate={{ opacity: imageLoaded ? 1 : 0 }}
-                            transition={{ duration: 0.5 }}
+                            transition={{ duration: 0.3 }}
                             src={background_image}
                             alt={name}
                             onLoad={() => setImageLoaded(true)}
@@ -93,7 +93,7 @@ export default function GameCard({ id, background_image, name, released, hasImag
             <Link
                 to={`/games/${id}`}
                 className='mt-auto bg-[#FF6108] px-3 py-1.5 md:px-4 md:py-2 uppercase text-white rounded-full text-xs 
-                md:text-sm cursor-pointer leading-none hover:bg-[#e45507] transition-colors w-full md:w-auto' >
+                md:text-sm cursor-pointer leading-none                     hover:bg-[#e45507] transition-colors duration-200 w-full md:w-auto' >
                 detalle
             </Link>
 

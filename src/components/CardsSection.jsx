@@ -19,10 +19,10 @@ export default function CardsSection() {
 
     const gameList = games.map(game => (
         <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            viewport={{ once: true, amount: 0.8  }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
+            viewport={{ once: true, amount: 0.3 }}
             key={game.id}
             className="relative rounded-xl bg-card flex flex-col p-2 md:p-3 border-arcadia gap-2 md:gap-3 h-auto md:h-72 text-center" >
             <div className="relative rounded-lg h-40 md:h-48 bg-[#FCCE9F] border-arcadia overflow-hidden">
@@ -56,12 +56,12 @@ export default function CardsSection() {
 
                 {/* title */}
                 <motion.h3
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, ease: "easeOut" }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                     viewport={{ once: true, amount: 0.4 }}
                     className="uppercase text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-snug mb-10 text-white text-center">
-                    Clasicos de todos <br /><span className='color-arcadia'>los tiempos</span>
+                    Clásicos de todos <br /><span className='color-arcadia'>los tiempos</span>
                 </motion.h3>
 
                 {/* game list */}
@@ -70,7 +70,7 @@ export default function CardsSection() {
                 </div>
 
                 <Link to="/games" className="inline-block uppercase bg-card border-arcadia text-[#7D4C38] 
-                rounded-full px-4 py-2 text-sm transition-transform duration-300 ease-in-out hover:-translate-y-2">
+                rounded-full px-4 py-2 text-sm transition-transform duration-200 ease-out hover:-translate-y-1">
                     ver lista de juegos
                 </Link>
             </div>

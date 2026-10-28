@@ -22,3 +22,9 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Analysis docs
+react-arcadia-structure.md
+
+.env
+.env.local
