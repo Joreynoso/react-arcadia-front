@@ -123,7 +123,7 @@ npm run preview
 
 ## Autor
 
-Desarrollado por [Ato](https://github.com/joreynoso) | [LinkedIn](https://www.linkedin.com/in/joreynoso/)
+Desarrollado por [José Oscar Reynoso](https://github.com/joreynoso) | [LinkedIn](https://www.linkedin.com/in/joreynoso/)
 
 
 
