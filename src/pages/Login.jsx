@@ -1,10 +1,29 @@
 import { useAuth } from '../context/authContext'
 import { useForm } from 'react-hook-form'
 import { useNavigate, Link } from 'react-router-dom'
+import { Copy, Check, UserRound } from 'lucide-react'
+import { useState } from 'react'
 
 export default function Login() {
     const { login, error, loading } = useAuth()
     const navigate = useNavigate()
+    const [copiedEmail, setCopiedEmail] = useState(false)
+    const [copiedPass, setCopiedPass] = useState(false)
+
+    const copyToClipboard = async (text, type) => {
+        try {
+            if (navigator.clipboard) {
+                await navigator.clipboard.writeText(text)
+            }
+            if (type === 'email') {
+                setCopiedEmail(true)
+                setTimeout(() => setCopiedEmail(false), 1500)
+            } else {
+                setCopiedPass(true)
+                setTimeout(() => setCopiedPass(false), 1500)
+            }
+        } catch (e) {}
+    }
 
     // useForm hook desctructuring
     const {
@@ -38,7 +57,7 @@ export default function Login() {
     const styleValidations = "ml-2 text-xs italic text-red-600 font-semibold leading-tigth"
 
     return (
-        <div className='w-full h-full flex justify-center items-center px-4 xl:px-0 flex-1 mt-10 mb-10'>
+        <div className='w-full h-full flex flex-col justify-center items-center px-4 xl:px-0 flex-1 mt-10 mb-10 gap-4'>
             <div className='w-full sm:min-h-[400px] max-w-md rounded-2xl bg-card border-arcadia flex flex-col justify-center items-center sm:flex-row p-6 sm:p-10 md:p-10'>
 
                 {/* form */}
@@ -50,16 +69,6 @@ export default function Login() {
                     <form
                         onSubmit={handleSubmit(handleLogin)}
                         className='w-full flex flex-col justify-center gap-4 items-start font-semibold'>
-
-                        <div className='w-full bg-[#FCCE9F]/70 border-arcadia rounded-xl p-3 flex flex-col gap-1 text-xs text-arcadia'>
-                            <span className='font-semibold'>Cuenta de prueba</span>
-                            <div className='flex flex-wrap gap-2 items-center'>
-                                <span>jose@gmail.com</span>
-                                <button type='button' onClick={() => { try { if (navigator.clipboard) navigator.clipboard.writeText('jose@gmail.com') } catch(e){} }} className='px-2 py-0.5 rounded-full bg-[#DB8E6B] text-white hover:bg-[#c77d5c] transition-colors'>Copiar email</button>
-                                <span className='w-full'>Contraseña: jose123</span>
-                                <button type='button' onClick={() => { try { if (navigator.clipboard) navigator.clipboard.writeText('jose123') } catch(e){} }} className='px-2 py-0.5 rounded-full bg-[#DB8E6B] text-white hover:bg-[#c77d5c] transition-colors'>Copiar contraseña</button>
-                            </div>
-                        </div>
 
                         {/* email */}
                         <div className='w-full'>
@@ -106,6 +115,38 @@ export default function Login() {
                         </p>
                     </form>
                 </div>
+            </div>
+
+            <div className='w-full max-w-md rounded-2xl bg-card border-arcadia p-4 flex flex-col gap-3 shadow-sm'>
+                <div className='flex items-center gap-2 text-arcadia'>
+                    <UserRound className='w-4 h-4' />
+                    <span className='text-sm font-semibold'>Cuenta de prueba para explorar</span>
+                </div>
+                <div className='grid grid-cols-1 gap-2 text-sm'>
+                    <div className='flex items-center justify-between bg-[#ECC799] px-3 py-2 rounded-full text-arcadia'>
+                        <span className='truncate'>jose@gmail.com</span>
+                        <button
+                            type='button'
+                            onClick={() => copyToClipboard('jose@gmail.com', 'email')}
+                            className='flex items-center justify-center p-1.5 rounded-full bg-[#DB8E6B] text-white hover:bg-[#c77d5c] transition-colors'
+                            title={copiedEmail ? 'Copiado' : 'Copiar'}
+                        >
+                            {copiedEmail ? <Check className='w-3.5 h-3.5' /> : <Copy className='w-3.5 h-3.5' />}
+                        </button>
+                    </div>
+                    <div className='flex items-center justify-between bg-[#ECC799] px-3 py-2 rounded-full text-arcadia'>
+                        <span>jose123</span>
+                        <button
+                            type='button'
+                            onClick={() => copyToClipboard('jose123', 'pass')}
+                            className='flex items-center justify-center p-1.5 rounded-full bg-[#DB8E6B] text-white hover:bg-[#c77d5c] transition-colors'
+                            title={copiedPass ? 'Copiado' : 'Copiar'}
+                        >
+                            {copiedPass ? <Check className='w-3.5 h-3.5' /> : <Copy className='w-3.5 h-3.5' />}
+                        </button>
+                    </div>
+                </div>
+                <p className='text-xs text-arcadia/80 text-center'>Usa estas credenciales para probar todas las funcionalidades.</p>
             </div>
         </div>
     )
